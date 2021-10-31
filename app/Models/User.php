@@ -2,43 +2,46 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'dob', 'tel', 'cmnd', 'id_don_vi', 'id_role',
+        'email', 'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function getDobAttribute($value) {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+    public function setDobAttribute($value) {
+        $this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role', 'id');
+    }
+
+    public function donVi()
+    {
+        return $this->belongsTo(DonVi::class, 'id_don_vi', 'id');
+    }
+
+    public function hasPermission(Permission $permission)
+    {
+        return !!optional(optional($this->role)->permissions)->contains($permission);
+    }
 }

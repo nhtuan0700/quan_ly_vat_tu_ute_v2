@@ -7,15 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Hệ thống quản lý vật tư - UTE</title>
-
+  <link rel="icon" href="{{ asset('iconute.ico') }}" type="image/x-icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
+  @yield('tag_head')
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  @yield('tag_head')
   <!-- Toastr -->
   <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <!-- Theme style -->
@@ -32,21 +32,17 @@
     @include('components.sidebar')
 
     <div class="content-wrapper">
-      <!-- Main content -->
-      <div class="content p-3">
-        <div class="container-fluid card">
-          <div class="card-header">
-            <div>
-              <p class="card-title mr-3">
-                @yield('title')
-              </p>
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">@yield('title')</h1>
             </div>
-          </div>
-          <div class="card-body">
-            @yield('content')
           </div>
         </div>
       </div>
+      <!-- Main content -->
+      @yield('content')
     </div>
 
     {{-- Footer --}}
@@ -58,7 +54,6 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <!-- REQUIRED SCRIPTS -->
 
   <!-- jQuery -->
   <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
