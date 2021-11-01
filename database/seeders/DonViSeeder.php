@@ -56,6 +56,6 @@ class DonViSeeder extends Seeder
                 'is_khoa' => false,
             ],
         ];
-        DB::table('don_vi')->insert($data);
+        DB::table('donvi')->insert($data);
     }
 }

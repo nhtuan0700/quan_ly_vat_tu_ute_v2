@@ -85,7 +85,7 @@ class UserController extends Controller
     {
         $columns = $request->only(['id', 'name', 'email']);
         $columns['id_role'] = $request->role;
-        $columns['id_don_vi'] = $request->donvi;
+        $columns['id_donvi'] = $request->donvi;
         $list_donvi = $this->donViRepository->all();
         $roles = $this->roleRepostitory->all();
         $users = $this->userRepository->listExceptAdmin($columns);

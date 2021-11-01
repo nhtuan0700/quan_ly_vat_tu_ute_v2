@@ -14,8 +14,8 @@ class AddIdDonViToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('id_don_vi', 9);
-            $table->foreign('id_don_vi')->references('id')->on('don_vi');
+            $table->string('id_donvi', 9);
+            $table->foreign('id_donvi')->references('id')->on('donvi');
         });
     }
 
@@ -27,7 +27,8 @@ class AddIdDonViToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropForeign(['id_donvi']);
+            $table->dropColumn(['id_donvi']);
         });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDonViTable extends Migration
+class CreateDanhmucTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateDonViTable extends Migration
      */
     public function up()
     {
-        Schema::create('donvi', function (Blueprint $table) {
-            $table->string('id', 9);
+        Schema::create('danhmuc', function (Blueprint $table) {
+            $table->tinyIncrements('id');
             $table->string('name');
-            $table->boolean('is_khoa');
-            $table->primary('id');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateDonViTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('donvi');
+        Schema::dropIfExists('danhmuc');
     }
 }

@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name', 'dob', 'tel', 'cmnd', 'id_don_vi', 'id_role',
+        'name', 'dob', 'tel', 'cmnd', 'id_donvi', 'id_role',
         'email', 'password',
     ];
 
@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     public function donVi()
     {
-        return $this->belongsTo(DonVi::class, 'id_don_vi', 'id');
+        return $this->belongsTo(DonVi::class, 'id_donvi', 'id');
     }
 
     public function hasPermission(Permission $permission)

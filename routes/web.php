@@ -47,5 +47,11 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['as' => 'vpp.', 'prefix' => 'van-phong-pham'], function() {
         Route::get('/', [VanPhongPhamController::class, 'index'])->name('index');
+        Route::get('/tim-kiem', [VanPhongPhamController::class, 'search'])->name('search');
+        Route::get('/create', [VanPhongPhamController::class, 'create'])->name('create');
+        Route::post('/create', [VanPhongPhamController::class, 'store'])->name('store');
+        Route::get('/edit/{id?}', [VanPhongPhamController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [VanPhongPhamController::class, 'update'])->name('update');
+        Route::delete('/delete/{id?}', [VanPhongPhamController::class, 'delete'])->name('delete');
     });
 });

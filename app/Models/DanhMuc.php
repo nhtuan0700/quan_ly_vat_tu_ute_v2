@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DonVi extends Model
+class DanhMuc extends Model
 {
     use HasFactory;
 
-    protected $table = 'donvi';
-
-    public $incrementing = false;
+    protected $table = 'danhmuc';
 }
