@@ -26,11 +26,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('permission-edit', function ($user) {
-            if ($user->id_role == Role::ADMIN) {
-                return true;
-            }
-        });   
          
         if (!$this->app->runningInConsole()) {
             foreach(Permission::all() as $permission) {

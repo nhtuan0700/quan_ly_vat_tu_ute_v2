@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
+    DotDangKyController,
     HomeController,
     PermissionController,
     UserController,
@@ -40,11 +41,6 @@ Route::middleware('auth')->group(function () {
         Route::put('reset-password/{id}', [UserController::class, 'resetPassword']);
     });
 
-    Route::group(['as' => 'permission.', 'prefix' => 'permission', 'middleware' => 'acl:permission-edit'], function() {
-        Route::get('index/{id_role?}', [PermissionController::class, 'index'])->name('index');
-        Route::put('update/{id_role?}', [PermissionController::class, 'update'])->name('update');
-    });
-
     Route::group(['as' => 'vpp.', 'prefix' => 'van-phong-pham'], function() {
         Route::get('/', [VanPhongPhamController::class, 'index'])->name('index');
         Route::get('/tim-kiem', [VanPhongPhamController::class, 'search'])->name('search');
@@ -53,5 +49,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id?}', [VanPhongPhamController::class, 'edit'])->name('edit');
         Route::put('/update/{id?}', [VanPhongPhamController::class, 'update'])->name('update');
         Route::delete('/delete/{id?}', [VanPhongPhamController::class, 'delete'])->name('delete');
+    });
+    
+
+    Route::group(['as' => 'dotdangky.', 'prefix' => 'dot-dang-ky'], function() {
+        Route::get('/', [DotDangKyController::class, 'index'])->name('index');
+        Route::get('/create', [DotDangKyController::class, 'create'])->name('create');
+        Route::post('/create', [DotDangKyController::class, 'store'])->name('store');
+        Route::get('/edit/{id?}', [DotDangKyController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [DotDangKyController::class, 'update'])->name('update');
+        Route::delete('/delete/{id?}', [DotDangKyController::class, 'delete'])->name('delete');
     });
 });

@@ -25,16 +25,6 @@
             </p>
           </a>
         </li>
-        {{-- Permission --}}
-        @can('permission-edit')
-          <li class="nav-item">
-            <a href="{{ route('permission.index') }}" class="nav-link" id="link-permission">
-              <p>
-                Phân quyền hệ thống
-              </p>
-            </a>
-          </li>
-        @endcan
         {{-- Người dùng --}}
         @can('user-manage')
           <li class="nav-item">
@@ -46,6 +36,7 @@
           </li>
         @endcan
         {{-- Vật tư --}}
+        @can('vattu-manage')
         <li class="nav-item">
           <a href="#" class="nav-link" id="link-vat-tu">
             <p>
@@ -72,6 +63,17 @@
             </li>
           </ul>
         </li>
+        @endcan
+
+        @can('dk-manage')
+          <li class="nav-item">
+            <a href="{{ route('dotdangky.index') }}" class="nav-link" id="link-dot-dang-ky">
+              <p>
+                Quản lý đợt đăng ký mua văn phòng phẩm
+              </p>
+            </a>
+          </li>
+        @endcan
       </ul>
     </nav>
   </div>

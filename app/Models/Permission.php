@@ -9,8 +9,4 @@ class Permission extends Model
 {
     use HasFactory;
     protected $table = 'permission';
-
-    public function getABC() {
-        return 'abc';
-    }
 }
