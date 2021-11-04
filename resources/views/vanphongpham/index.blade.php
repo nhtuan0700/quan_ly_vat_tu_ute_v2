@@ -11,13 +11,13 @@ Quản lý văn phòng phẩm
           <div class="card-header">
             <div class="d-flex  align-items-center">
               <span class="card-title mr-3">Danh sách</span>
-              <a href="{{ route('vpp.create') }}" class="btn btn-success">Tạo mới</a>
+              <a href="{{ route('vanphongpham.create') }}" class="btn btn-success">Tạo mới</a>
             </div>
           </div>
 
           <div class="card-body pb-0">
             {{-- Search --}}
-            <form method="GET" action="{{ route('vpp.search') }}">
+            <form method="GET" action="{{ route('vanphongpham.search') }}">
               <div class="form-row">
                 {{-- Name --}}
                 <div class="form-group col-md-2">
@@ -61,10 +61,10 @@ Quản lý văn phòng phẩm
                   <td>{{ $item->danhmuc->name }}</td>
                   <td>
                     <div class="d-flex justify-content-center">
-                      <a href="{{ route('vpp.edit', ['id' => $item->id]) }}"
+                      <a href="{{ route('vanphongpham.edit', ['id' => $item->id]) }}"
                         class="btn btn-info flex-grow-1">Sửa</a>
                       <div class="m-1"></div>
-                      <form class="d-none" action="{{ route('vpp.delete', ['id' => $item->id]) }}"
+                      <form class="d-none" action="{{ route('vanphongpham.delete', ['id' => $item->id]) }}"
                         method="post">
                         @csrf
                         @method('delete')

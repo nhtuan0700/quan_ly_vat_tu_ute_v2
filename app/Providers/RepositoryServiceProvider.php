@@ -10,6 +10,8 @@ use App\Repositories\DotDangKy\DotDangKyInterface;
 use App\Repositories\DotDangKy\DotDangKyRepository;
 use App\Repositories\Role\RoleInterface;
 use App\Repositories\Role\RoleRepository;
+use App\Repositories\ThietBi\ThietBiInterface;
+use App\Repositories\ThietBi\ThietBiRepository;
 use App\Repositories\User\UserInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\VanPhongPham\VanPhongPhamInterface;
@@ -39,6 +41,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserInterface::class, UserRepository::class);
         $this->app->bind(DonViInterface::class, DonViRepository::class);
         $this->app->bind(VanPhongPhamInterface::class, VanPhongPhamRepository::class);
+        $this->app->bind(ThietBiInterface::class, ThietBiRepository::class);
         $this->app->bind(DanhMucInterface::class, DanhMucRepository::class);
         $this->app->bind(DotDangKyInterface::class, DotDangKyRepository::class);
     }

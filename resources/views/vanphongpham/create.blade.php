@@ -18,7 +18,7 @@ Quản lý văn phòng phẩm
                 </div>
 
                 <div class="card-body">
-                  <form method="POST" action="{{ route('vpp.store') }}">
+                  <form method="POST" action="{{ route('vanphongpham.store') }}">
                     @csrf
                     <div class="form-row">
                       <div class="form-group col-md-3">

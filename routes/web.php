@@ -4,6 +4,7 @@ use App\Http\Controllers\{
     DotDangKyController,
     HomeController,
     PermissionController,
+    ThietBiController,
     UserController,
     VanPhongPhamController
 };
@@ -41,7 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::put('reset-password/{id}', [UserController::class, 'resetPassword']);
     });
 
-    Route::group(['as' => 'vpp.', 'prefix' => 'van-phong-pham'], function() {
+    Route::group(['as' => 'vanphongpham.', 'prefix' => 'van-phong-pham'], function() {
         Route::get('/', [VanPhongPhamController::class, 'index'])->name('index');
         Route::get('/tim-kiem', [VanPhongPhamController::class, 'search'])->name('search');
         Route::get('/create', [VanPhongPhamController::class, 'create'])->name('create');
@@ -49,6 +50,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id?}', [VanPhongPhamController::class, 'edit'])->name('edit');
         Route::put('/update/{id?}', [VanPhongPhamController::class, 'update'])->name('update');
         Route::delete('/delete/{id?}', [VanPhongPhamController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'thietbi.', 'prefix' => 'thiet-bi'], function() {
+        Route::get('/', [ThietBiController::class, 'index'])->name('index');
+        Route::get('/tim-kiem', [ThietBiController::class, 'search'])->name('search');
+        Route::get('/create', [ThietBiController::class, 'create'])->name('create');
+        Route::post('/create', [ThietBiController::class, 'store'])->name('store');
+        Route::get('/edit/{id?}', [ThietBiController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [ThietBiController::class, 'update'])->name('update');
+        Route::delete('/delete/{id?}', [ThietBiController::class, 'delete'])->name('delete');
     });
     
 

@@ -46,7 +46,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('vpp.index') }}" class="nav-link" id="link-van-phong-pham">
+              <a href="{{ route('vanphongpham.index') }}" class="nav-link" id="link-van-phong-pham">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
                   Văn phòng phẩm
@@ -54,7 +54,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" id="link-thiet-bi">
+              <a href="{{ route('thietbi.index') }}" class="nav-link" id="link-thiet-bi">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
                   Thiết bị

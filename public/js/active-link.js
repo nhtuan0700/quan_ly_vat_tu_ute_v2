@@ -13,5 +13,6 @@ $(function () {
 
   if (list_vattu.includes(menu_name)) {
     $('#link-vat-tu').addClass('active');
+    $('#link-vat-tu').closest('li.nav-item').addClass('menu-open');
   }
 })

@@ -40,7 +40,7 @@ class VanPhongPhamController extends Controller
         $data = $request->only(['name', 'dvt', 'hanmuc_tb', 'id_danhmuc']);
 
         $this->vanPhongPhamRepo->create($data);
-        return back()->with('alert-success', trans('alert.create.success'));
+        return redirect(route('vanphongpham.index'))->with('alert-success', trans('alert.create.success'));
     }
 
     public function edit($id)

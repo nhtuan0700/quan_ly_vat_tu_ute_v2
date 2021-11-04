@@ -13,13 +13,25 @@ Quản lý văn phòng phẩm
               <div class="card">
                 <div class="card-header">
                   <div>
-                    <p class="card-title mr-3">Tạo mới</p>
+                    <p class="card-title mr-3">Chi tiết</p>
                   </div>
                 </div>
 
                 <div class="card-body">
-                  <form method="POST" action="{{ route('vpp.store') }}">
+                  <form method="POST" action="{{ route('thietbi.store') }}">
                     @csrf
+                    <div class="form-row">
+                      <div class="form-group col-md-3">
+                        <label for="id">ID: <span class="text-primary text-sm">(Nếu bỏ trống id sẽ tự động tạo mới)</span></label>
+                        <input type="text" class="form-control @error('id') is-invalid @enderror" id="id"
+                          name="id" value="{{ old('id') }}">
+                        @error('id')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                        @enderror
+                      </div>
+                    </div>
                     <div class="form-row">
                       <div class="form-group col-md-3">
                         <label for="name">Tên:</label>
@@ -32,44 +44,18 @@ Quản lý văn phòng phẩm
                         @enderror
                       </div>
                       <div class="form-group col-md-3">
-                        <label for="dvt">Đơn vị tính:</label>
-                        <input type="text" class="form-control @error('dvt') is-invalid @enderror" id="dvt"
-                          name="dvt" value="{{ old('dvt') }}">
-                        @error('dvt')
-                        <div class="invalid-feedback">
-                          {{ $message }}
-                        </div>
-                        @enderror
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="hanmuc_tb">Hạn mức trung bình:</label>
-                        <input type="text" class="form-control @error('hanmuc_tb') is-invalid @enderror" 
-                          id="hanmuc_tb" name="hanmuc_tb"
-                          value="{{ old('hanmuc_tb') }}">
-                        @error('hanmuc_tb')
+                        <label for="phong">Phòng:</label>
+                        <input type="text" class="form-control @error('phong') is-invalid @enderror" id="phong"
+                          name="phong" value="{{ old('phong') }}">
+                        @error('phong')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>
                         @enderror
                       </div>
                     </div>
-                    <div class="form-row">
-                      <div class="form-group col-md-3">
-                        <label for="danhmuc">Danh mục:</label>
-                        <select id="danhmuc" class="form-control  @error('id_danhmuc') is-invalid @enderror" name="id_danhmuc">
-                          @foreach ($list_danhmuc as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                          @endforeach
-                        </select>
-                        @error('id_danhmuc')
-                        <div class="invalid-feedback">
-                          {{ $message }}
-                        </div>
-                        @enderror
-                      </div>
-
-                    </div>
-                    <button type="submit" class="btn btn-primary pr-4 pl-4 ">Lưu</button>
+                    <a href="{{ route('thietbi.index') }}" class="btn btn-warning mr-2">Trở về</a>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
                   </form>
                 </div>
               </div>

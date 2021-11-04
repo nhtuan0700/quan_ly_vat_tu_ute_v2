@@ -18,7 +18,7 @@ Quản lý văn phòng phẩm
                 </div>
 
                 <div class="card-body">
-                  <form method="POST" action="{{ route('vpp.update', ['id' => $vpp->id]) }}">
+                  <form method="POST" action="{{ route('vanphongpham.update', ['id' => $vpp->id]) }}">
                     @csrf
                     @method('put')
                     <div class="form-row">
@@ -72,8 +72,8 @@ Quản lý văn phòng phẩm
                       </div>
 
                     </div>
-                    <a href="{{ route('vpp.index') }}" class="btn btn-warning mr-2">Trở về</a>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <a href="{{ route('vanphongpham.index') }}" class="btn btn-warning mr-2">Trở về</a>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
                   </form>
                 </div>
               </div>
