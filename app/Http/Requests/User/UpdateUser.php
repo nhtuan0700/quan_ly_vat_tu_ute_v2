@@ -27,10 +27,10 @@ class UpdateUser extends FormRequest
         return  [
             'name' => 'required',
             'tel' => 'required|regex:/[0-9]{10}/',
-            'dob' => 'required|date',
+            'dob' => 'required|date_format:d/m/Y',
             'cmnd' => 'required',
             'id_role' => 'required|exists:role,id',
-            'id_don_vi' => 'required|exists:don_vi,id'
+            'id_donvi' => 'required|exists:donvi,id'
         ];
     }
 
@@ -39,8 +39,9 @@ class UpdateUser extends FormRequest
         return [
             'tel' => 'số điện thoại',
             'id_role' => 'vai trò',
+            'dob' => 'ngày sinh',
             'cmnd' => 'chứng minh nhân dân',
-            'id_don_vi' => 'đơn vị'
+            'id_donvi' => 'đơn vị'
         ];
     }
 }

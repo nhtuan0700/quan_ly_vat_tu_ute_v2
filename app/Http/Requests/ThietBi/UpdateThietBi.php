@@ -24,7 +24,6 @@ class UpdateThietBi extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|unique:thietbi,id,' . $this->route('id'),
             'name' => 'required|string',
             'phong' => 'required|string',
         ];

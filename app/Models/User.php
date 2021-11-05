@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name', 'dob', 'tel', 'cmnd', 'id_donvi', 'id_role',
+        'id', 'name', 'dob', 'tel', 'cmnd', 'id_donvi', 'id_role',
         'email', 'password',
     ];
 
@@ -23,10 +23,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function getDobAttribute($value) {
-        return Carbon::parse($value)->format('d/m/Y');
+    public $incrementing = false;
+
+    public function getDobAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d/m/Y');
+        }
     }
-    public function setDobAttribute($value) {
+    public function setDobAttribute($value)
+    {
         $this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
 

@@ -16,8 +16,10 @@ class CreateThietbiTable extends Migration
         Schema::create('thietbi', function (Blueprint $table) {
             $table->string('id', 8);
             $table->string('name');
-            $table->string('phong');
-            $table->softDeletes();
+            $table->string('phong')->nullable();
+            $table->date('ngay_mua')->nullable();
+            $table->date('ngay_cap')->nullable();
+            $table->string('thong_so')->nullable();
 
             $table->primary('id');
             $table->timestamps();

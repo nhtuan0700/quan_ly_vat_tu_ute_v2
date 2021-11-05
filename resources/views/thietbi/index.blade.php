@@ -55,7 +55,7 @@ Quản lý thiết bị
                     <div class="d-flex justify-content-center">
                       <a href="{{ route('thietbi.edit', ['id' => $item->id]) }}"
                         class="btn btn-info flex-grow-1">Sửa</a>
-                      <div class="m-1"></div>
+                      {{-- <div class="m-1"></div>
                       <form class="d-none" action="{{ route('thietbi.delete', ['id' => $item->id]) }}"
                         method="post">
                         @csrf
@@ -63,7 +63,7 @@ Quản lý thiết bị
                       </form>
                       <button type="button" class="btn btn-danger btn-delete flex-grow-1" 
                         data-name="{{ $item->name }}">
-                        Xóa</button>
+                        Xóa</button> --}}
                     </div>
                   </td>
                 </tr>

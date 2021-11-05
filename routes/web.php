@@ -40,9 +40,11 @@ Route::middleware('auth')->group(function () {
         Route::put('update/{id?}', [UserController::class, 'update'])->name('update');
         Route::get('reset-password/{id}', [UserController::class, 'showFormResetPassword'])->name('reset_password');
         Route::put('reset-password/{id}', [UserController::class, 'resetPassword']);
+        Route::get('export', [UserController::class, 'export_excel'])->name('export');
+        Route::post('import', [UserController::class, 'import_excel'])->name('import');
     });
 
-    Route::group(['as' => 'vanphongpham.', 'prefix' => 'van-phong-pham'], function() {
+    Route::group(['as' => 'vanphongpham.', 'prefix' => 'van-phong-pham', 'middleware' => 'acl:vattu-manage'], function() {
         Route::get('/', [VanPhongPhamController::class, 'index'])->name('index');
         Route::get('/tim-kiem', [VanPhongPhamController::class, 'search'])->name('search');
         Route::get('/create', [VanPhongPhamController::class, 'create'])->name('create');
@@ -52,17 +54,16 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id?}', [VanPhongPhamController::class, 'delete'])->name('delete');
     });
 
-    Route::group(['as' => 'thietbi.', 'prefix' => 'thiet-bi'], function() {
+    Route::group(['as' => 'thietbi.', 'prefix' => 'thiet-bi', 'middleware' => 'acl:vattu-manage'], function() {
         Route::get('/', [ThietBiController::class, 'index'])->name('index');
         Route::get('/tim-kiem', [ThietBiController::class, 'search'])->name('search');
         Route::get('/create', [ThietBiController::class, 'create'])->name('create');
         Route::post('/create', [ThietBiController::class, 'store'])->name('store');
         Route::get('/edit/{id?}', [ThietBiController::class, 'edit'])->name('edit');
         Route::put('/update/{id?}', [ThietBiController::class, 'update'])->name('update');
-        Route::delete('/delete/{id?}', [ThietBiController::class, 'delete'])->name('delete');
+        // Route::delete('/delete/{id?}', [ThietBiController::class, 'delete'])->name('delete');
     });
     
-
     Route::group(['as' => 'dotdangky.', 'prefix' => 'dot-dang-ky'], function() {
         Route::get('/', [DotDangKyController::class, 'index'])->name('index');
         Route::get('/create', [DotDangKyController::class, 'create'])->name('create');

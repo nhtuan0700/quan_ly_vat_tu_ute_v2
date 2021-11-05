@@ -12,7 +12,7 @@ class DotDangKyRepository extends BaseRepository implements DotDangKyInterface
         return DotDangKy::class;
     }
 
-    protected function getAutoId()
+    private function getAutoId()
     {
         $now = Carbon::now();
         $year = $now->format('y');

@@ -12,6 +12,34 @@ Quản lý người dùng
             <div class="d-flex  align-items-center">
               <span class="card-title mr-3">Danh sách</span>
               <a href="{{ route('user.create') }}" class="btn btn-success">Tạo mới</a>
+              <a href="{{ route('user.export') }}" class="btn btn-default ml-2">Export Excel</a>
+              <button type="button" class="btn btn-default ml-2" data-toggle="modal" data-target="#exampleModal">
+                Import Excel
+              </button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="{{ route('user.import') }}" method="post" id="import_excel" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                          <label for="file">File excel</label>
+                          <input type="file" class="form-control-file" id="file" name="file_excel" accept=".xlsx">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" form="import_excel">Import</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -93,9 +121,9 @@ Quản lý người dùng
                   <td>{{ $item->donVi->name }}</td>
                   <td>{{ $item->role->name }}</td>
                   <td>
-                    <div class="d-flex justify-content-center flex-wrap">
+                    <div class="d-flex justify-content-center">
                       <a href="{{ route('user.edit', ['id'=>$item->id]) }}"
-                        class="btn btn-info">Sửa</a>
+                        class="btn btn-info flex-grow-1">Sửa</a>
                     </div>
                   </td>
                 </tr>
@@ -131,4 +159,10 @@ Quản lý người dùng
     $('.select2').select2()
   })
 </script>
+@php
+  if (session('alert-result'))
+  {
+    echo '<script>alert("'.session('alert-result').'")</script>';
+  }
+@endphp 
 @endsection

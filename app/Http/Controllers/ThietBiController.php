@@ -25,12 +25,13 @@ class ThietBiController extends Controller
 
     public function create()
     {
-        return view('thietbi.create');
+        $new_id = $this->thietBiRepo->getAutoId();
+        return view('thietbi.create', compact('new_id'));
     }
 
     public function store(StoreThietBi $request)
     {
-        $data = $request->only(['id', 'name', 'phong']);
+        $data = $request->only(['id', 'name', 'phong', 'ngay_mua', 'ngay_cap']);
         $new_data = $this->thietBiRepo->create($data);
         return redirect(route('thietbi.edit', ['id' => $new_data->id]))
             ->with('alert-success', trans('alert.create.success'));
@@ -44,17 +45,17 @@ class ThietBiController extends Controller
 
     public function update(UpdateThietBi $request, $id)
     {
-        $data = $request->only(['id', 'name', 'phong']);
+        $data = $request->only(['name', 'phong', 'ngay_mua', 'ngay_cap']);
         $this->thietBiRepo->update($id, $data);
         return redirect(route('thietbi.edit', ['id' => $request->id]))
             ->with('alert-success', trans('alert.update.success'));
     }
 
-    public function delete($id)
-    {
-        $this->thietBiRepo->delete($id);
-        return back()->with('alert-success', trans('alert.delete.success'));
-    }
+    // public function delete($id)
+    // {
+    //     $this->thietBiRepo->delete($id);
+    //     return back()->with('alert-success', trans('alert.delete.success'));
+    // }
 
     public function search(Request $request)
     {

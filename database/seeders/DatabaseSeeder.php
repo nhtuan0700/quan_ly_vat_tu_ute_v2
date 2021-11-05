@@ -19,8 +19,10 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             DonViSeeder::class,
             UserSeeder::class,
+            RolePermissionSeeder::class,
             DanhMucSeeder::class,
             VanPhongPhamSeeder::class,
+            ThietBiSeeder::class
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Repositories\User\UserRepository;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,8 +18,9 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Ngô Tấn Thống',
-                'dob' => '1977/1/1',
+                'name' => 'Nguyễn văn A',
+                // 'dob' => '1977/1/1',
+                'dob' => '1/1/1977',
                 'tel' => '0123456789',
                 'cmnd' => '201201201',
                 'email' => 'admin@ute.udn.vn',
@@ -28,7 +30,8 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Nguyễn Thị Hà Quyên',
-                'dob' => '1985/1/31',
+                // 'dob' => '1985/1/31',
+                'dob' => '31/1/1985',
                 'tel' => '0123456789',
                 'cmnd' => '201201201',
                 'email' => 'quyen_ute@ute.udn.vn',
@@ -37,6 +40,10 @@ class UserSeeder extends Seeder
                 'id_donvi' => 'KD',
             ]
         ];
-        DB::table('users')->insert($data);
+
+        $userRepo = new UserRepository();
+        foreach ($data as $item) {
+            $userRepo->create($item);
+        }
     }
 }

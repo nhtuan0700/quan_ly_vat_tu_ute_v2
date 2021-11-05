@@ -26,12 +26,12 @@ class StoreUser extends FormRequest
         return  [
             'name' => 'required',
             'tel' => 'required|regex:/[0-9]{10}/',
-            'dob' => 'required|date',
+            'dob' => 'required|date_format:d/m/Y',
             'cmnd' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'id_role' => 'required|exists:role,id',
-            'id_don_vi' => 'required|exists:don_vi,id'
+            'id_donvi' => 'required|exists:donvi,id'
         ];
     }
 
@@ -39,10 +39,10 @@ class StoreUser extends FormRequest
     {
         return [
             'tel' => 'số điện thoại',
-            'id_role' => 'vai trò',
             'cmnd' => 'chứng minh nhân dân',
             'dob' => 'ngày sinh',
-            'id_don_vi' => 'đơn vị'
+            'id_role' => 'vai trò',
+            'id_donvi' => 'đơn vị'
         ];
     }
 }

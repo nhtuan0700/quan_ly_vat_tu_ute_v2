@@ -6,4 +6,5 @@ use App\Repositories\RepositoryInterface;
 
 interface ThietBiInterface extends RepositoryInterface
 {
+    public function getAutoId();
 }

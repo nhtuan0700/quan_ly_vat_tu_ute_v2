@@ -70,16 +70,15 @@ Quản lý người dùng
                 </div>
                 <div class="form-group col-md-3">
                   <label for="dob">Ngày sinh:</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  <div class="input-group date" id="dob" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#dob" 
+                      name="dob" autocomplete="off"/>
+                    <div class="input-group-append" data-target="#dob" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
-                    <input type="text" name="dob" class="form-control" data-inputmask-alias="datetime"
-                      data-inputmask-inputformat="dd/mm/yyyy" data-mask
-                      value="{{ $user->dob }}">
                   </div>
                   @error('dob')
-                  <div class="invalid-feedback">
+                  <div class="invalid-feedback d-block">
                     {{ $message }}
                   </div>
                   @enderror
@@ -93,11 +92,11 @@ Quản lý người dùng
                     name="email" value="{{ $user->email }}" disabled>
                 </div>
                 <div class="form-group col-md-3">
-                  <label for="email">Đơn vị:</label>
-                  <select id="province" class="form-control select2 @error('id_don_vi') is-invalid @enderror"
-                    name="id_don_vi">
+                  <label for="donvi">Đơn vị:</label>
+                  <select id="donvi" class="form-control select2 @error('id_donvi') is-invalid @enderror"
+                    name="id_donvi">
                     @foreach ($list_donvi as $item)
-                      <option value="{{ $item->id }}" @if ($item->id === $user->id_don_vi) selected @endif>
+                      <option value="{{ $item->id }}" @if ($item->id === $user->id_donvi) selected @endif>
                         {{ $item->name }}
                       </option>
                     @endforeach
@@ -144,14 +143,21 @@ Quản lý người dùng
 @section('script')
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('js/vi.js') }}"></script>
 <script>
   $(function () {
     $('.select2').select2()
-    $('[data-mask]').inputmask()
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+
+    $('#dob').datetimepicker({ 
+      icons: { time: 'far fa-clock' },
+      locale: 'vi',
+      format: 'L'
+    });
+    var d = new Date()
+    var dob = `{{ old('dob') }}` || `{{ $user->dob }}`
+    $("#dob input").val(dob);
   })
 </script>
 @endsection

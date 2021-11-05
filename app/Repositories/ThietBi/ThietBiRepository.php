@@ -28,7 +28,7 @@ class ThietBiRepository extends BaseRepository implements ThietBiInterface
     public function paginate($direction = 'desc', $limit = NULL)
     {
         $limit = $limit ?? $this->limit;
-        return $this->model->orderBy('created_at', $direction)->paginate($limit);
+        return $this->model->orderBy('created_at', $direction)->orderBy('id', $direction)->paginate($limit);
     }
 
     public function create($attributes = [])
