@@ -14,7 +14,7 @@ class AddIdDanhmucToVanphongphamTable extends Migration
     public function up()
     {
         Schema::table('vanphongpham', function (Blueprint $table) {
-            $table->unsignedTinyInteger('id_danhmuc');
+            $table->unsignedTinyInteger('id_danhmuc')->nullable();
             $table->foreign('id_danhmuc')->references('id')->on('danhmuc');
         });
     }

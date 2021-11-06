@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Exports\ExportThietBi;
 use App\Imports\ImportThietBi;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 use App\Http\Requests\ThietBi\StoreThietBi;
 use App\Http\Requests\ThietBi\UpdateThietBi;
 use App\Repositories\ThietBi\ThietBiInterface;
@@ -79,14 +78,14 @@ class ThietBiController extends Controller
         $error = [];
         
         foreach ($list_thietbi[0] as $key => $value) {
-            $thietbi = [
-                'id' => $value[0],
-                'name' => $value[1],
-                'phong' => $value[2],
-                'ngay_mua' => transformDateExcel($value[3]),
-                'ngay_cap' => transformDateExcel($value[4]),
-            ];
             try {
+                $thietbi = [
+                    'id' => $value[0],
+                    'name' => $value[1],
+                    'phong' => $value[2],
+                    'ngay_mua' => transformDateExcel($value[3]),
+                    'ngay_cap' => transformDateExcel($value[4]),
+                ];
                 $this->thietBiRepo->create($thietbi);
             } catch (\Throwable $th) {
                 $index = $key + 1;
@@ -95,8 +94,8 @@ class ThietBiController extends Controller
         }
         if (!empty($error)) {
             $message = sprintf('Có %s hàng thất bại:\n%s', count($error), join('\n', $error));
-            return back()->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
+            return redirect('thietbi.index')->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
         }
-        return back()->with('alert-success', 'Import Excel thành công!');
+        return redirect('thietbi.index')->with('alert-success', 'Import Excel thành công!');
     }
 }

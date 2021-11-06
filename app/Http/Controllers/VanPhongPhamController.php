@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Exports\ExportVanPhongPham;
+use App\Imports\ImportVanPhongPham;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Repositories\DanhMuc\DanhMucInterface;
 use App\Http\Requests\VanPhongPham\StoreVanPhongPham;
 use App\Http\Requests\VanPhongPham\UpdateVanPhongPham;
-use App\Repositories\DanhMuc\DanhMucInterface;
 use App\Repositories\VanPhongPham\VanPhongPhamInterface;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class VanPhongPhamController extends Controller
 {
@@ -71,5 +76,36 @@ class VanPhongPhamController extends Controller
         $rank = $list_vpp->firstItem();
         $list_danhmuc = $this->danhMucRepo->all();
         return view('vanphongpham.index', compact('list_vpp', 'rank', 'list_danhmuc'));
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new ExportVanPhongPham, 'vanphongpham.xlsx');
+    }
+
+    public function import_excel()
+    {
+        $list_vanphongpham = Excel::toCollection(new ImportVanPhongPham, request()->file('file_excel'));
+        $error = [];
+        foreach ($list_vanphongpham[0] as $key => $value) {
+            try {
+                $danhmuc = $this->danhMucRepo->where('name', $value[3])->firstOrFail();
+                $vanphongpham = [
+                    'name' => $value[0],
+                    'dvt' => $value[1],
+                    'hanmuc_tb' => $value[2],
+                    'id_danhmuc' => $danhmuc->id,
+                ];
+                $this->vanPhongPhamRepo->query()->updateOrCreate($vanphongpham);
+            } catch (\Throwable $th) {
+                $index = $key + 1;
+                array_push($error, "Hàng thứ $index");
+            }
+        }
+        if (!empty($error)) {
+            $message = sprintf('Có %s hàng thất bại:\n%s', count($error), join('\n', $error));
+            return redirect(route('vanphongpham.index'))->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
+        }
+        return redirect(route('vanphongpham.index'))->with('alert-success', 'Import Excel thành công!');
     }
 }

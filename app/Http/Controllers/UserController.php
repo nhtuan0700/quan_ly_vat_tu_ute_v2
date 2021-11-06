@@ -13,7 +13,6 @@ use App\Http\Requests\User\UpdateUser;
 use App\Repositories\Role\RoleInterface;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\User\ResetPassword;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 use App\Repositories\DonVi\DonViInterface;
 
 class UserController extends Controller
@@ -108,18 +107,18 @@ class UserController extends Controller
         $users = Excel::toCollection(new ImportUser, request()->file('file_excel'));
         $error = [];
         foreach ($users[0] as $key => $value) {
-            $user = [
-                'id' => $value[0],
-                'name' => $value[1],
-                'email' => $value[2],
-                'password' => Hash::make($value[3]),
-                'tel' => $value[4],
-                'dob' => transformDateExcel($value[5]),
-                'cmnd' => $value[6],
-                'id_role' => $value[7],
-                'id_donvi' => $value[8],
-            ];
             try {
+                $user = [
+                    'id' => $value[0],
+                    'name' => $value[1],
+                    'email' => $value[2],
+                    'password' => Hash::make($value[3]),
+                    'tel' => $value[4],
+                    'dob' => transformDateExcel($value[5]),
+                    'cmnd' => $value[6],
+                    'id_role' => $value[7],
+                    'id_donvi' => $value[8],
+                ];
                 $this->userRepository->create($user);
             } catch (\Throwable $th) {
                 $index = $key + 1;
@@ -128,8 +127,8 @@ class UserController extends Controller
         }
         if (!empty($error)) {
             $message = sprintf('Có %s hàng thất bại:\n%s', count($error), join('\n', $error));
-            return back()->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
+            return redirect(route('user.index'))->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
         }
-        return back()->with('alert-success', 'Import Excel thành công!');
+        return redirect(route('user.index'))->with('alert-success', 'Import Excel thành công!');
     }
 }

@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id?}', [VanPhongPhamController::class, 'edit'])->name('edit');
         Route::put('/update/{id?}', [VanPhongPhamController::class, 'update'])->name('update');
         Route::delete('/delete/{id?}', [VanPhongPhamController::class, 'delete'])->name('delete');
+        Route::get('export', [VanPhongPhamController::class, 'export_excel'])->name('export');
+        Route::post('import', [VanPhongPhamController::class, 'import_excel'])->name('import');
     });
 
     Route::group(['as' => 'thietbi.', 'prefix' => 'thiet-bi', 'middleware' => 'acl:vattu-manage'], function() {
