@@ -90,13 +90,17 @@ class VanPhongPhamController extends Controller
         foreach ($list_vanphongpham[0] as $key => $value) {
             try {
                 $danhmuc = $this->danhMucRepo->where('name', $value[3])->firstOrFail();
+                $is_exist = $this->vanPhongPhamRepo->where('name', $value[0])->exists();
+                if ($is_exist) {
+                    throw new Exception();
+                }
                 $vanphongpham = [
                     'name' => $value[0],
                     'dvt' => $value[1],
                     'hanmuc_tb' => $value[2],
                     'id_danhmuc' => $danhmuc->id,
                 ];
-                $this->vanPhongPhamRepo->query()->updateOrCreate($vanphongpham);
+                $this->vanPhongPhamRepo->create($vanphongpham);
             } catch (\Throwable $th) {
                 $index = $key + 1;
                 array_push($error, "Hàng thứ $index");

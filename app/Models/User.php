@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->belongsTo(DonVi::class, 'id_donvi', 'id');
     }
 
+    public function hanmuc()
+    {
+        return $this->hasMany(HanMuc::class, 'id_user', 'id');
+    }
+
     public function hasPermission(Permission $permission)
     {
         return !!optional(optional($this->role)->permissions)->contains($permission);

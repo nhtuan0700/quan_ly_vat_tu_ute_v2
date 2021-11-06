@@ -14,21 +14,25 @@ use App\Repositories\Role\RoleInterface;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\User\ResetPassword;
 use App\Repositories\DonVi\DonViInterface;
+use App\Repositories\HanMuc\HanMucInterface;
 
 class UserController extends Controller
 {
     public $userRepository;
     public $roleRepostitory;
     public $donViRepository;
+    public $hanMucRepository;
 
     public function __construct(
         UserInterface $userInterface,
         RoleInterface $roleInterface,
-        DonViInterface $donViInterface
+        DonViInterface $donViInterface,
+        HanMucInterface $hanMucInterface
     ) {
         $this->userRepository = $userInterface;
         $this->roleRepostitory = $roleInterface;
         $this->donViRepository = $donViInterface;
+        $this->hanMucRepository = $hanMucInterface;
     }
 
     public function index()
@@ -60,7 +64,8 @@ class UserController extends Controller
         $user = $this->userRepository->findOrFail($id);
         $roles = $this->roleRepostitory->all();
         $list_donvi = $this->donViRepository->all();
-        return view('user.edit', compact('roles', 'user', 'list_donvi'));
+        $list_hanmuc = $this->hanMucRepository->listHanMucByUser($id);
+        return view('user.edit', compact('roles', 'user', 'list_donvi', 'list_hanmuc'));
     }
 
     function showFormResetPassword($id)
@@ -130,5 +135,19 @@ class UserController extends Controller
             return redirect(route('user.index'))->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
         }
         return redirect(route('user.index'))->with('alert-success', 'Import Excel thành công!');
+    }
+
+    public function updateHanMuc(Request $request, $id_user)
+    {
+        try {
+            foreach ($request->hanmuc as $id_vanphongpham => $qty_max) {
+                $this->hanMucRepository->findItem($id_user, $id_vanphongpham)->update([
+                    'qty_max' => intval($qty_max)
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return back()->with('alert-fail', 'Cập nhật hạn mức thất bại');
+        }
+        return back()->with('alert-success', 'Cập nhật hạn mức thành công');
     }
 }

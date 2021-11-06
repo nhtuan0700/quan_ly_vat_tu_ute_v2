@@ -123,6 +123,9 @@ Quản lý người dùng
                   @enderror
                 </div>
               </div>
+              <button type="button" class="btn btn-warning d-block mb-2" data-toggle="modal" data-target="#modalHanMuc">
+                Hạn mức văn phòng phẩm
+              </button>
               <button type="submit" class="btn btn-primary">Cập nhật</button>
             </form>
           </div>
@@ -131,6 +134,7 @@ Quản lý người dùng
     </div>
   </div>
 </section>
+@include('user.components.modal_hanmuc')
 @endsection
 
 @section('tag_head')
@@ -160,4 +164,5 @@ Quản lý người dùng
     $("#dob input").val(dob);
   })
 </script>
+@stack('js')
 @endsection

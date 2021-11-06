@@ -8,6 +8,8 @@ use App\Repositories\DonVi\DonViInterface;
 use App\Repositories\DonVi\DonViRepository;
 use App\Repositories\DotDangKy\DotDangKyInterface;
 use App\Repositories\DotDangKy\DotDangKyRepository;
+use App\Repositories\HanMuc\HanMucInterface;
+use App\Repositories\HanMuc\HanMucRepository;
 use App\Repositories\Role\RoleInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\ThietBi\ThietBiInterface;
@@ -44,5 +46,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ThietBiInterface::class, ThietBiRepository::class);
         $this->app->bind(DanhMucInterface::class, DanhMucRepository::class);
         $this->app->bind(DotDangKyInterface::class, DotDangKyRepository::class);
+        $this->app->bind(HanMucInterface::class, HanMucRepository::class);
     }
 }

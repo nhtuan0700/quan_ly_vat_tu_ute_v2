@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::put('reset-password/{id}', [UserController::class, 'resetPassword']);
         Route::get('export', [UserController::class, 'export_excel'])->name('export');
         Route::post('import', [UserController::class, 'import_excel'])->name('import');
+        Route::post('update-hanmuc/{id_user}', [UserController::class, 'updateHanMuc'])->name('update_hanmuc');
     });
 
     Route::group(['as' => 'vanphongpham.', 'prefix' => 'van-phong-pham', 'middleware' => 'acl:vattu-manage'], function() {
