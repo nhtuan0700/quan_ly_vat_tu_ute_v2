@@ -35,6 +35,7 @@ Quản lý người dùng
                       </form>
                     </div>
                     <div class="modal-footer">
+                      <a href="{{ route('user.download_template') }}" class="btn btn-warning">Tải file mẫu</a>
                       <button type="submit" class="btn btn-primary" form="import_excel">Import</button>
                     </div>
                   </div>

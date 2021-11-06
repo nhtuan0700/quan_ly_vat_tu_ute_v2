@@ -35,6 +35,7 @@ Quản lý văn phòng phẩm
                       </form>
                     </div>
                     <div class="modal-footer">
+                      <a href="{{ route('vanphongpham.download_template') }}" class="btn btn-warning">Tải file mẫu</a>
                       <button type="submit" class="btn btn-primary" form="import_excel">Import</button>
                     </div>
                   </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Exports\ExportVanPhongPham;
+use App\Exports\ExportVanPhongPhamTemplate;
 use App\Imports\ImportVanPhongPham;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\DanhMuc\DanhMucInterface;
@@ -81,6 +82,11 @@ class VanPhongPhamController extends Controller
     public function export_excel()
     {
         return Excel::download(new ExportVanPhongPham, 'vanphongpham.xlsx');
+    }
+
+    public function download_template()
+    {
+        return Excel::download(new ExportVanPhongPhamTemplate, 'vanphongpham_template.xlsx');
     }
 
     public function import_excel()

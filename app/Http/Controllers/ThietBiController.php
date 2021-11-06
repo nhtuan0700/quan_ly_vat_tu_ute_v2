@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Exports\ExportThietBi;
+use App\Exports\ExportThietBiTemplate;
 use App\Imports\ImportThietBi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ThietBi\StoreThietBi;
@@ -70,6 +71,11 @@ class ThietBiController extends Controller
     public function export_excel()
     {
         return Excel::download(new ExportThietBi, 'thietbi.xlsx');
+    }
+
+    public function download_template()
+    {
+        return Excel::download(new ExportThietBiTemplate, 'thietbi_template.xlsx');
     }
 
     public function import_excel()

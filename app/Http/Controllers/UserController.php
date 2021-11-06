@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportUser;
+use App\Exports\ExportUserTemplate;
 use App\Imports\ImportUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -104,6 +105,11 @@ class UserController extends Controller
     public function export_excel()
     {
         return Excel::download(new ExportUser, 'users.xlsx');
+    }
+
+    public function download_template()
+    {
+        return Excel::download(new ExportUserTemplate, 'users_template.xlsx');
     }
 
     public function import_excel()

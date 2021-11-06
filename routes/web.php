@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('reset-password/{id}', [UserController::class, 'showFormResetPassword'])->name('reset_password');
         Route::put('reset-password/{id}', [UserController::class, 'resetPassword']);
         Route::get('export', [UserController::class, 'export_excel'])->name('export');
+        Route::get('download-template', [UserController::class, 'download_template'])->name('download_template');
         Route::post('import', [UserController::class, 'import_excel'])->name('import');
         Route::post('update-hanmuc/{id_user}', [UserController::class, 'updateHanMuc'])->name('update_hanmuc');
     });
@@ -54,6 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{id?}', [VanPhongPhamController::class, 'update'])->name('update');
         Route::delete('/delete/{id?}', [VanPhongPhamController::class, 'delete'])->name('delete');
         Route::get('export', [VanPhongPhamController::class, 'export_excel'])->name('export');
+        Route::get('download-template', [VanPhongPhamController::class, 'download_template'])->name('download_template');
         Route::post('import', [VanPhongPhamController::class, 'import_excel'])->name('import');
     });
 
@@ -66,6 +68,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{id?}', [ThietBiController::class, 'update'])->name('update');
         // Route::delete('/delete/{id?}', [ThietBiController::class, 'delete'])->name('delete');
         Route::get('export', [ThietBiController::class, 'export_excel'])->name('export');
+        Route::get('download-template', [ThietBiController::class, 'download_template'])->name('download_template');
         Route::post('import', [ThietBiController::class, 'import_excel'])->name('import');
     });
     
