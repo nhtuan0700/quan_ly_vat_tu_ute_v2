@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id?}', [ThietBiController::class, 'edit'])->name('edit');
         Route::put('/update/{id?}', [ThietBiController::class, 'update'])->name('update');
         // Route::delete('/delete/{id?}', [ThietBiController::class, 'delete'])->name('delete');
+        Route::get('export', [ThietBiController::class, 'export_excel'])->name('export');
+        Route::post('import', [ThietBiController::class, 'import_excel'])->name('import');
     });
     
     Route::group(['as' => 'dotdangky.', 'prefix' => 'dot-dang-ky'], function() {

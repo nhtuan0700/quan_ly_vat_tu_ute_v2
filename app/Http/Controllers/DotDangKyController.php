@@ -31,7 +31,6 @@ class DotDangKyController extends Controller
 
     public function store(StoreDotDangKy $request)
     {
-
         $is_coming = $this->dotDangKyRepo->checkComingExist();
         if ($is_coming) {
             return redirect(route('dotdangky.index'))

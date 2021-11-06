@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 04/11/2021 17:41:03
+ Date: 06/11/2021 11:29:26
 */
 
 SET NAMES utf8mb4;
@@ -78,8 +78,7 @@ CREATE TABLE `dotdangky`  (
 -- ----------------------------
 -- Records of dotdangky
 -- ----------------------------
-INSERT INTO `dotdangky` VALUES ('121', '2021-03-03 00:00:00', '2021-03-20 23:59:00', '2021-11-03 15:55:09', '2021-11-03 16:28:03');
-INSERT INTO `dotdangky` VALUES ('221', '2021-11-04 00:00:00', '2021-11-19 23:59:00', '2021-11-03 17:01:42', '2021-11-03 17:40:31');
+INSERT INTO `dotdangky` VALUES ('121', '2021-11-08 00:00:00', '2021-11-22 23:59:00', '2021-11-06 11:28:52', '2021-11-06 11:28:59');
 
 -- ----------------------------
 -- Table structure for failed_jobs
@@ -110,7 +109,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of migrations
@@ -127,8 +126,8 @@ INSERT INTO `migrations` VALUES (9, '2021_10_27_102042_add_id_don_vi_to_users_ta
 INSERT INTO `migrations` VALUES (10, '2021_10_31_192403_create_vanphongpham_table', 1);
 INSERT INTO `migrations` VALUES (11, '2021_10_31_200826_create_danhmuc_table', 1);
 INSERT INTO `migrations` VALUES (12, '2021_10_31_200953_add_id_danhmuc_to_vanphongpham_table', 1);
-INSERT INTO `migrations` VALUES (15, '2021_11_03_143737_create_dotdangky_table', 2);
-INSERT INTO `migrations` VALUES (16, '2021_11_03_175613_create_thietbi_table', 3);
+INSERT INTO `migrations` VALUES (13, '2021_11_03_143737_create_dotdangky_table', 1);
+INSERT INTO `migrations` VALUES (14, '2021_11_03_175613_create_thietbi_table', 1);
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -245,8 +244,10 @@ DROP TABLE IF EXISTS `thietbi`;
 CREATE TABLE `thietbi`  (
   `id` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phong` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
+  `phong` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `ngay_mua` date NULL DEFAULT NULL,
+  `ngay_cap` date NULL DEFAULT NULL,
+  `thong_so` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -255,27 +256,26 @@ CREATE TABLE `thietbi`  (
 -- ----------------------------
 -- Records of thietbi
 -- ----------------------------
-INSERT INTO `thietbi` VALUES ('TB000001', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', NULL, '2021-11-04 16:50:14', '2021-11-04 16:50:14');
-INSERT INTO `thietbi` VALUES ('TB000002', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', NULL, '2021-11-04 16:50:14', '2021-11-04 16:50:14');
-INSERT INTO `thietbi` VALUES ('TB000003', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', NULL, '2021-11-04 16:50:14', '2021-11-04 16:50:14');
-INSERT INTO `thietbi` VALUES ('TB000004', 'Chuột logitech', 'Phòng thực hành máy tính số 1', NULL, '2021-11-04 16:50:14', '2021-11-04 16:50:14');
-INSERT INTO `thietbi` VALUES ('TB000005', 'Chuột logitech', 'Phòng thực hành máy tính số 1', NULL, '2021-11-04 16:50:14', '2021-11-04 16:50:14');
-INSERT INTO `thietbi` VALUES ('TB000006', 'Chuột logitech', 'Phòng thực hành máy tính số 1', NULL, '2021-11-04 16:50:14', '2021-11-04 16:50:14');
-INSERT INTO `thietbi` VALUES ('TB000007', 'Máy chiếu', 'Phòng thực hành máy tính số 1', NULL, '2021-11-04 16:50:14', '2021-11-04 16:50:14');
-INSERT INTO `thietbi` VALUES ('TB000008', 'Máy chiếu', 'Phòng thực hành máy tính số 2', NULL, '2021-11-04 16:50:14', '2021-11-04 16:50:14');
-INSERT INTO `thietbi` VALUES ('TB000009', 'Máy chiếu', 'Phòng thực hành máy tính số 3', NULL, '2021-11-04 16:50:14', '2021-11-04 17:02:25');
-INSERT INTO `thietbi` VALUES ('TB000010', 'Máy in', 'Phòng thực hành số 4', NULL, '2021-11-04 17:08:43', '2021-11-04 17:11:00');
+INSERT INTO `thietbi` VALUES ('TB000001', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', '2016-01-01', '2020-05-01', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
+INSERT INTO `thietbi` VALUES ('TB000002', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', '2016-01-01', '2019-05-01', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
+INSERT INTO `thietbi` VALUES ('TB000003', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', '2016-01-01', '2019-05-02', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
+INSERT INTO `thietbi` VALUES ('TB000004', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2016-01-01', '2019-05-03', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
+INSERT INTO `thietbi` VALUES ('TB000005', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2017-01-01', '2020-05-01', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
+INSERT INTO `thietbi` VALUES ('TB000006', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2017-01-02', '2020-05-01', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
+INSERT INTO `thietbi` VALUES ('TB000007', 'Máy chiếu', 'Phòng thực hành máy tính số 1', '2017-01-03', '2020-05-01', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
+INSERT INTO `thietbi` VALUES ('TB000008', 'Máy chiếu', 'Phòng thực hành máy tính số 2', '2017-01-04', '2020-04-01', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
+INSERT INTO `thietbi` VALUES ('TB000009', 'Máy chiếu', 'Phòng thực hành máy tính số 3', '2017-01-05', '2020-04-02', NULL, '2021-11-06 11:20:58', '2021-11-06 11:20:58');
 
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dob` date NOT NULL,
+  `dob` date NULL DEFAULT NULL,
   `cmnd` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tel` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
@@ -289,13 +289,15 @@ CREATE TABLE `users`  (
   INDEX `users_id_donvi_foreign`(`id_donvi`) USING BTREE,
   CONSTRAINT `users_id_donvi_foreign` FOREIGN KEY (`id_donvi`) REFERENCES `donvi` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `users_id_role_foreign` FOREIGN KEY (`id_role`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'Ngô Tấn Thống', '1977-01-01', '201201201', '0123456789', 'admin@ute.udn.vn', '$2y$10$ESQ4/Fq/Cq4Vd/VlsFIbQuV.5z4oF1cGCR0ptFK4onE.pEzFjhBs2', 'sSVpmLJTGgZZ7dUnXTycLnZpBjTix3H2x75vXpdTMqFZroAExmOTgXqwz0Aj', NULL, NULL, 1, 'PCSVC');
-INSERT INTO `users` VALUES (2, 'Nguyễn Thị Hà Quyên', '1985-01-31', '201201201', '0123456789', 'quyen_ute@ute.udn.vn', '$2y$10$IS66wmxQcdV0R19mwBUXl.HJDNvTEtNdyIuBHKZ2J.yiIQ3me2U42', NULL, NULL, NULL, 4, 'KD');
+INSERT INTO `users` VALUES ('5050001', 'Nguyễn văn A', '1977-01-01', '201201201', '0123456789', 'admin@ute.udn.vn', '$2y$10$KSr1WXil8GgYdbMcrO6K5.eQ0Ej3HxpJFw0UfJQNNnlGxCu9qIiMi', '9XhfIamPciMNoCWmg1D0tEZWRmV1kpg4p6OvDCfsZWTuDWCch4iD6rubaoKZ', '2021-11-05 18:19:49', '2021-11-05 18:19:49', 1, 'PCSVC');
+INSERT INTO `users` VALUES ('5050002', 'Nguyễn Thị Hà Quyên', '1985-01-31', '201201201', '0123456789', 'quyen_ute@ute.udn.vn', '$2y$10$byST4zMOZCO/8fVc5CrLVOVklOsDADEE9A3dTZIVqJjucvAeNgfyi', NULL, '2021-11-05 18:19:49', '2021-11-05 18:19:49', 4, 'KD');
+INSERT INTO `users` VALUES ('5050005', 'Nguyễn văn A1', '1977-01-01', '201201201', '0123456789', 'tuan123@ute.udn.vn', '$2y$10$Nb2E3jU2c8RAXKCmDKMRWOaaa2oh6mgMh/2p8Ss3misBFAwTtwI/a', NULL, '2021-11-06 11:26:42', '2021-11-06 11:26:42', 3, 'KXD');
+INSERT INTO `users` VALUES ('5050006', 'Nguyễn Thị Hà Quyên', '1985-01-31', '201201201', '0123456789', 'tuan456@ute.udn.vn', '$2y$10$SGz/CTUr7Vd5QpkwNudX7O5680cAQDA2kgz1EaRtTYqJIA8NS8UG2', NULL, '2021-11-06 11:26:42', '2021-11-06 11:26:42', 4, 'KXD');
 
 -- ----------------------------
 -- Table structure for vanphongpham

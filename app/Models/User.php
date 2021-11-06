@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\TimestampTrait;
 use Carbon\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, TimestampTrait;
 
     protected $fillable = [
         'id', 'name', 'dob', 'tel', 'cmnd', 'id_donvi', 'id_role',
@@ -28,12 +29,12 @@ class User extends Authenticatable
     public function getDobAttribute($value)
     {
         if ($value) {
-            return Carbon::parse($value)->format('d/m/Y');
+            return Carbon::parse($value)->format(app('date_format'));
         }
     }
     public function setDobAttribute($value)
     {
-        $this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+        $this->attributes['dob'] = Carbon::createFromFormat(app('date_format'), $value)->format('Y-m-d');
     }
 
     public function role()

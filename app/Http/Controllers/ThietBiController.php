@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Exports\ExportThietBi;
+use App\Imports\ImportThietBi;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use App\Http\Requests\ThietBi\StoreThietBi;
 use App\Http\Requests\ThietBi\UpdateThietBi;
 use App\Repositories\ThietBi\ThietBiInterface;
-use Illuminate\Http\Request;
 
 class ThietBiController extends Controller
 {
@@ -62,5 +66,37 @@ class ThietBiController extends Controller
         $columns = $request->only(['id']);
         $list_thietbi = $this->thietBiRepo->search($columns, ['id']);
         return view('thietbi.index', compact('list_thietbi'));
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new ExportThietBi, 'thietbi.xlsx');
+    }
+
+    public function import_excel()
+    {
+        $list_thietbi = Excel::toCollection(new ImportThietBi, request()->file('file_excel'));
+        $error = [];
+        
+        foreach ($list_thietbi[0] as $key => $value) {
+            $thietbi = [
+                'id' => $value[0],
+                'name' => $value[1],
+                'phong' => $value[2],
+                'ngay_mua' => transformDateExcel($value[3]),
+                'ngay_cap' => transformDateExcel($value[4]),
+            ];
+            try {
+                $this->thietBiRepo->create($thietbi);
+            } catch (\Throwable $th) {
+                $index = $key + 1;
+                array_push($error, "Hàng thứ $index");
+            }
+        }
+        if (!empty($error)) {
+            $message = sprintf('Có %s hàng thất bại:\n%s', count($error), join('\n', $error));
+            return back()->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
+        }
+        return back()->with('alert-success', 'Import Excel thành công!');
     }
 }

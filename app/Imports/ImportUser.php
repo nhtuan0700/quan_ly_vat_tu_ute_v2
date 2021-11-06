@@ -18,14 +18,13 @@ class ImportUser implements ToModel, WithStartRow
     */
     public function model(array $row)
     {
-        $dob = Date::excelToDateTimeObject($row['5'])->format('d/m/Y');
         return new User([
             'id' => $row['0'],
             'name' => $row['1'],
             'email' => $row['2'],
             'password' => Hash::make($row['3']),
             'tel' => $row['4'],
-            'dob' => $dob,
+            'dob' => transformDateExcel($row['5']),
             'cmnd' => $row['6'],
             'id_role' => $row['7'],
             'id_donvi' => $row['8'],

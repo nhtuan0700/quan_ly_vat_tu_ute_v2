@@ -114,12 +114,11 @@ class UserController extends Controller
                 'email' => $value[2],
                 'password' => Hash::make($value[3]),
                 'tel' => $value[4],
-                'dob' => Date::excelToDateTimeObject($value[5])->format('d/m/Y'),
+                'dob' => transformDateExcel($value[5]),
                 'cmnd' => $value[6],
                 'id_role' => $value[7],
                 'id_donvi' => $value[8],
             ];
-
             try {
                 $this->userRepository->create($user);
             } catch (\Throwable $th) {
