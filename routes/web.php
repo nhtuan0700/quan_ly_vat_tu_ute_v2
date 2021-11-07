@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\{
+    DangKyVanPhongPhamController,
     DotDangKyController,
     HomeController,
-    PermissionController,
     ThietBiController,
     UserController,
     VanPhongPhamController
@@ -72,12 +72,17 @@ Route::middleware('auth')->group(function () {
         Route::post('import', [ThietBiController::class, 'import_excel'])->name('import');
     });
     
-    Route::group(['as' => 'dotdangky.', 'prefix' => 'dot-dang-ky'], function() {
+    Route::group(['as' => 'dotdangky.', 'prefix' => 'dot-dang-ky', 'middleware' => 'acl:dk-manage'], function() {
         Route::get('/', [DotDangKyController::class, 'index'])->name('index');
         Route::get('/create', [DotDangKyController::class, 'create'])->name('create');
         Route::post('/create', [DotDangKyController::class, 'store'])->name('store');
         Route::get('/edit/{id?}', [DotDangKyController::class, 'edit'])->name('edit');
         Route::put('/update/{id?}', [DotDangKyController::class, 'update'])->name('update');
         Route::delete('/delete/{id?}', [DotDangKyController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'dangky_vpp.', 'prefix' => 'dk-vpp'], function() {
+        Route::get('/', [DangKyVanPhongPhamController::class, 'index'])->name('index');
+        Route::post('/save', [DangKyVanPhongPhamController::class, 'save'])->name('save');
     });
 });

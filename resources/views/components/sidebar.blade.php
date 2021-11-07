@@ -74,6 +74,14 @@
             </a>
           </li>
         @endcan
+
+        <li class="nav-item">
+          <a href="{{ route('dangky_vpp.index') }}" class="nav-link" id="link-dk-vpp">
+            <p>
+              Đăng ký văn phòng phẩm
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamInterface;
+use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamRepository;
 use App\Repositories\DanhMuc\DanhMucInterface;
 use App\Repositories\DanhMuc\DanhMucRepository;
 use App\Repositories\DonVi\DonViInterface;
@@ -47,5 +49,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(DanhMucInterface::class, DanhMucRepository::class);
         $this->app->bind(DotDangKyInterface::class, DotDangKyRepository::class);
         $this->app->bind(HanMucInterface::class, HanMucRepository::class);
+        $this->app->bind(DangKyVanPhongPhamInterface::class, DangKyVanPhongPhamRepository::class);
     }
 }

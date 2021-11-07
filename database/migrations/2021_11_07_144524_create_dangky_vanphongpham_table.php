@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHanmucTable extends Migration
+class CreateDangkyVanphongphamTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,23 +14,22 @@ class CreateHanmucTable extends Migration
      */
     public function up()
     {
-        Schema::create('hanmuc', function (Blueprint $table) {
+        Schema::create('dangky_vanphongpham', function (Blueprint $table) {
             $table->string('id_user', 7);
             $table->unsignedBigInteger('id_vanphongpham');
-            $table->integer('qty_used');
-            $table->integer('qty_max');
-            $table->integer('quy');
-            $table->integer('year');
+            $table->string('id_dotdk', 4);
+            $table->integer('qty');
+            $table->boolean('status');
 
-            $table->primary(['id_user', 'id_vanphongpham']);
+            $table->primary(['id_user', 'id_vanphongpham', 'id_dotdk']);
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_vanphongpham')->references('id')->on('vanphongpham')->onDelete('cascade');
+            $table->foreign('id_dotdk')->references('id')->on('dotdangky')->onDelete('cascade');
             $table->timestamps();
         });
-        
+
         Schema::disableForeignKeyConstraints();
-        DB::statement('ALTER TABLE hanmuc ADD CONSTRAINT ck_qty_used CHECK (qty_used >= 0)');
-        DB::statement('ALTER TABLE hanmuc ADD CONSTRAINT ck_qty_max CHECK (qty_max >= 0)');
+        DB::statement('ALTER TABLE dangky_vanphongpham ADD CONSTRAINT ck_qty CHECK (qty >= 0)');
         Schema::enableForeignKeyConstraints();
     }
 
@@ -41,6 +40,6 @@ class CreateHanmucTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hanmuc');
+        Schema::dropIfExists('dangky_vanphongpham');
     }
 }

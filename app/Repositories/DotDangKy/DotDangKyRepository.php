@@ -43,4 +43,9 @@ class DotDangKyRepository extends BaseRepository implements DotDangKyInterface
         $is_exist = $this->model->where('start_at', '>=', now())->exists();
         return $is_exist;
     }
+
+    public function getDotDangKyNow()
+    {
+        return $this->model->where('start_at', '<=', now())->where('end_at', '>=', now())->first();
+    }
 }

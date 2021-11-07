@@ -6,7 +6,6 @@ use App\Exports\ExportUser;
 use App\Exports\ExportUserTemplate;
 use App\Imports\ImportUser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\User\StoreUser;
