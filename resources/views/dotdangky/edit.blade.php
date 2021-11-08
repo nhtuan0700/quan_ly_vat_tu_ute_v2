@@ -18,6 +18,15 @@ Quản lý đợt đăng ký
                 </div>
 
                 <div class="card-body">
+                  <div>
+                    <span class="text-warning mb-0 mr-1">Chú ý</span>
+                    <p class="m-0">
+                      - Nếu đợt đăng ký quá thời gian áp dụng thì không thể chỉnh sửa hoặc xóa
+                    </p>
+                    <p class="m-0">
+                      - Nếu đợt đăng ký đang diễn ra thì không thể chỉnh sửa <b>ngày bắt đầu</b>
+                    </p>
+                  </div>
                   <form method="POST" action="{{ route('dotdangky.update', ['id' => $dotdangky->id]) }}">
                     @csrf
                     @method('put')

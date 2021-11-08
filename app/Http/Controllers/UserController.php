@@ -37,7 +37,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = $this->userRepository->listExceptAdmin();
+        $users = $this->userRepository->paginate();
         $list_donvi = $this->donViRepository->all();
         $roles = $this->roleRepostitory->all();
         return view('user.index', compact('users', 'roles', 'list_donvi'));
@@ -97,7 +97,7 @@ class UserController extends Controller
         $columns['id_donvi'] = $request->donvi;
         $list_donvi = $this->donViRepository->all();
         $roles = $this->roleRepostitory->all();
-        $users = $this->userRepository->listExceptAdmin($columns);
+        $users = $this->userRepository->search($columns, ['id', 'id_role', 'id_donvi']);
         return view('user.index', compact('users', 'roles', 'list_donvi'));
     }
 
@@ -117,6 +117,9 @@ class UserController extends Controller
         $users = Excel::toCollection(new ImportUser, request()->file('file_excel'));
         $error = [];
         foreach ($users[0] as $key => $value) {
+            if($value->filter()->isEmpty()) {
+                break;
+            };
             try {
                 $user = [
                     'id' => $value[0],

@@ -32,17 +32,6 @@ class UserRepository extends BaseRepository implements UserInterface
         return $new_id;
     }
 
-    public function listExceptAdmin($columns = NULL, $limit = NULL)
-    {
-        $limit =  $limit ?? $this->limit;
-        $users = $this->model->query();
-        if (!$columns) {
-            return $users->orderBy('id', 'desc')->paginate($limit);
-        }
-        $strict = ['id', 'id_role', 'status'];
-        return $this->search($columns, $strict, $limit, $users);
-    }
-
     public function create($attributes = [])
     {
         $attributes['id'] = $attributes['id'] ?? $this->getAutoId();

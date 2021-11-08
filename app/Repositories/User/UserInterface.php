@@ -5,5 +5,4 @@ use App\Repositories\RepositoryInterface;
 
 interface UserInterface extends RepositoryInterface
 {
-  public function listExceptAdmin($columns = NULL, $limit = NULL);
 }

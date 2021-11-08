@@ -53,12 +53,18 @@ Quản lý đợt đăng ký
                       </div>
                     </div>
                     @if ($is_coming)
-                      <p class="text-danger">Sắp đợt đăng ký mới nên không thể tạo</p>
-                      <button type="submit" class="btn btn-primary pr-4 pl-4">Lưu</button>
+                      <p class="text-danger">Đợt đăng ký mới sắp diễn ra nên không thể tạo thêm</p>
+                      {{-- <button type="submit" class="btn btn-primary pr-4 pl-4">Lưu</button> --}}
                     @else
                       <button type="submit" class="btn btn-primary pr-4 pl-4">Lưu</button>
                     @endif
                   </form>
+                  <div>
+                    <span class="text-warning mb-0 mr-1">Chú ý</span>
+                    <p>
+                      Nếu có đợt đăng ký mới sắp diễn ra thì không thể tạo thêm
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

@@ -34,7 +34,7 @@ class DotDangKyController extends Controller
         $is_coming = $this->dotDangKyRepo->checkComingExist();
         if ($is_coming) {
             return redirect(route('dotdangky.index'))
-                ->with('alert-fail', 'Sắp có đợt đăng ký mới nên không thể tạo');
+                ->with('alert-fail', 'Đợt đăng ký mới sắp diễn ra nên không thể tạo thêm');
         }
         $data = $request->only(['start_at', 'end_at']);
         $new_data = $this->dotDangKyRepo->create($data);

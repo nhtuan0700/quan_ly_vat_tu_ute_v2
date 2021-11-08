@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Traits\TimestampTrait;
+use App\Traits\TimestampFormatTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ThietBi extends Model
 {
-    use HasFactory, TimestampTrait;
+    use HasFactory, TimestampFormatTrait;
 
     protected $fillable = [
         'id', 'name', 'phong', 'ngay_mua', 'ngay_cap', 'thong_so'

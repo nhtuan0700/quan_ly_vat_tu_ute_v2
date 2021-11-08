@@ -27,17 +27,6 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('123123'),
                 'id_role' => 1,
                 'id_donvi' => 'PCSVC',
-            ],
-            [
-                'name' => 'Nguyễn Thị Hà Quyên',
-                // 'dob' => '1985/1/31',
-                'dob' => '31/1/1985',
-                'tel' => '0123456789',
-                'cmnd' => '201201201',
-                'email' => 'quyen_ute@ute.udn.vn',
-                'password' => Hash::make('123123'),
-                'id_role' => 4,
-                'id_donvi' => 'KD',
             ]
         ];
 

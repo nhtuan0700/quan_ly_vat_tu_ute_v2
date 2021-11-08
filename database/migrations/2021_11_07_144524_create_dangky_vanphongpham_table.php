@@ -20,6 +20,7 @@ class CreateDangkyVanphongphamTable extends Migration
             $table->string('id_dotdk', 4);
             $table->integer('qty');
             $table->boolean('status');
+            $table->boolean('is_received');
 
             $table->primary(['id_user', 'id_vanphongpham', 'id_dotdk']);
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

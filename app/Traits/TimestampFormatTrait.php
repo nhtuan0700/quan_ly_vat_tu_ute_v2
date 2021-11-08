@@ -6,7 +6,7 @@ use Carbon\Carbon;
 /**
  * 
  */
-trait TimestampTrait
+trait TimestampFormatTrait
 {
     public function getCreatedAtAttribute($value)
     {

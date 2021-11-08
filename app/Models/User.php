@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\TimestampTrait;
+use App\Traits\TimestampFormatTrait;
 use Carbon\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, TimestampTrait;
+    use HasFactory, Notifiable, TimestampFormatTrait;
 
     protected $fillable = [
         'id', 'name', 'dob', 'tel', 'cmnd', 'id_donvi', 'id_role',

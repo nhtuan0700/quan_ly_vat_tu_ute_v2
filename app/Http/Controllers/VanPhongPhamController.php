@@ -12,7 +12,6 @@ use App\Http\Requests\VanPhongPham\StoreVanPhongPham;
 use App\Http\Requests\VanPhongPham\UpdateVanPhongPham;
 use App\Repositories\VanPhongPham\VanPhongPhamInterface;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class VanPhongPhamController extends Controller
 {
@@ -94,12 +93,13 @@ class VanPhongPhamController extends Controller
         $list_vanphongpham = Excel::toCollection(new ImportVanPhongPham, request()->file('file_excel'));
         $error = [];
         foreach ($list_vanphongpham[0] as $key => $value) {
+            if ($value->filter()->isEmpty()) {
+                break;
+            };
             try {
                 $danhmuc = $this->danhMucRepo->where('name', $value[3])->firstOrFail();
                 $is_exist = $this->vanPhongPhamRepo->where('name', $value[0])->exists();
-                if ($is_exist) {
-                    throw new Exception();
-                }
+                throw_if($is_exist, new Exception());
                 $vanphongpham = [
                     'name' => $value[0],
                     'dvt' => $value[1],

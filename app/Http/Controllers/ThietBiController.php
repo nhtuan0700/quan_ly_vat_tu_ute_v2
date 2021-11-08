@@ -82,8 +82,10 @@ class ThietBiController extends Controller
     {
         $list_thietbi = Excel::toCollection(new ImportThietBi, request()->file('file_excel'));
         $error = [];
-        
         foreach ($list_thietbi[0] as $key => $value) {
+            if($value->filter()->isEmpty()) {
+                break;
+            };
             try {
                 $thietbi = [
                     'id' => $value[0],
@@ -100,8 +102,8 @@ class ThietBiController extends Controller
         }
         if (!empty($error)) {
             $message = sprintf('Có %s hàng thất bại:\n%s', count($error), join('\n', $error));
-            return redirect('thietbi.index')->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
+            return redirect(route('thietbi.index'))->with('alert-result', $message)->with('alert-success', 'Import Excel thành công!');
         }
-        return redirect('thietbi.index')->with('alert-success', 'Import Excel thành công!');
+        return redirect(route('thietbi.index'))->with('alert-success', 'Import Excel thành công!');
     }
 }
