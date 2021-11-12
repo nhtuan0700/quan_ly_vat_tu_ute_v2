@@ -94,7 +94,8 @@
                         <td class="text-center qty_used">{{ $item->qty_used }}</td>
                         <td class="text-center qty_max">{{ $item->qty_max }}</td>
                         <td>
-                          <a href="#" class="btn btn-info btn-add">Thêm</a>
+                          <button class="btn btn-info btn-add"
+                            @if ($item->qty_used === $item->qty_max) disabled @endif>Thêm</button>
                         </td>
                       </tr>
                     @endif

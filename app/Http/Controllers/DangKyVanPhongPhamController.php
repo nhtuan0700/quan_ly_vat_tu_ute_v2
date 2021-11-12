@@ -33,14 +33,14 @@ class DangKyVanPhongPhamController extends Controller
             return view('dangky_vpp.not_found');
         }
         $list_hanmuc = $this->hanMucRepo->listHanMucByUser(auth()->id());
-        $list_dangky = $this->dangKyVPPRepo->listDangKy(auth()->id(), $dot_dk->id);
+        $list_dangky = $this->dangKyVPPRepo->listByUser(auth()->id(), $dot_dk->id);
         return view('dangky_vpp.index', compact('list_hanmuc', 'dot_dk', 'list_dangky'));
     }
 
     public function save(SaveDangKyVPP $request)
     {
         $id_dotdk = $this->dotDangKyRepo->getDotDangKyNow()->id;
-        $list_dangky = $this->dangKyVPPRepo->listDangKy(auth()->id(), $id_dotdk);
+        $list_dangky = $this->dangKyVPPRepo->listByUser(auth()->id(), $id_dotdk);
         DB::beginTransaction();
         try {
             // Reset hạn mức đã dăng ký ban đâu, sau đó xóa các đăng ký cũ
@@ -71,5 +71,17 @@ class DangKyVanPhongPhamController extends Controller
             DB::rollBack();
             return back()->with('alert-fail', 'Số lượng vượt quá hạn mức');
         }
+    }
+
+    public function history($id_dotdk = null)
+    {
+        if (is_null($id_dotdk)) {
+            $list_dotdangky = $this->dotDangKyRepo->list();
+            return view('history.list_dot_dang_ky', compact('list_dotdangky'));
+        }
+        $dot_dk = $this->dotDangKyRepo->findOrFail($id_dotdk);
+        $list_dangky = $this->dangKyVPPRepo->listByUser(auth()->id(), $id_dotdk);
+        // dd($list_dangky);
+        return view('history.detail', compact('list_dangky', 'id_dotdk'));
     }
 }

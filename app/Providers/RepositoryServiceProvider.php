@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\ChiTietMua\ChiTietMuaInterface;
+use App\Repositories\ChiTietMua\ChiTietMuaRepository;
 use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamInterface;
 use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamRepository;
 use App\Repositories\DanhMuc\DanhMucInterface;
@@ -12,6 +14,8 @@ use App\Repositories\DotDangKy\DotDangKyInterface;
 use App\Repositories\DotDangKy\DotDangKyRepository;
 use App\Repositories\HanMuc\HanMucInterface;
 use App\Repositories\HanMuc\HanMucRepository;
+use App\Repositories\PhieuDeNghi\PhieuDeNghiInterface;
+use App\Repositories\PhieuDenghi\PhieuDenghiRepository;
 use App\Repositories\Role\RoleInterface;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\ThietBi\ThietBiInterface;
@@ -50,5 +54,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(DotDangKyInterface::class, DotDangKyRepository::class);
         $this->app->bind(HanMucInterface::class, HanMucRepository::class);
         $this->app->bind(DangKyVanPhongPhamInterface::class, DangKyVanPhongPhamRepository::class);
+        $this->app->bind(PhieuDeNghiInterface::class, PhieuDenghiRepository::class);
+        $this->app->bind(ChiTietMuaInterface::class, ChiTietMuaRepository::class);
     }
 }

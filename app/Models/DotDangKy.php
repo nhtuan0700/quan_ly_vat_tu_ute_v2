@@ -13,7 +13,7 @@ class DotDangKy extends Model
     protected $fillable = [
         'id', 'start_at', 'end_at'
     ];
-    protected $dates = ['end_at'];
+    // protected $dates = ['end_at'];
 
     protected $table = 'dotdangky';
     public $incrementing = false;
@@ -46,5 +46,10 @@ class DotDangKy extends Model
     public function canDelete()
     {
         return Carbon::createFromFormat(app('datetime_format'), $this->start_at)->gt(now());
+    }
+
+    public function phieumua()
+    {
+        return $this->hasOne(PhieuDeNghi::class, 'id_dotdk', 'id')->where('is_mua', true);
     }
 }

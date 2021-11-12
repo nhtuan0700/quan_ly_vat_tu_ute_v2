@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Repositories\DotDangKy;
 
 use App\Models\DotDangKy;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
 
 class DotDangKyRepository extends BaseRepository implements DotDangKyInterface
 {
@@ -38,7 +40,7 @@ class DotDangKyRepository extends BaseRepository implements DotDangKyInterface
         return parent::create($attributes);
     }
 
-    public function checkComingExist()
+    public function checkComing()
     {
         $is_exist = $this->model->where('start_at', '>=', now())->exists();
         return $is_exist;
@@ -47,5 +49,28 @@ class DotDangKyRepository extends BaseRepository implements DotDangKyInterface
     public function getDotDangKyNow()
     {
         return $this->model->where('start_at', '<=', now())->where('end_at', '>=', now())->first();
+    }
+
+    public function getDotDangKyLast()
+    {
+        $dotdk_last = $this->model->where('end_at', '<=', now())->orderby('end_at', 'desc')->first();
+        // dd($check);
+    }
+
+    /**
+     * Load danh sách các đợt đăng ký (đang diễn ra, đã diễn ra) mà đơn vị chưa tạo phiếu
+     */
+    public function listNotHasPhieu()
+    {
+        return $this->model->whereNotIn('id', function ($query) {
+            $query->select('id_donvi')->from('phieudenghi')
+                ->where('is_mua', true)
+                ->where('id_donvi', auth()->user()->id_donvi);
+        })->where('end_at', '<=', now())->get();
+    }
+
+    public function list()
+    {
+        return $this->model->where('start_at', '<=', now())->orderby('created_at', 'desc')->get();
     }
 }

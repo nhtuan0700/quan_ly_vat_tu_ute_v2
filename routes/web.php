@@ -4,11 +4,14 @@ use App\Http\Controllers\{
     DangKyVanPhongPhamController,
     DotDangKyController,
     HomeController,
+    PhieuMuaController,
+    PhieuSuaController,
     ThietBiController,
     UserController,
     VanPhongPhamController
 };
 use App\Http\Controllers\Auth\LoginController;
+use App\Models\DangKyVanPhongPham;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,5 +87,28 @@ Route::middleware('auth')->group(function () {
     Route::group(['as' => 'dangky_vpp.', 'prefix' => 'dk-vpp'], function() {
         Route::get('/', [DangKyVanPhongPhamController::class, 'index'])->name('index');
         Route::post('/save', [DangKyVanPhongPhamController::class, 'save'])->name('save');
+    });
+
+    Route::group(['as' => 'history.', 'prefix' => 'lich-su-dang-ky'], function() {
+        Route::get('/dot-dang-ky/{id_dotdk?}', [DangKyVanPhongPhamController::class, 'history'])->name('index');
+    });
+
+    Route::group(['as' => 'phieumua.', 'prefix' => 'phieu-mua', 'middleware' => 'acl:phieumua-manage'], function() {
+        Route::get('/', [PhieuMuaController::class, 'index'])->name('index');
+        Route::get('/create/{id_dotdk}', [PhieuMuaController::class, 'create'])->name('create');
+        Route::get('/dot-dang-ky', [PhieuMuaController::class, 'list_dot_dang_ky'])->name('dot_dk');
+        Route::post('/create/{id_dotdk}', [PhieuMuaController::class, 'store'])->name('store');
+        Route::get('/detail/{id?}', [PhieuMuaController::class, 'detail'])->name('detail');
+        Route::put('/update/{id?}', [PhieuMuaController::class, 'update'])->name('update');
+        Route::delete('/delete/{id?}', [PhieuMuaController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'phieusua.', 'prefix' => 'phieu-sua'], function() {
+        Route::get('/', [PhieuSuaController::class, 'index'])->name('index');
+        Route::get('/create', [PhieuSuaController::class, 'create'])->name('create');
+        Route::post('/create', [PhieuSuaController::class, 'store'])->name('store');
+        Route::get('/edit/{id?}', [PhieuSuaController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [PhieuSuaController::class, 'update'])->name('update');
+        Route::delete('/delete/{id?}', [PhieuSuaController::class, 'delete'])->name('delete');
     });
 });

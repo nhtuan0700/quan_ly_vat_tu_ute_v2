@@ -19,8 +19,8 @@ class CreateDangkyVanphongphamTable extends Migration
             $table->unsignedBigInteger('id_vanphongpham');
             $table->string('id_dotdk', 4);
             $table->integer('qty');
-            $table->boolean('status');
-            $table->boolean('is_received');
+            $table->boolean('is_tonghop');
+            $table->dateTime('received_at')->nullable();
 
             $table->primary(['id_user', 'id_vanphongpham', 'id_dotdk']);
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

@@ -1,3 +1,7 @@
+.user-panel img {
+  width: 45px;
+}
+
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header {
   height: unset;
   padding: unset;

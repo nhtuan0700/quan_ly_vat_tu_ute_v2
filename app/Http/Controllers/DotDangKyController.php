@@ -25,13 +25,13 @@ class DotDangKyController extends Controller
 
     public function create()
     {
-        $is_coming = $this->dotDangKyRepo->checkComingExist();
+        $is_coming = $this->dotDangKyRepo->checkComing();
         return view('dotdangky.create', compact('is_coming'));
     }
 
     public function store(StoreDotDangKy $request)
     {
-        $is_coming = $this->dotDangKyRepo->checkComingExist();
+        $is_coming = $this->dotDangKyRepo->checkComing();
         if ($is_coming) {
             return redirect(route('dotdangky.index'))
                 ->with('alert-fail', 'Đợt đăng ký mới sắp diễn ra nên không thể tạo thêm');

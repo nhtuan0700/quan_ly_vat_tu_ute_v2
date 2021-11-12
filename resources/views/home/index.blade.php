@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-lg-12">
                 <h4>Xin chào</h4>
-                <p>{{ auth()->user()->name }}</p>
+                <h5 class="text-primary">{{ auth()->user()->name }}</h5>
                 <p><b>Vai trò: </b><span>{{ auth()->user()->role->name }}</span></p>
                 <p><b>Đơn vị: </b><span>{{ auth()->user()->donvi->name }}</span></p>
           </div>

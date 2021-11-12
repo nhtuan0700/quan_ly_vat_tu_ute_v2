@@ -4,8 +4,8 @@
   <!-- Sidebar -->
   <div class="sidebar mt-0">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
-      <div class="image">
+    <div class="user-panel mt-3 pb-3 pt-3 mb-3">
+      <div class="image d-block">
         <img src="{{ asset('img/user.png') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
@@ -79,6 +79,42 @@
           <a href="{{ route('dangky_vpp.index') }}" class="nav-link" id="link-dk-vpp">
             <p>
               Đăng ký văn phòng phẩm
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('history.index') }}" class="nav-link" id="link-lich-su-dang-ky">
+            <p>
+              Lịch sử đăng ký văn phòng phẩm của tôi
+            </p>
+          </a>
+        </li>
+        
+        @can('phieumua-manage')
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="link">
+              <p>
+                Danh sách đăng ký văn phòng phẩm của đơn vị
+              </p>
+            </a>
+          </li>
+        @endcan
+
+        @can('phieumua-manage')
+          <li class="nav-item">
+            <a href="{{ route('phieumua.index') }}" class="nav-link" id="link-phieu-mua">
+              <p>
+                Quản lý phiếu mua đơn vị
+              </p>
+            </a>
+          </li>
+        @endcan
+
+        <li class="nav-item">
+          <a href="{{ route('phieusua.index') }}" class="nav-link" id="link-phieu-sua">
+            <p>
+              Quản lý phiếu sửa
             </p>
           </a>
         </li>
