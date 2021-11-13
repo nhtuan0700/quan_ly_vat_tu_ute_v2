@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PhieuDeNghi\StorePhieuDeNghi;
-use App\Http\Requests\PhieuDeNghi\UpdatePhieuDeNghi;
 use App\Repositories\ChiTietMua\ChiTietMuaInterface;
 use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamInterface;
 use App\Repositories\DotDangKy\DotDangKyInterface;
@@ -29,7 +27,7 @@ class PhieuMuaController extends Controller
 
     public function index()
     {
-        $list_phieumua = $this->phieuMuaRepo->listPhieuMuaDonVi(auth()->user()->id_donvi);
+        $list_phieumua = $this->phieuMuaRepo->listPhieuMuaDonVi();
         // dd($list_phieumua);
         return view('phieumua.index', compact('list_phieumua'));
     }
@@ -61,7 +59,7 @@ class PhieuMuaController extends Controller
         return view('phieumua.create', compact('vanphongpham_tonghop', 'list_dangky_donvi', 'id_dotdk'));
     }
 
-    public function store(StorePhieuDeNghi $request, $id_dotdk)
+    public function store(Request $request, $id_dotdk)
     {
         $dot_dk = $this->dotDangKyRepo->findOrFail($id_dotdk);
         $start_time = $dot_dk->getRawOriginal('start_at');
@@ -107,11 +105,9 @@ class PhieuMuaController extends Controller
         return view('phieumua.detail', compact('phieu', 'list_dangky_donvi'));
     }
 
-    public function update(UpdatePhieuDeNghi $request, $id)
+    public function search(Request $request)
     {
-    }
-
-    public function delete($id)
-    {
+        $list_phieumua = $this->phieuMuaRepo->search2($request, true);
+        return view('phieuMua.index', compact('list_phieumua'));
     }
 }

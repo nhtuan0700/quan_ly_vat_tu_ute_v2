@@ -68,6 +68,17 @@ class ThietBiController extends Controller
         return view('thietbi.index', compact('list_thietbi'));
     }
 
+    public function list_ajax(Request $request)
+    {
+        $list_thietbi = $this->thietBiRepo->query()
+            ->when(!is_null($request->id_exists), function ($query) use ($request) {
+                return $query->whereNotIN('id', $request->id_exists);
+            })
+            ->where('id', 'like', "%$request->id%")
+            ->get();
+        return response()->json($list_thietbi);
+    }
+
     public function export_excel()
     {
         return Excel::download(new ExportThietBi, 'thietbi.xlsx');
@@ -83,7 +94,7 @@ class ThietBiController extends Controller
         $list_thietbi = Excel::toCollection(new ImportThietBi, request()->file('file_excel'));
         $error = [];
         foreach ($list_thietbi[0] as $key => $value) {
-            if($value->filter()->isEmpty()) {
+            if ($value->filter()->isEmpty()) {
                 break;
             };
             try {

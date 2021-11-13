@@ -74,6 +74,8 @@ Route::middleware('auth')->group(function () {
         Route::get('download-template', [ThietBiController::class, 'download_template'])->name('download_template');
         Route::post('import', [ThietBiController::class, 'import_excel'])->name('import');
     });
+    Route::get('thiet-bi/list_ajax', [ThietBiController::class, 'list_ajax'])->name('thietbi.list_ajax');
+
     
     Route::group(['as' => 'dotdangky.', 'prefix' => 'dot-dang-ky', 'middleware' => 'acl:dk-manage'], function() {
         Route::get('/', [DotDangKyController::class, 'index'])->name('index');
@@ -99,16 +101,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/dot-dang-ky', [PhieuMuaController::class, 'list_dot_dang_ky'])->name('dot_dk');
         Route::post('/create/{id_dotdk}', [PhieuMuaController::class, 'store'])->name('store');
         Route::get('/detail/{id?}', [PhieuMuaController::class, 'detail'])->name('detail');
-        Route::put('/update/{id?}', [PhieuMuaController::class, 'update'])->name('update');
-        Route::delete('/delete/{id?}', [PhieuMuaController::class, 'delete'])->name('delete');
+        Route::get('/search', [PhieuMuaController::class, 'search'])->name('search');
     });
 
     Route::group(['as' => 'phieusua.', 'prefix' => 'phieu-sua'], function() {
         Route::get('/', [PhieuSuaController::class, 'index'])->name('index');
         Route::get('/create', [PhieuSuaController::class, 'create'])->name('create');
         Route::post('/create', [PhieuSuaController::class, 'store'])->name('store');
+        Route::get('/detail/{id?}', [PhieuSuaController::class, 'detail'])->name('detail');
         Route::get('/edit/{id?}', [PhieuSuaController::class, 'edit'])->name('edit');
         Route::put('/update/{id?}', [PhieuSuaController::class, 'update'])->name('update');
+        Route::get('/search', [PhieuSuaController::class, 'search'])->name('search');
         Route::delete('/delete/{id?}', [PhieuSuaController::class, 'delete'])->name('delete');
     });
 });

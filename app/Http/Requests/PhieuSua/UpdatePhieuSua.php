@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\DangKyVPP;
+namespace App\Http\Requests\PhieuSua;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveDangKyVPP extends FormRequest
+class UpdatePhieuSua extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,14 @@ class SaveDangKyVPP extends FormRequest
     public function rules()
     {
         return [
-            'vanphongpham' => 'required',
-            'vanphongpham.*' => 'integer|min:1'
+            'thietbi' => 'required',
+            'thietbi.*' => 'string|nullable'
         ];
     }
 
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator): void
     {
-        session()->flash('alert-fail', 'Danh sách văn phòng phẩm không hợp lệ!');
+        session()->flash('alert-fail', 'Danh sách thiết bị yêu cầu không hợp lệ!');
         parent::failedValidation($validator);
     }
 }

@@ -45,20 +45,52 @@ class PhieuDenghiRepository extends BaseRepository implements PhieuDenghiInterfa
     {
         $attributes['id'] = $this->getAutoId(false);
         $attributes['is_mua'] = false;
+        $attributes['status'] = self::CONFIRMING;
         $new_phieu = parent::create($attributes);
         return $new_phieu;
     }
 
-    public function listPhieuMuaDonVi($id_donvi)
+    public function listPhieuMuaDonVi()
     {
         return $this->model->phieumua()
-            ->where('id_donvi', $id_donvi)
+            ->where('id_donvi', auth()->user()->id_donvi)
             ->orderby('created_at', 'desc')
             ->paginate($this->limit);
     }
 
+    public function listPhieuSua()
+    {
+        return $this->model->phieusua()
+            ->where('id_creator', auth()->id())
+            ->orderby('created_at', 'desc')
+            ->paginate($this->limit);
+    }
+
+    public function search2($request, $is_mua = true)
+    {
+        if ($is_mua) {
+            $model = $this->model->phieumua()->where('id_donvi', auth()->user()->id_donvi);
+        } else {
+            $model = $this->model->phieusua()->where('id_creator', auth()->id());
+        }
+        if ($request->id) {
+            $model->where('id', $request->id);
+        }
+        if ($request->status) {
+            $model->where('status', $request->status);
+        }
+        return $model
+            ->orderby('created_at', 'desc')
+            ->paginate($this->limit)
+            ->appends(request()->all());
+    }
+
     public function find_mua($id)
     {
-        return $this->model->where('id', $id)->where('is_mua', true)->firstOrFail();
+        return $this->model->phieumua()->where('id', $id)->firstOrFail();
+    }
+    public function find_sua($id)
+    {
+        return $this->model->phieusua()->where('id', $id)->firstOrFail();
     }
 }

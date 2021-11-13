@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\ChiTietMua\ChiTietMuaInterface;
 use App\Repositories\ChiTietMua\ChiTietMuaRepository;
+use App\Repositories\ChiTietSua\ChiTietSuaInterface;
+use App\Repositories\ChiTietSua\ChiTietSuaRepository;
 use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamInterface;
 use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamRepository;
 use App\Repositories\DanhMuc\DanhMucInterface;
@@ -56,5 +58,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(DangKyVanPhongPhamInterface::class, DangKyVanPhongPhamRepository::class);
         $this->app->bind(PhieuDeNghiInterface::class, PhieuDenghiRepository::class);
         $this->app->bind(ChiTietMuaInterface::class, ChiTietMuaRepository::class);
+        $this->app->bind(ChiTietSuaInterface::class, ChiTietSuaRepository::class);
     }
 }

@@ -31,6 +31,15 @@ class PhieuDeNghi extends Model
         return $this->belongsTo(User::class, 'id_csvc', 'id');
     }
 
+    public function detail_mua()
+    {
+        return $this->hasMany(ChiTietMua::class, 'id_phieu', 'id');
+    }
+    public function detail_sua()
+    {
+        return $this->hasMany(ChiTietSua::class, 'id_phieu', 'id');
+    }
+
     public function details()
     {
         if ($this->is_mua) {
@@ -40,7 +49,11 @@ class PhieuDeNghi extends Model
                 ->get();
             return $data;
         }
-        return $this->hasMany(ChiTietSua::class, 'id_phieu', 'id');
+        $data = DB::table('thietbi')
+            ->join('chitietsua', 'thietbi.id', '=', 'chitietsua.id_thietbi')
+            ->select('id', 'name', 'phong', 'reason', 'cost', 'status')
+            ->get();
+        return $data;
     }
 
     public function scopePhieuMua($query)

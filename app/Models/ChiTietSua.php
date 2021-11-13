@@ -14,6 +14,7 @@ class ChiTietSua extends Model
 
     protected $table = 'chitietsua';
     public $incrementing = false;
+    public $timestamps = false;
 
     public function thietbi()
     {

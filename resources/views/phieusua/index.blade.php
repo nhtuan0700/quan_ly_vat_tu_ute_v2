@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-Quản lý phiếu mua đơn vị
+Quản lý phiếu sửa
 @endsection
 @section('content')
 <section class="content">
@@ -11,16 +11,16 @@ Quản lý phiếu mua đơn vị
           <div class="card-header">
             <div class="d-flex  align-items-center">
               <span class="card-title mr-3">Danh sách</span>
-              <a href="{{ route('phieumua.dot_dk') }}" class="btn btn-success">Tạo mới</a>
+              <a href="{{ route('phieusua.create') }}" class="btn btn-success">Tạo mới</a>
             </div>
           </div>
 
           <div class="card-body pb-0">
             {{-- Search --}}
-            <form method="GET" action="{{ route('phieumua.search') }}">
+            <form method="GET" action="{{ route('phieusua.search') }}">
               <div class="form-row">
                 <div class="form-group col-md-2">
-                  <label for="id">Mã phiếu:</label>
+                  <label for="name">Mã phiếu:</label>
                   <input type="text" class="form-control" id="id" name="id"
                     value="{{ request()->id ?? '' }}" autocomplete="off">
                 </div>
@@ -49,24 +49,26 @@ Quản lý phiếu mua đơn vị
                 </tr>
               </thead>
               <tbody>
-                @foreach ($list_phieumua as $item)
+                @foreach ($list_phieusua as $item)
                 <tr>
                   <th>{{ $item->id }}</th>
                   <td>{{ $item->created_at }}</td>
                   <td>{!! $item->statusHTML !!}</td>
                   <td>
                     <div class="d-flex justify-content-center">
-                      <a href="{{ route('phieumua.detail', ['id' => $item->id]) }}"
-                        class="btn btn-info flex-grow-1">Xem</a>
-                      {{-- <div class="m-1"></div>
-                      <form class="d-none" action="{{ route('thietbi.delete', ['id' => $item->id]) }}"
-                        method="post">
-                        @csrf
-                        @method('delete')
-                      </form>
-                      <button type="button" class="btn btn-danger btn-delete flex-grow-1" 
-                        data-name="{{ $item->name }}">
-                        Xóa</button> --}}
+                      <a href="{{ route('phieusua.detail', ['id' => $item->id]) }}"
+                        class="btn btn-info">Xem</a>
+                      <div class="m-1"></div>
+                      @can('update_sua', $item)
+
+                        <form class="d-none" action="{{ route('phieusua.delete', ['id' => $item->id]) }}"
+                          method="post">
+                          @csrf
+                          @method('delete')
+                        </form>
+                        <button type="button" class="btn btn-danger btn-delete">
+                          Xóa</button>
+                      @endcan
                     </div>
                   </td>
                 </tr>
@@ -75,9 +77,9 @@ Quản lý phiếu mua đơn vị
             </table>
           
             <div class="d-flex mt-4 justify-content-between">
-              <div class="dataTables_info">Kết quả: {{ $list_phieumua->total() }}</div>
+              <div class="dataTables_info">Kết quả: {{ $list_phieusua->total() }}</div>
               <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                {{ $list_phieumua->links() }}
+                {{ $list_phieusua->links() }}
               </div>
             </div>
           </div>

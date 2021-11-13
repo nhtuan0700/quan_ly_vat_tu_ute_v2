@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-Quản lý văn phòng phẩm
+Quản lý phiếu mua đơn vị
 @endsection
 @section('content')
 <section class="content">
