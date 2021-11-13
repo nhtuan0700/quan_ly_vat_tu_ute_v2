@@ -45,10 +45,8 @@ class DotDangKyController extends Controller
     public function edit($id)
     {
         $dotdangky = $this->dotDangKyRepo->findOrFail($id);
-        $start_at = Carbon::createFromFormat('d/m/Y H:i', $dotdangky->start_at);
-        $end_at = Carbon::createFromFormat('d/m/Y H:i', $dotdangky->end_at);
         $disable_start_at = false;
-        if (Carbon::now()->between($start_at, $end_at)) {
+        if (now()->between($dotdangky->getRawOriginal('start_at'), $dotdangky->getRawOriginal('end_at'))) {
            $disable_start_at = true;
         }
         return view('dotdangky.edit', compact('dotdangky', 'disable_start_at'));
@@ -70,9 +68,7 @@ class DotDangKyController extends Controller
         ]);
 
         // Nếu đang diễn ra thì không cập nhật ngày bắt đầu
-        $start_at = Carbon::createFromFormat('d/m/Y H:i', $dotdangky->start_at);
-        $end_at = Carbon::createFromFormat('d/m/Y H:i', $dotdangky->end_at);
-        if (Carbon::now()->between($start_at, $end_at)) {
+        if (now()->between($dotdangky->getRawOriginal('start_at'), $dotdangky->getRawOriginal('end_at'))) {
             unset($data['start_at']);
         }
         $dotdangky->update($data);

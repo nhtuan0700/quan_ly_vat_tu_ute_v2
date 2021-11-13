@@ -23,6 +23,7 @@ Quản lý đợt đăng ký
                   <th scope="col">Thời gian tạo</th>
                   <th scope="col">Thời gian kết thúc</th>
                   <th scope="col">Thời gian kết thúc</th>
+                  <th scope="col">Trạng thái</th>
                   <th scope="col" width="10%">Action</th>
                 </tr>
               </thead>
@@ -33,6 +34,7 @@ Quản lý đợt đăng ký
                   <td>{{ $item->created_at }}</td>
                   <td>{{ $item->start_at }}</td>
                   <td>{{ $item->end_at }}</td>
+                  <td>{!! $item->statusHTML !!}</td>
                   <td>
                     <div class="d-flex justify-content-center">
                       <a href="{{ route('dotdangky.edit', ['id' => $item->id]) }}"

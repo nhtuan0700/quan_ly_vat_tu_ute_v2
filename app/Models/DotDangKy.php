@@ -36,7 +36,7 @@ class DotDangKy extends Model
         $this->attributes['end_at'] =  Carbon::createFromFormat(app('datetime_format'), $value)->format('Y-m-d H:i');
     }
 
-    // Ngoại trừ chưa diễn ra có thể sửa
+    // Ngoại trừ đã diễn ra có thể sửa
     public function canEdit()
     {
         return Carbon::createFromFormat(app('datetime_format'), $this->end_at)->gt(now());
@@ -50,6 +50,28 @@ class DotDangKy extends Model
 
     public function phieumua()
     {
-        return $this->hasOne(PhieuDeNghi::class, 'id_dotdk', 'id')->where('is_mua', true);
+        return $this->hasMany(PhieuDeNghi::class, 'id_dotdk', 'id')->where('is_mua', true);
+    }
+
+    public function getPhieuMuaDonVi()
+    {
+        $id_donvi = auth()->user()->id_donvi;
+        return $this->phieumua()->where('id_donvi', $id_donvi)->first();
+    }
+
+    public function myDangKy()
+    {
+        return $this->hasMany(DangKyVanPhongPham::class, 'id_dotdk', 'id')->where('id_user', auth()->id());
+    }
+
+    public function getStatusHTMLAttribute()
+    {
+        if ($this->getRawOriginal('start_at') > now()) {
+            return '<span class="badge badge-success">Sắp diễn ra</span>';
+        }
+        if ($this->getRawOriginal('end_at') < now()) {
+            return '<span class="badge badge-danger">Đã diễn ra</span>';
+        }
+        return '<span class="badge badge-warning">Đang diễn ra</span>';
     }
 }

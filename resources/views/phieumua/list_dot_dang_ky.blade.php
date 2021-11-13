@@ -21,10 +21,10 @@ Quản lý phiếu mua đơn vị
                   @foreach ($list_dotdangky as $item)
                     <a href="{{ route('phieumua.create', ['id_dotdk' => $item->id]) }}" class="list-group-item list-group-item-action">
                       Đợt {{ $item->id }} ({{ $item->start_at }} - {{ $item->end_at }})
-                        @if (!!$item->phieumua)
+                        @if (!!$item->getPhieuMuaDonVi())
                           <span class="text-success">Đã tạo phiếu - Xem</span>
                         @else
-                          @if (\Carbon\Carbon::now()->between($item->getRawOriginal('start_at'), $item->getRawOriginal('end_at')))
+                          @if (now()->between($item->getRawOriginal('start_at'), $item->getRawOriginal('end_at')))
                             <span class="text-warning">Đang diễn ra</span>  
                           @else
                             <span class="text-danger">Chưa tạo phiếu</span>

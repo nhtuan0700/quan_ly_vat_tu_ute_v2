@@ -52,8 +52,8 @@ class PhieuMuaController extends Controller
             return view('phieumua.create_fail', compact('message'));
         }
         // Kiểm tra đợt đăng ký đã có phiếu chưa
-        if (!!$dot_dk->phieumua) {
-            return redirect(route('phieumua.detail', ['id' => $dot_dk->phieumua->id]));
+        if (!!$dot_dk->getPhieuMuaDonVi()) {
+            return redirect(route('phieumua.detail', ['id' => $dot_dk->getPhieuMuaDonVi()->id]));
         };
         $id_donvi = auth()->user()->id_donvi;
         $vanphongpham_tonghop = $this->dangKyVPPRepo->tongHopDangKyDonVi($id_dotdk, $id_donvi);
@@ -67,7 +67,7 @@ class PhieuMuaController extends Controller
         $start_time = $dot_dk->getRawOriginal('start_at');
         $end_time = $dot_dk->getRawOriginal('end_at');
 
-        if (!(now() > $end_time) || !!$dot_dk->phieumua) {
+        if (now() <= $end_time || !!$dot_dk->phieumua) {
             return redirect(route('phieumua.create', ['id_dotdk' => $id_dotdk]));
         }
 
@@ -102,7 +102,7 @@ class PhieuMuaController extends Controller
     public function detail($id)
     {
         $phieu = $this->phieuMuaRepo->find_mua($id);
-
+        $this->authorize('view_mua', $phieu);
         $list_dangky_donvi = $this->dangKyVPPRepo->listByDonVi($phieu->id_dotdk, $phieu->id_donvi);
         return view('phieumua.detail', compact('phieu', 'list_dangky_donvi'));
     }

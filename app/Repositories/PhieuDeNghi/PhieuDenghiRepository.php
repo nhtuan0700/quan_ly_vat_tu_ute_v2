@@ -51,7 +51,10 @@ class PhieuDenghiRepository extends BaseRepository implements PhieuDenghiInterfa
 
     public function listPhieuMuaDonVi($id_donvi)
     {
-        return $this->model->phieumua()->orderby('created_at', 'desc')->paginate($this->limit);
+        return $this->model->phieumua()
+            ->where('id_donvi', $id_donvi)
+            ->orderby('created_at', 'desc')
+            ->paginate($this->limit);
     }
 
     public function find_mua($id)

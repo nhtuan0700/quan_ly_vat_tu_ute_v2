@@ -105,7 +105,7 @@
           <li class="nav-item">
             <a href="{{ route('phieumua.index') }}" class="nav-link" id="link-phieu-mua">
               <p>
-                Quản lý phiếu mua đơn vị
+                Quản lý phiếu mua của đơn vị
               </p>
             </a>
           </li>
@@ -114,7 +114,7 @@
         <li class="nav-item">
           <a href="{{ route('phieusua.index') }}" class="nav-link" id="link-phieu-sua">
             <p>
-              Quản lý phiếu sửa
+              Quản lý phiếu sửa của tôi
             </p>
           </a>
         </li>

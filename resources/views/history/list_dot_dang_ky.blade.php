@@ -21,14 +21,11 @@ Lịch sử đăng ký văn phòng phẩm
                   @foreach ($list_dotdangky as $item)
                     <a href="{{ route('history.index', ['id_dotdk' => $item->id]) }}" class="list-group-item list-group-item-action">
                       Đợt {{ $item->id }} ({{ $item->start_at }} - {{ $item->end_at }})
-                      @if ($item->getRawOriginal('start_at') > now())
-                        <span class="text-success">Chưa diễn ra</span>
+                      {!! $item->statusHTML !!}
+                      @if ($item->myDangKy->isEmpty())
+                        <span class="text-danger">-Không đăng ký</span>
                       @else
-                        @if (\Carbon\Carbon::now()->between($item->getRawOriginal('start_at'), $item->getRawOriginal('end_at')))
-                          <span class="text-warning">Đang diễn ra</span>  
-                        @else
-                          <span class="text-danger">Đã diễn ra</span>
-                        @endif
+                        <span class="text-success">-Đã đăng ký</span>
                       @endif
                     </a>
                   @endforeach
