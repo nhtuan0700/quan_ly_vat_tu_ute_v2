@@ -45,12 +45,14 @@ class PhieuDeNghi extends Model
         if ($this->is_mua) {
             $data = DB::table('vanphongpham')
                 ->join('chitietmua', 'vanphongpham.id', '=', 'chitietmua.id_vanphongpham')
+                ->where('chitietmua.id_phieu', $this->id)
                 ->select('id', 'name', 'dvt', 'qty', 'cost')
                 ->get();
             return $data;
         }
         $data = DB::table('thietbi')
             ->join('chitietsua', 'thietbi.id', '=', 'chitietsua.id_thietbi')
+            ->where('chitietsua.id_phieu', $this->id)
             ->select('id', 'name', 'phong', 'reason', 'cost', 'status')
             ->get();
         return $data;

@@ -44,6 +44,7 @@ Quản lý thiết bị
                   <th scope="col">ID</th>
                   <th scope="col">Tên</th>
                   <th scope="col">Phòng</th>
+                  <th scope="col">Trạng thái</th>
                   <th scope="col" width="10%">Action</th>
                 </tr>
               </thead>
@@ -53,6 +54,7 @@ Quản lý thiết bị
                   <th>{{ $item->id }}</th>
                   <td>{{ $item->name }}</td>
                   <td>{{ $item->phong }}</td>
+                  <td>{{ $item->statusText }}</td>
                   <td>
                     <div class="d-flex justify-content-center">
                       <a href="{{ route('thietbi.edit', ['id' => $item->id]) }}"

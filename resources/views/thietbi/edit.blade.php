@@ -56,6 +56,10 @@ Quản lý thiết bị
                         </div>
                         @enderror
                       </div>
+                      <div class="form-group col-md-3">
+                        <label>Trạng thái:</label>
+                        <p>{{ $thietbi->statusText }}</p>
+                      </div>
                     </div>
                     
                     <div class="form-row">

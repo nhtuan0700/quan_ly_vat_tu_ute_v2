@@ -72,6 +72,7 @@ Quản lý phiếu sửa
                             <th>Mã thiết bị</th>
                             <th>Tên thiết bị</th>
                             <th>Phòng</th>
+                            <th>Trạng thái</th>
                             <th>Lý do sửa</th>
                             <th></th>
                           </tr>
@@ -86,7 +87,9 @@ Quản lý phiếu sửa
                               <td>{{ $item->name }}</td>
                               <td>{{ $item->phong }}</td>
                               <td>
-                                
+                                @include('thietbi.components.status')
+                              </td>
+                              <td>
                                 <input class="form-control" name="thietbi[{{ $item->id }}]" 
                                   value="{{ $item->reason }}" />
                               </td>

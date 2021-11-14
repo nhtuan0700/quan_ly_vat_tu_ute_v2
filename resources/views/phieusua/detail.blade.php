@@ -70,8 +70,8 @@ Quản lý phiếu sửa
                         <th>Tên thiết bị</th>
                         <th>Phòng</th>
                         <th>Lý do sửa</th>
+                        <th>Tình trạng</th>
                         <th>Chi phí sửa</th>
-                        <th>Tình trạng sửa</th>
                       </tr>
                       <tbody>
                         @php
@@ -82,9 +82,11 @@ Quản lý phiếu sửa
                             <th>{{ $item->id }}</th>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->phong }}</td>
+                            <td>
+                              @include('thietbi.components.status')
+                            </td>
                             <td>{{ $item->reason }}</td>
                             <td>{{ $item->cost }}</td>
-                            <td>{{ $item->status }}</td>
                           </tr>
                         @endforeach
                       </tbody>

@@ -25,7 +25,7 @@ class PhieuDenghiRepository extends BaseRepository implements PhieuDenghiInterfa
         if (!$last_field) {
             $count = str_pad(1, 3, '0', STR_PAD_LEFT);
         } else {
-            $count = intval(substr($last_field->ID, -3)) + 1;
+            $count = intval(substr($last_field->id, -3)) + 1;
             $count = str_pad($count, 3, '0', STR_PAD_LEFT);
         }
         $new_id = $prefix . $count;

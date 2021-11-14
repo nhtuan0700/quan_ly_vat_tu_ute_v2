@@ -55,20 +55,19 @@ class PhieuMuaController extends Controller
         };
         $id_donvi = auth()->user()->id_donvi;
         $vanphongpham_tonghop = $this->dangKyVPPRepo->tongHopDangKyDonVi($id_dotdk, $id_donvi);
-        $list_dangky_donvi = $this->dangKyVPPRepo->listByDonVi($id_dotdk, $id_donvi);
+        $list_dangky_donvi = $this->dangKyVPPRepo->detailByDonVi($id_dotdk, $id_donvi);
         return view('phieumua.create', compact('vanphongpham_tonghop', 'list_dangky_donvi', 'id_dotdk'));
     }
 
     public function store(Request $request, $id_dotdk)
     {
+
         $dot_dk = $this->dotDangKyRepo->findOrFail($id_dotdk);
         $start_time = $dot_dk->getRawOriginal('start_at');
         $end_time = $dot_dk->getRawOriginal('end_at');
-
-        if (now() <= $end_time || !!$dot_dk->phieumua) {
+        if (now() <= $end_time || !!$dot_dk->getPhieuMuaDonVi()) {
             return redirect(route('phieumua.create', ['id_dotdk' => $id_dotdk]));
         }
-
         try {
             DB::beginTransaction();
             $data = [
@@ -77,6 +76,7 @@ class PhieuMuaController extends Controller
                 'id_dotdk' => $id_dotdk,
                 'note' => $request->note
             ];
+            
             $new_phieu = $this->phieuMuaRepo->create_mua($data);
             $vanphongpham_tonghop = $this->dangKyVPPRepo->tongHopDangKyDonVi($id_dotdk, auth()->user()->id_donvi);
             $chiTietMuaRepo = app(ChiTietMuaInterface::class);
@@ -87,13 +87,13 @@ class PhieuMuaController extends Controller
                     'qty' => $item->qty
                 ]);
             }
-            $this->dangKyVPPRepo->updateStatusDonVi($new_phieu->id_donvi);
+            $this->dangKyVPPRepo->updateAfterCreated($new_phieu->id_donvi, $id_dotdk, $new_phieu->id);
             DB::commit();
             return redirect(route('phieumua.detail', ['id' => $new_phieu->id]))
                 ->with('alert-success', trans('alert.create.success'));
         } catch (\Throwable $th) {
             DB::rollBack();
-            return 'Lỗi';
+            return $th->getMessage();
         }
     }
 
@@ -101,7 +101,7 @@ class PhieuMuaController extends Controller
     {
         $phieu = $this->phieuMuaRepo->find_mua($id);
         $this->authorize('view_mua', $phieu);
-        $list_dangky_donvi = $this->dangKyVPPRepo->listByDonVi($phieu->id_dotdk, $phieu->id_donvi);
+        $list_dangky_donvi = $this->dangKyVPPRepo->detailByDonVi($phieu->id_dotdk, $phieu->id_donvi, $phieu->id);
         return view('phieumua.detail', compact('phieu', 'list_dangky_donvi'));
     }
 

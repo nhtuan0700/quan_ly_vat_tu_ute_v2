@@ -87,6 +87,7 @@ Quản lý phiếu mua đơn vị
                                 <tr>
                                   <th>Mã cán bộ</th>
                                   <th>Tên cán bộ</th>
+                                  <th>Đơn vị</th>
                                   <th>Tên văn phòng phẩm</th>
                                   <th>Đơn vị tính</th>
                                   <th class="text-center">Số lượng yêu cầu</th>
@@ -96,6 +97,7 @@ Quản lý phiếu mua đơn vị
                                     <tr>
                                       <th>{{ $item->id_user }}</th>
                                       <td>{{ $item->name_user }}</td>
+                                      <td>{{ $item->name_donvi }}</td>
                                       <td>{{ $item->name_vpp }}</td>
                                       <td>{{ $item->dvt }}</td>
                                       <td class="text-center">{{ $item->qty }}</td>

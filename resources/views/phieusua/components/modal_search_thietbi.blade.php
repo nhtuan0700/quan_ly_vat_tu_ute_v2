@@ -26,6 +26,7 @@
               <th>Tên thiết bị</th>
               <th>Phòng</th>
               <th>Ngày cấp</th>
+              <th>Trạng thái</th>
               <th></th>
             </tr>
           </thead>
@@ -52,18 +53,19 @@
       $('table#table-thietbi tbody tr').each(function(item) {
         id_exists.push($(this).data('id'))
       });
-      console.log(id_exists)
       let data =  {
         id: $('input#id_thietbi').val(),
         id_exists: id_exists
       };
       ajax(url, data, "get", function(response) {
+        console.log(response)
         let rowHTML = response.map(function(item) {
           return `<tr>
                     <td class="id">${item.id}</td>
                     <td class="name">${item.name}</td>
                     <td class="phong">${item.phong}</td>
                     <td class="ngay_cap">${item.ngay_cap || ''}</td>
+                    <td class="status">${item.statusText}</td>
                     <td>
                       <button type="button" class="btn btn-info btn-add btn-sm"  
                         data-id="${item.id}" onclick="addItem(this)">
@@ -83,12 +85,14 @@
     let obj = {
       id: parent.find('td.id').text(),
       name: parent.find('td.name').text(),
-      phong: parent.find('td.phong').text()
+      phong: parent.find('td.phong').text(),
+      statusText: parent.find('td.status').text()
     }
     let rowHTML = `<tr data-id="${obj.id}">
                     <th class="id">${obj.id}</th>
                     <td class="name">${obj.name}</td>
                     <td class="phong">${obj.phong}</td>
+                    <td class="phong">${obj.statusText}</td>
                     <td>
                       <input class="form-control" name="thietbi[${obj.id}]" value="" />
                     </td>

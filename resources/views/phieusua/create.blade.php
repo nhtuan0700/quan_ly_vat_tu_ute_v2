@@ -47,6 +47,7 @@ Quản lý phiếu sửa
                             <th>Mã thiết bị</th>
                             <th>Tên thiết bị</th>
                             <th>Phòng</th>
+                            <th>Trạng thái</th>
                             <th>Lý do sửa</th>
                             <th></th>
                           </tr>
