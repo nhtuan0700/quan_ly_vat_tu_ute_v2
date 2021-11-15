@@ -40,7 +40,7 @@ class PhieuDeNghi extends Model
         return $this->hasMany(ChiTietSua::class, 'id_phieu', 'id');
     }
 
-    public function thietbi()
+    public function thiet_bi()
     {
         return $this->belongsToMany(ThietBi::class, 'chitietsua', 'id_phieu', 'id_thietbi');
     }
@@ -63,12 +63,12 @@ class PhieuDeNghi extends Model
         return $data;
     }
 
-    public function scopePhieuMua($query)
+    public function scopeMua($query)
     {
         return $query->where('is_mua', true);
     }
 
-    public function scopePhieuSua($query)
+    public function scopeSua($query)
     {
         return $query->where('is_mua', false);
     }

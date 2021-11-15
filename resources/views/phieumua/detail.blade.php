@@ -125,7 +125,7 @@ Quản lý phiếu mua đơn vị
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->dvt }}</td>
                             <td class="text-center">{{ $item->qty }}</td>
-                            <td>{{ $item->cost }}</td>
+                            <td>{{ format_currency($item->cost) }}</td>
                           </tr>
                         @endforeach
                       </tbody>

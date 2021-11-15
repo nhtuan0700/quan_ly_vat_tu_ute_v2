@@ -52,7 +52,7 @@ class PhieuDenghiRepository extends BaseRepository implements PhieuDenghiInterfa
 
     public function listPhieuMuaDonVi()
     {
-        return $this->model->phieumua()
+        return $this->model->mua()
             ->where('id_donvi', auth()->user()->id_donvi)
             ->orderby('created_at', 'desc')
             ->paginate($this->limit);
@@ -60,7 +60,7 @@ class PhieuDenghiRepository extends BaseRepository implements PhieuDenghiInterfa
 
     public function listPhieuSua()
     {
-        return $this->model->phieusua()
+        return $this->model->sua()
             ->where('id_creator', auth()->id())
             ->orderby('created_at', 'desc')
             ->paginate($this->limit);
@@ -69,9 +69,9 @@ class PhieuDenghiRepository extends BaseRepository implements PhieuDenghiInterfa
     public function search2($request, $is_mua = true)
     {
         if ($is_mua) {
-            $model = $this->model->phieumua()->where('id_donvi', auth()->user()->id_donvi);
+            $model = $this->model->mua()->where('id_donvi', auth()->user()->id_donvi);
         } else {
-            $model = $this->model->phieusua()->where('id_creator', auth()->id());
+            $model = $this->model->sua()->where('id_creator', auth()->id());
         }
         if ($request->id) {
             $model->where('id', $request->id);
@@ -97,10 +97,10 @@ class PhieuDenghiRepository extends BaseRepository implements PhieuDenghiInterfa
 
     public function find_mua($id)
     {
-        return $this->model->phieumua()->where('id', $id)->firstOrFail();
+        return $this->model->mua()->where('id', $id)->firstOrFail();
     }
     public function find_sua($id)
     {
-        return $this->model->phieusua()->where('id', $id)->firstOrFail();
+        return $this->model->sua()->where('id', $id)->firstOrFail();
     }
 }

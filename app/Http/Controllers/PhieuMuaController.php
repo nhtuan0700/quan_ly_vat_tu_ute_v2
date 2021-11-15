@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class PhieuMuaController extends Controller
 {
     protected $phieuMuaRepo;
-    protected $dangKyVPPRepo;
+    protected $dangKyRepo;
     protected $dotDangKyRepo;
     protected $chiTietMuaRepo;
 
@@ -23,7 +23,7 @@ class PhieuMuaController extends Controller
         ChiTietMuaInterface $chiTietMuaInterface
     ) {
         $this->phieuMuaRepo = $phieuDeNghiInterface;
-        $this->dangKyVPPRepo = $dangKyVanPhongPhamInterface;
+        $this->dangKyRepo = $dangKyVanPhongPhamInterface;
         $this->dotDangKyRepo = $dotDangKyInterface;
         $this->chiTietMuaRepo = $chiTietMuaInterface;
     }
@@ -57,8 +57,8 @@ class PhieuMuaController extends Controller
             return redirect(route('phieumua.detail', ['id' => $dot_dk->getPhieuMuaDonVi()->id]));
         };
         $id_donvi = auth()->user()->id_donvi;
-        $vanphongpham_tonghop = $this->dangKyVPPRepo->tongHopDangKyDonVi($id_dotdk, $id_donvi);
-        $list_dangky_donvi = $this->dangKyVPPRepo->detailByDonVi($id_dotdk, $id_donvi);
+        $vanphongpham_tonghop = $this->dangKyRepo->tongHopDangKyDonVi($id_dotdk, $id_donvi);
+        $list_dangky_donvi = $this->dangKyRepo->detailByDonVi($id_dotdk, $id_donvi);
         return view('phieumua.create', compact('vanphongpham_tonghop', 'list_dangky_donvi', 'id_dotdk'));
     }
 
@@ -80,7 +80,7 @@ class PhieuMuaController extends Controller
             ];
             
             $new_phieu = $this->phieuMuaRepo->create_mua($data);
-            $vanphongpham_tonghop = $this->dangKyVPPRepo->tongHopDangKyDonVi($id_dotdk, auth()->user()->id_donvi);
+            $vanphongpham_tonghop = $this->dangKyRepo->tongHopDangKyDonVi($id_dotdk, auth()->user()->id_donvi);
             foreach ($vanphongpham_tonghop as $item) {
                 $this->chiTietMuaRepo->create([
                     'id_phieu' => $new_phieu->id,
@@ -88,7 +88,7 @@ class PhieuMuaController extends Controller
                     'qty' => $item->qty
                 ]);
             }
-            $this->dangKyVPPRepo->updateAfterCreated($new_phieu->id_donvi, $id_dotdk, $new_phieu->id);
+            $this->dangKyRepo->updateAfterCreated($new_phieu->id_donvi, $id_dotdk, $new_phieu->id);
             DB::commit();
             return redirect(route('phieumua.detail', ['id' => $new_phieu->id]))
                 ->with('alert-success', trans('alert.create.success'));
@@ -102,7 +102,7 @@ class PhieuMuaController extends Controller
     {
         $phieu = $this->phieuMuaRepo->find_mua($id);
         $this->authorize('view_mua', $phieu);
-        $list_dangky_donvi = $this->dangKyVPPRepo->detailByDonVi($phieu->id_dotdk, $phieu->id_donvi, $phieu->id);
+        $list_dangky_donvi = $this->dangKyRepo->detailByDonVi($phieu->id_dotdk, $phieu->id_donvi, $phieu->id);
         return view('phieumua.detail', compact('phieu', 'list_dangky_donvi'));
     }
 
