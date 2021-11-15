@@ -84,10 +84,13 @@ function formatCurrency(input, blur) {
   caret_pos = updated_len - original_len + caret_pos;
   input[0].setSelectionRange(caret_pos, caret_pos);
 }
-let input_currency = $("input[data-type='currency']");
-input_currency.val(formatNumber(input_currency.val()))
 
-input_currency.closest("form").submit(function() {
-  var currency = input_currency.val()
-  input_currency.val(currency.replaceAll(",",""))
+$("input[data-type='currency']").each(function(item) {
+  $(this).val(formatNumber($(this).val()))
+});
+
+$('form').submit(function() {
+  $("input[data-type='currency']").each(function() {
+    $(this).val($(this).val().replaceAll(",",""))
+  });
 })

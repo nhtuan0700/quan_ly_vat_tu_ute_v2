@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
+    ConfirmController,
     DangKyVanPhongPhamController,
     DotDangKyController,
     HomeController,
@@ -113,5 +114,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{id?}', [PhieuSuaController::class, 'update'])->name('update');
         Route::get('/search', [PhieuSuaController::class, 'search'])->name('search');
         Route::delete('/delete/{id?}', [PhieuSuaController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'confirm.', 'prefix' => 'xet-duyet', 'middleware' => 'acl:phieu-confirm'], function() {
+        Route::get('/', [ConfirmController::class, 'index'])->name('index');
+        Route::get('/detail/{id?}', [ConfirmController::class, 'detail'])->name('detail');
+        Route::post('/confirm/{id?}', [ConfirmController::class, 'confirm'])->name('confirm');
+        Route::post('/update-sua/{id?}', [ConfirmController::class, 'update_detail_sua'])->name('update_sua');
     });
 });

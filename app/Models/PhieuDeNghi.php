@@ -26,7 +26,7 @@ class PhieuDeNghi extends Model
         return $this->belongsTo(User::class, 'id_creator', 'id');
     }
 
-    public function nv_csvc()
+    public function confirmer()
     {
         return $this->belongsTo(User::class, 'id_csvc', 'id');
     }
@@ -40,6 +40,11 @@ class PhieuDeNghi extends Model
         return $this->hasMany(ChiTietSua::class, 'id_phieu', 'id');
     }
 
+    public function thietbi()
+    {
+        return $this->belongsToMany(ThietBi::class, 'chitietsua', 'id_phieu', 'id_thietbi');
+    }
+
     public function details()
     {
         if ($this->is_mua) {
@@ -48,13 +53,13 @@ class PhieuDeNghi extends Model
                 ->where('chitietmua.id_phieu', $this->id)
                 ->select('id', 'name', 'dvt', 'qty', 'cost')
                 ->get();
-            return $data;
+        } else {
+            $data = DB::table('thietbi')
+                ->join('chitietsua', 'thietbi.id', '=', 'chitietsua.id_thietbi')
+                ->where('chitietsua.id_phieu', $this->id)
+                ->select('id', 'name', 'phong', 'reason', 'cost', 'status')
+                ->get();
         }
-        $data = DB::table('thietbi')
-            ->join('chitietsua', 'thietbi.id', '=', 'chitietsua.id_thietbi')
-            ->where('chitietsua.id_phieu', $this->id)
-            ->select('id', 'name', 'phong', 'reason', 'cost', 'status')
-            ->get();
         return $data;
     }
 
@@ -78,5 +83,13 @@ class PhieuDeNghi extends Model
             case self::FINISH:
                 return '<span class="badge badge-success">Đã hoàn thành</span>';
         }
+    }
+
+    public function getCategoryAttribute()
+    {
+        if ($this->is_mua) {
+            return 'Phiếu Mua';
+        }
+        return 'Phiếu Sửa';
     }
 }

@@ -16,4 +16,6 @@ interface PhieuDeNghiInterface extends RepositoryInterface
     public function find_mua($id);
     public function create_sua($attributes = []);
     public function find_sua($id);
+
+    public function confirm($id);
 }

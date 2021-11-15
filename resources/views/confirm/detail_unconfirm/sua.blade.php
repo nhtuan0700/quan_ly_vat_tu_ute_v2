@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-Quản lý phiếu sửa
+Xét duyệt phiếu đề nghị
 @endsection
 @section('content')
 <section class="content">
@@ -13,11 +13,9 @@ Quản lý phiếu sửa
               <p class="card-title mr-3">Chi tiết</p>
             </div>
           </div>
-
           <div class="card-body">
-            <form method="POST" action="{{ route('phieusua.update', ['id' => $phieu->id]) }}" id="form-phieu">
+            <form action="{{ route('confirm.confirm', ['id' => $phieu->id]) }}" method="post">
               @csrf
-              @method('put')
               <div class="form-row">
                 <div class="form-group col-md-3">
                   <label>Mã phiếu:</label>
@@ -51,58 +49,53 @@ Quản lý phiếu sửa
                   <label>Ngày duyệt:</label>
                   <p>{{ $phieu->confirmed_at }}</p>
                 </div>
+                <div class="form-group col-md-3">
+                  <label>Loại phiếu:</label>
+                  <p>{{ $phieu->category }}</p>
+                </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="name">Ghi chú:</label>
-                  <textarea name="note" class="form-control" rows="2" style="resize:none">{{ $phieu->note }}</textarea>                        
+                  <p>
+                    {{ $phieu->note }}
+                  </p>
                 </div>
               </div>
               <hr>
               <div>
                 <h5>Danh sách thiết bị đề nghị sửa</h5>
-                @include('phieusua.components.modal_search_thietbi')
-                <table class="table" id="table-thietbi">
-                  <thead>
-                    <tr>
-                      <th>Mã thiết bị</th>
-                      <th>Tên thiết bị</th>
-                      <th>Phòng</th>
-                      <th>Tình trạng</th>
-                      <th>Lý do sửa</th>
-                      <th></th>
-                    </tr>
-                  </thead>
+                <table class="table">
+                  <tr>
+                    <th>Mã thiết bị</th>
+                    <th>Tên thiết bị</th>
+                    <th>Phòng</th>
+                    <th>Tình trạng</th>
+                    <th>Lý do sửa</th>
+                    <th>Chi phí sửa</th>
+                  </tr>
                   <tbody>
                     @php
                       $i = 1;
                     @endphp
                     @foreach ($phieu->details() as $item)
-                      <tr data-id="{{ $item->id }}">
+                      <tr>
                         <th>{{ $item->id }}</th>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->phong }}</td>
                         <td>
                           @include('thietbi.components.status')
                         </td>
-                        <td>
-                          <input class="form-control" name="thietbi[{{ $item->id }}]" 
-                            value="{{ $item->reason }}" />
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-danger btn-remove btn-sm"  
-                            data-id="{{ $item->id }}" onclick="removeItem(this)">
-                            Xóa
-                        </button> 
-                        </td>
+                        <td>{{ $item->reason }}</td>
+                        <td>{{ $item->cost }}</td>
                       </tr>
                     @endforeach
                   </tbody>
                 </table>
 
               </div>
-              <a href="{{ route('phieusua.detail', ['id' => $phieu->id]) }}" class="btn btn-warning mr-2">Trở về</a>
-              <button class="btn btn-primary mr-2" form="form-phieu">Cập nhật</button>
+              <a href="{{ route('confirm.index') }}" class="btn btn-warning mr-2">Trở về</a>
+              <button type="submit" class="btn btn-primary">Duyệt phiếu</button>
             </form>
           </div>
         </div>
@@ -111,8 +104,4 @@ Quản lý phiếu sửa
 
   </div>
 </section>
-@endsection
-
-@section('script')
-@stack('js')
 @endsection

@@ -75,6 +75,16 @@
           </li>
         @endcan
 
+        @can('phieu-confirm')
+          <li class="nav-item">
+            <a href="{{ route('confirm.index') }}" class="nav-link" id="link-xet-duyet">
+              <p>
+                Xét duyệt phiếu đề nghị
+              </p>
+            </a>
+          </li>
+        @endcan
+
         <li class="nav-item">
           <a href="{{ route('dangky_vpp.index') }}" class="nav-link" id="link-dk-vpp">
             <p>

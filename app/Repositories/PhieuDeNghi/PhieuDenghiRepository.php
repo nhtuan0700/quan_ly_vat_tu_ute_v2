@@ -85,6 +85,16 @@ class PhieuDenghiRepository extends BaseRepository implements PhieuDenghiInterfa
             ->appends(request()->all());
     }
 
+    public function confirm($id)
+    {
+        $phieu = $this->model->findOrfail($id);
+        $phieu->update([
+            'status' => self::CONFIRMED,
+            'id_csvc' => auth()->id(),
+            'confirmed_at' => now()
+        ]);
+    }
+
     public function find_mua($id)
     {
         return $this->model->phieumua()->where('id', $id)->firstOrFail();

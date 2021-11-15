@@ -6,4 +6,5 @@ use App\Repositories\RepositoryInterface;
 
 interface ChiTietSuaInterface extends RepositoryInterface
 {
+    public function updateWhenConfirmed($id);
 }

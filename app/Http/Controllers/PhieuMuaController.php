@@ -14,15 +14,18 @@ class PhieuMuaController extends Controller
     protected $phieuMuaRepo;
     protected $dangKyVPPRepo;
     protected $dotDangKyRepo;
+    protected $chiTietMuaRepo;
 
     public function __construct(
         PhieuDeNghiInterface $phieuDeNghiInterface,
         DangKyVanPhongPhamInterface $dangKyVanPhongPhamInterface,
-        DotDangKyInterface $dotDangKyInterface
+        DotDangKyInterface $dotDangKyInterface,
+        ChiTietMuaInterface $chiTietMuaInterface
     ) {
         $this->phieuMuaRepo = $phieuDeNghiInterface;
         $this->dangKyVPPRepo = $dangKyVanPhongPhamInterface;
         $this->dotDangKyRepo = $dotDangKyInterface;
+        $this->chiTietMuaRepo = $chiTietMuaInterface;
     }
 
     public function index()
@@ -61,7 +64,6 @@ class PhieuMuaController extends Controller
 
     public function store(Request $request, $id_dotdk)
     {
-
         $dot_dk = $this->dotDangKyRepo->findOrFail($id_dotdk);
         $start_time = $dot_dk->getRawOriginal('start_at');
         $end_time = $dot_dk->getRawOriginal('end_at');
@@ -79,9 +81,8 @@ class PhieuMuaController extends Controller
             
             $new_phieu = $this->phieuMuaRepo->create_mua($data);
             $vanphongpham_tonghop = $this->dangKyVPPRepo->tongHopDangKyDonVi($id_dotdk, auth()->user()->id_donvi);
-            $chiTietMuaRepo = app(ChiTietMuaInterface::class);
             foreach ($vanphongpham_tonghop as $item) {
-                $chiTietMuaRepo->create([
+                $this->chiTietMuaRepo->create([
                     'id_phieu' => $new_phieu->id,
                     'id_vanphongpham' => $item->id_vanphongpham,
                     'qty' => $item->qty

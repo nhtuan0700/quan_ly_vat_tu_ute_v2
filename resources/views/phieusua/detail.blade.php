@@ -45,7 +45,7 @@ Quản lý phiếu sửa
                   <div class="form-row">
                     <div class="form-group col-md-3">
                       <label>Cán bộ duyệt:</label>
-                      <p>{{ optional($phieu->csvc)->name }}</p>
+                      <p>{{ optional($phieu->confirmer)->name }}</p>
                     </div>
                     <div class="form-group col-md-3">
                       <label>Ngày duyệt:</label>
@@ -62,15 +62,14 @@ Quản lý phiếu sửa
                   </div>
                   <hr>
                   <div>
-                    <h5>Danh sách tổng hợp đăng ký văn phòng phẩm của đơn vị 
-                    </h5>
+                    <h5>Danh sách thiết bị đề nghị sửa</h5>
                     <table class="table">
                       <tr>
                         <th>Mã thiết bị</th>
                         <th>Tên thiết bị</th>
                         <th>Phòng</th>
-                        <th>Lý do sửa</th>
                         <th>Tình trạng</th>
+                        <th>Lý do sửa</th>
                         <th>Chi phí sửa</th>
                       </tr>
                       <tbody>

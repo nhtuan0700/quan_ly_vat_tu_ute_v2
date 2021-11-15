@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\PhieuDeNghi;
+use App\Models\Role;
 use App\Models\User;
+use App\Models\PhieuDeNghi;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PhieuDeNghiPolicy
@@ -32,5 +33,17 @@ class PhieuDeNghiPolicy
         return $user->id === $phieuDeNghi->id_creator &&
             $phieuDeNghi->status == PhieuDeNghi::CONFIRMING &&
             !$phieuDeNghi->is_mua;
+    }
+
+    public function confirm(User $user, PhieuDeNghi $phieuDeNghi)
+    {
+        return $phieuDeNghi->status == PhieuDeNghi::CONFIRMING &&
+            $user->id_role == Role::CSVC;
+    }
+
+    public function update_detail_sua(User $user, PhieuDeNghi $phieuDeNghi)
+    {
+        return $phieuDeNghi->status == PhieuDeNghi::CONFIRMED &&
+            $user->id_role == Role::CSVC;
     }
 }
