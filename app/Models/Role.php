@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     const ADMIN = 1;
-    const CSVC = 2;
-    const QLVT = 3;
-    const GVCB = 4;
+    const HANDLER = 2;
+    const MANAGER = 3;
+    const GUEST = 4;
 
     protected $table = 'role';
 

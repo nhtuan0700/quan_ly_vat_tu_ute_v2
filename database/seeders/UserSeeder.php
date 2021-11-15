@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserInterface;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -22,15 +21,15 @@ class UserSeeder extends Seeder
                 // 'dob' => '1977/1/1',
                 'dob' => '1/1/1977',
                 'tel' => '0123456789',
-                'cmnd' => '201201201',
+                'id_card' => '201201201',
                 'email' => 'admin@ute.udn.vn',
                 'password' => Hash::make('123123'),
                 'id_role' => 1,
-                'id_donvi' => 'PCSVC',
+                'id_department' => 'PCSVC',
             ]
         ];
 
-        $userRepo = new UserRepository();
+        $userRepo = app(UserInterface::class);
         foreach ($data as $item) {
             $userRepo->create($item);
         }

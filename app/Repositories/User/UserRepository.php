@@ -4,9 +4,9 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Repositories\BaseRepository;
-use App\Repositories\HanMuc\HanMucRepository;
+use App\Repositories\Stationery\StationeryInterface;
+use App\Repositories\StationLimit\StationLimitInterface;
 use App\Repositories\User\UserInterface;
-use App\Repositories\VanPhongPham\VanPhongPhamRepository;
 
 class UserRepository extends BaseRepository implements UserInterface
 {
@@ -35,21 +35,21 @@ class UserRepository extends BaseRepository implements UserInterface
     public function create($attributes = [])
     {
         $attributes['id'] = $attributes['id'] ?? $this->getAutoId();
-        $new_data = parent::create($attributes);
-        $vanPhongPhamRepo = new VanPhongPhamRepository;
-        $hanMucRepository = new HanMucRepository;
-        $list_vpp = $vanPhongPhamRepo->all();
-        foreach ($list_vpp as $item) {
-            $hanMuc = [
-                'id_user' => $new_data->id,
-                'id_vanphongpham' => $item->id,
+        $new_user = parent::create($attributes);
+        $stationeryRepo = app(StationeryInterface::class);
+        $limitRepo = app(StationLimitInterface::class);
+        $stationeries = $stationeryRepo->all();
+        foreach ($stationeries as $item) {
+            $limit = [
+                'id_user' => $new_user->id,
+                'id_stationery' => $item->id,
                 'qty_used' => 0,
-                'qty_max' => $item->hanmuc_tb,
-                'quy' => quy_in_year(),
+                'qty_max' => $item->limit_avg,
+                'quarter_year' => quarter_of_year(),
                 'year' => now()->year
             ];
-            $hanMucRepository->create($hanMuc);
+            $limitRepo->create($limit);
         }
-        return $new_data;
+        return $new_user;
     }
 }
