@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\RequestNote;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -23,6 +25,8 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('process_note.*', function ($view) {
+            $view->with('StatusNote', RequestNote::class);
+        });
     }
 }

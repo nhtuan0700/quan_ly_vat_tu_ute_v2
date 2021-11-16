@@ -25,12 +25,12 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return  [
-            'name' => 'required',
+            'name' => 'required|string',
             'tel' => 'required|regex:/[0-9]{10}/',
             'dob' => 'required|date_format:d/m/Y',
-            'cmnd' => 'required',
+            'id_card' => 'required|string|min:9|max:12',
             'id_role' => 'required|exists:role,id',
-            'id_donvi' => 'required|exists:donvi,id'
+            'id_department' => 'required|exists:department,id'
         ];
     }
 
@@ -40,8 +40,8 @@ class UpdateUser extends FormRequest
             'tel' => 'số điện thoại',
             'id_role' => 'vai trò',
             'dob' => 'ngày sinh',
-            'cmnd' => 'chứng minh nhân dân',
-            'id_donvi' => 'đơn vị'
+            'id_card' => 'chứng minh nhân dân',
+            'id_department' => 'đơn vị'
         ];
     }
 }

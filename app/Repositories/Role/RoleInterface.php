@@ -8,5 +8,5 @@ use App\Repositories\RepositoryInterface;
 interface RoleInterface extends RepositoryInterface
 {
 	const ADMIN = Role::ADMIN;
-	const CSVC = Role::CSVC;
+	const HANDLER = Role::HANDLER;
 }

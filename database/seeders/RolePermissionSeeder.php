@@ -17,18 +17,20 @@ class RolePermissionSeeder extends Seeder
     public function run()
     {
         DB::table('role_permission')->truncate();
-        $admin = ['user-manage', 'permission-manage', 'vattu-manage', 'dk-manage', 'hanmuc-manage'];
-        foreach ($admin as $item) {
+        $admin_permissions = ['user-manage', 'permission-manage', 'supplies-manage', 'period-manage', 'limit-manage'];
+        foreach ($admin_permissions as $item) {
             $permission = Permission::where('name', $item)->first()->id;
             Role::find(1)->permissions()->attach($permission);
         }
-        $csvc = ['phieu-confirm', 'phieubangiao-manage'];
-        foreach ($csvc as $item) {
+
+        $handler_permissions = ['request_note-process', 'handover_note-manage'];
+        foreach ($handler_permissions as $item) {
             $permission = Permission::where('name', $item)->first()->id;
             Role::find(2)->permissions()->attach($permission);
         }
-        $qlvt = ['phieumua-manage', 'dk-confirm'];
-        foreach ($qlvt as $item) {
+
+        $manger_permissions = ['buy_note-manage', 'registration-handover'];
+        foreach ($manger_permissions as $item) {
             $permission = Permission::where('name', $item)->first()->id;
             Role::find(3)->permissions()->attach($permission);
         }

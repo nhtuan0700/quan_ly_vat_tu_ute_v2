@@ -25,7 +25,7 @@
             </p>
           </a>
         </li>
-        {{-- Người dùng --}}
+
         @can('user-manage')
           <li class="nav-item">
             <a href="{{ route('user.index') }}" class="nav-link" id="link-user">
@@ -35,8 +35,8 @@
             </a>
           </li>
         @endcan
-        {{-- Vật tư --}}
-        @can('vattu-manage')
+
+        @can('supplies-manage')
         <li class="nav-item">
           <a href="#" class="nav-link" id="link-vat-tu">
             <p>
@@ -46,7 +46,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('vanphongpham.index') }}" class="nav-link" id="link-van-phong-pham">
+              <a href="{{ route('stationery.index') }}" class="nav-link" id="link-van-phong-pham">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
                   Văn phòng phẩm
@@ -54,7 +54,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('thietbi.index') }}" class="nav-link" id="link-thiet-bi">
+              <a href="{{ route('equipment.index') }}" class="nav-link" id="link-thiet-bi">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
                   Thiết bị
@@ -65,9 +65,9 @@
         </li>
         @endcan
 
-        @can('dk-manage')
+        @can('period-manage')
           <li class="nav-item">
-            <a href="{{ route('dotdangky.index') }}" class="nav-link" id="link-dot-dang-ky">
+            <a href="{{ route('period.index') }}" class="nav-link" id="link-dot-dang-ky">
               <p>
                 Quản lý đợt đăng ký mua văn phòng phẩm
               </p>
@@ -75,18 +75,21 @@
           </li>
         @endcan
 
-        @can('phieu-confirm')
+        @can('request_note-process')
           <li class="nav-item">
-            <a href="{{ route('confirm.index') }}" class="nav-link" id="link-xet-duyet">
+            <a href="{{ route('process_note.index') }}" class="nav-link" id="link-xu-ly">
               <p>
-                Xét duyệt phiếu đề nghị
+                Xét duyệt phiếu đề nghị 
+                <span class="text-white">
+                  <sup class="text-md">{{ count_note_processing() }}</sup>
+                </span>
               </p>
             </a>
           </li>
         @endcan
 
         <li class="nav-item">
-          <a href="{{ route('dangky_vpp.index') }}" class="nav-link" id="link-dk-vpp">
+          <a href="{{ route('registration.index') }}" class="nav-link" id="link-dang-ky-van-phong-pham">
             <p>
               Đăng ký văn phòng phẩm
             </p>
@@ -101,7 +104,7 @@
           </a>
         </li>
         
-        @can('phieumua-manage')
+        @can('buy_note-manage')
           <li class="nav-item">
             <a href="#" class="nav-link" id="link">
               <p>
@@ -111,9 +114,9 @@
           </li>
         @endcan
 
-        @can('phieumua-manage')
+        @can('buy_note-manage')
           <li class="nav-item">
-            <a href="{{ route('phieumua.index') }}" class="nav-link" id="link-phieu-mua">
+            <a href="{{ route('buy_note.index') }}" class="nav-link" id="link-phieu-mua">
               <p>
                 Quản lý phiếu mua của đơn vị
               </p>
@@ -122,7 +125,7 @@
         @endcan
 
         <li class="nav-item">
-          <a href="{{ route('phieusua.index') }}" class="nav-link" id="link-phieu-sua">
+          <a href="{{ route('fix_note.index') }}" class="nav-link" id="link-phieu-sua">
             <p>
               Quản lý phiếu sửa của tôi
             </p>

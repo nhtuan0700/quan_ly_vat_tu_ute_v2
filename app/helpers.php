@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\RequestNote;
 if (!function_exists('transformDateExcel')) {
     function transformDateExcel($value)
     {
@@ -10,8 +12,8 @@ if (!function_exists('transformDateExcel')) {
     }
 }
 
-if (!function_exists('quy_in_year')) {
-    function quy_in_year()
+if (!function_exists('quarter_of_year')) {
+    function quarter_of_year()
     {
         $month = now()->month;
         if ($month >= 1 && $month <= 4) {
@@ -29,6 +31,17 @@ if (!function_exists('quy_in_year')) {
 if (!function_exists('format_currency')) {
     function format_currency($currency)
     {
-		return number_format($currency) . " đ";
+        if ($currency) {
+            return number_format($currency) . " đ";
+        }
+        return '';
+    }
+}
+
+if (!function_exists('count_note_processing')) {
+    function count_note_processing()
+    {
+        $count = app(RequestNote::class)->where('status', RequestNote::PROCESSING)->count();
+        return $count;
     }
 }

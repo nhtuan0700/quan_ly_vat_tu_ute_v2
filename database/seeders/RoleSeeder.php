@@ -25,7 +25,7 @@ class RoleSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'name' => "Cán bộ quản lý vật tư"
+                'name' => "Quản lý vật tư"
             ],
             [
                 'id' => 4,

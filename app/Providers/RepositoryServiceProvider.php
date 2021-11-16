@@ -2,31 +2,31 @@
 
 namespace App\Providers;
 
-use App\Repositories\ChiTietMua\ChiTietMuaInterface;
-use App\Repositories\ChiTietMua\ChiTietMuaRepository;
-use App\Repositories\ChiTietSua\ChiTietSuaInterface;
-use App\Repositories\ChiTietSua\ChiTietSuaRepository;
-use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamInterface;
-use App\Repositories\DangKyVanPhongPham\DangKyVanPhongPhamRepository;
-use App\Repositories\DanhMuc\DanhMucInterface;
-use App\Repositories\DanhMuc\DanhMucRepository;
-use App\Repositories\DonVi\DonViInterface;
-use App\Repositories\DonVi\DonViRepository;
-use App\Repositories\DotDangKy\DotDangKyInterface;
-use App\Repositories\DotDangKy\DotDangKyRepository;
-use App\Repositories\HanMuc\HanMucInterface;
-use App\Repositories\HanMuc\HanMucRepository;
-use App\Repositories\PhieuDeNghi\PhieuDeNghiInterface;
-use App\Repositories\PhieuDenghi\PhieuDenghiRepository;
-use App\Repositories\Role\RoleInterface;
-use App\Repositories\Role\RoleRepository;
-use App\Repositories\ThietBi\ThietBiInterface;
-use App\Repositories\ThietBi\ThietBiRepository;
-use App\Repositories\User\UserInterface;
-use App\Repositories\User\UserRepository;
-use App\Repositories\VanPhongPham\VanPhongPhamInterface;
-use App\Repositories\VanPhongPham\VanPhongPhamRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Role\RoleInterface;
+use App\Repositories\User\UserInterface;
+use App\Repositories\Role\RoleRepository;
+use App\Repositories\User\UserRepository;
+use App\Repositories\Category\CategoryInterface;
+use App\Repositories\Category\CategoryRepository;
+use App\Repositories\DetailBuy\DetailBuyInterface;
+use App\Repositories\DetailFix\DetailFixInterface;
+use App\Repositories\Equipment\EquipmentInterface;
+use App\Repositories\DetailBuy\DetailBuyRepository;
+use App\Repositories\DetailFix\DetailFixRepository;
+use App\Repositories\Equipment\EquipmentRepository;
+use App\Repositories\Department\DepartmentInterface;
+use App\Repositories\Stationery\StationeryInterface;
+use App\Repositories\Department\DepartmentRepository;
+use App\Repositories\LimitStationery\LimitStationeryInterface;
+use App\Repositories\LimitStationery\LimitStationeryRepository;
+use App\Repositories\Stationery\StationeryRepository;
+use App\Repositories\RequestNote\RequestNoteInterface;
+use App\Repositories\RequestNote\RequestNoteRepository;
+use App\Repositories\Registration\RegistrationInterface;
+use App\Repositories\Registration\RegistrationRepository;
+use App\Repositories\PeriodRegistration\PeriodRegistrationInterface;
+use App\Repositories\PeriodRegistration\PeriodRegistrationRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -49,15 +49,15 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(RoleInterface::class, RoleRepository::class);
         $this->app->bind(UserInterface::class, UserRepository::class);
-        $this->app->bind(DonViInterface::class, DonViRepository::class);
-        $this->app->bind(VanPhongPhamInterface::class, VanPhongPhamRepository::class);
-        $this->app->bind(ThietBiInterface::class, ThietBiRepository::class);
-        $this->app->bind(DanhMucInterface::class, DanhMucRepository::class);
-        $this->app->bind(DotDangKyInterface::class, DotDangKyRepository::class);
-        $this->app->bind(HanMucInterface::class, HanMucRepository::class);
-        $this->app->bind(DangKyVanPhongPhamInterface::class, DangKyVanPhongPhamRepository::class);
-        $this->app->bind(PhieuDeNghiInterface::class, PhieuDenghiRepository::class);
-        $this->app->bind(ChiTietMuaInterface::class, ChiTietMuaRepository::class);
-        $this->app->bind(ChiTietSuaInterface::class, ChiTietSuaRepository::class);
+        $this->app->bind(DepartmentInterface::class, DepartmentRepository::class);
+        $this->app->bind(StationeryInterface::class, StationeryRepository::class);
+        $this->app->bind(EquipmentInterface::class, EquipmentRepository::class);
+        $this->app->bind(CategoryInterface::class, CategoryRepository::class);
+        $this->app->bind(PeriodRegistrationInterface::class, PeriodRegistrationRepository::class);
+        $this->app->bind(LimitStationeryInterface::class, LimitStationeryRepository::class);
+        $this->app->bind(RegistrationInterface::class, RegistrationRepository::class);
+        $this->app->bind(RequestNoteInterface::class, RequestNoteRepository::class);
+        $this->app->bind(DetailBuyInterface::class, DetailBuyRepository::class);
+        $this->app->bind(DetailFixInterface::class, DetailFixRepository::class);
     }
 }

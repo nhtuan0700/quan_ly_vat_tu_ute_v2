@@ -32,10 +32,10 @@ Quản lý người dùng
                         @enderror
                       </div>
                       <div class="form-group col-md-3">
-                        <label for="cmnd">CMND:</label>
-                        <input type="text" class="form-control @error('cmnd') is-invalid @enderror" id="cmnd"
-                          name="cmnd" value="{{ old('cmnd') }}">
-                        @error('cmnd')
+                        <label for="id_card">CMND:</label>
+                        <input type="text" class="form-control @error('id_card') is-invalid @enderror" id="id_card"
+                          name="id_card" value="{{ old('id_card') }}" maxlength="9">
+                        @error('id_card')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>
@@ -108,15 +108,15 @@ Quản lý người dùng
 
                       <div class="form-group col-md-3">
                         <label for="donvi">Đơn vị:</label>
-                        <select id="donvi" class="form-control select2 @error('id_don_vi') is-invalid @enderror"
-                          name="id_donvi">
-                          @foreach ($list_donvi as $item)
-                            <option value="{{ $item->id }}" @if ($item->id == old('id_don_vi')) selected @endif>
+                        <select id="donvi" class="form-control select2 @error('id_department') is-invalid @enderror"
+                          name="id_department">
+                          @foreach ($departments as $item)
+                            <option value="{{ $item->id }}" @if ($item->id == old('id_department')) selected @endif>
                               {{ $item->name }}
                             </option>
                           @endforeach
                         </select>
-                        @error('id_donvi')
+                        @error('id_department')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>

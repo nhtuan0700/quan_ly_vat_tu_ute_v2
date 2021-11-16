@@ -22,8 +22,8 @@ Quản lý người dùng
             <form method="GET" action="{{ route('user.search') }}">
               <div class="form-row">
                 {{-- ID --}}
-                <div class="form-group col-md-1">
-                  <label for="id">ID:</label>
+                <div class="form-group col-md-2">
+                  <label for="id">Mã:</label>
                   <input type="text" class="form-control" id="id" name="id"
                     value="{{ request()->id ?? '' }}" autocomplete="off">
                 </div>
@@ -44,7 +44,7 @@ Quản lý người dùng
                   <label for="donvi">Đơn vị:</label>
                   <select id="donvi" class="form-control select2" name="donvi">
                     <option value="">Tất cả</option>
-                    @foreach ($list_donvi as $item)
+                    @foreach ($departments as $item)
                       @if ($item->id == request()->donvi)
                         <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
                       @else
@@ -76,7 +76,7 @@ Quản lý người dùng
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
+                  <th scope="col">Mã</th>
                   <th scope="col">Họ Tên</th>
                   <th scope="col">Email</th>
                   <th scope="col">Số điện thoại</th>
@@ -92,7 +92,7 @@ Quản lý người dùng
                   <td>{{ $item->name }}</td>
                   <td>{{ $item->email }}</td>
                   <td>{{ $item->tel }}</td>
-                  <td>{{ $item->donVi->name }}</td>
+                  <td>{{ $item->department->name }}</td>
                   <td>{{ $item->role->name }}</td>
                   <td>
                     <div class="d-flex justify-content-center">

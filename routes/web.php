@@ -1,18 +1,17 @@
 <?php
 
 use App\Http\Controllers\{
-    ConfirmController,
-    DangKyVanPhongPhamController,
-    DotDangKyController,
+    ProcessNoteController,
+    EquipmentController,
     HomeController,
-    PhieuMuaController,
-    PhieuSuaController,
-    ThietBiController,
+    PeriodRegistrationController,
+    BuyNoteController,
+    FixNoteController,
+    RegistrationController,
+    StationeryController,
     UserController,
-    VanPhongPhamController
 };
 use App\Http\Controllers\Auth\LoginController;
-use App\Models\DangKyVanPhongPham;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('guest')->group(function() {
+Route::middleware('guest')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
 });
@@ -35,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
-    Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => 'acl:user-manage'], function() {
+    Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => 'acl:user-manage'], function () {
         Route::get('index', [UserController::class, 'index'])->name('index');
         Route::get('search', [UserController::class, 'search'])->name('search');
         Route::get('create', [UserController::class, 'create'])->name('create');
@@ -47,79 +46,80 @@ Route::middleware('auth')->group(function () {
         Route::get('export', [UserController::class, 'export_excel'])->name('export');
         Route::get('download-template', [UserController::class, 'download_template'])->name('download_template');
         Route::post('import', [UserController::class, 'import_excel'])->name('import');
-        Route::post('update-hanmuc/{id_user}', [UserController::class, 'updateHanMuc'])->name('update_hanmuc');
+        Route::post('update-hanmuc/{id_user}', [UserController::class, 'updateLimit'])->name('update_limit')
+            ->middleware('acl:limit-manage');
     });
 
-    Route::group(['as' => 'vanphongpham.', 'prefix' => 'van-phong-pham', 'middleware' => 'acl:vattu-manage'], function() {
-        Route::get('/', [VanPhongPhamController::class, 'index'])->name('index');
-        Route::get('/tim-kiem', [VanPhongPhamController::class, 'search'])->name('search');
-        Route::get('/create', [VanPhongPhamController::class, 'create'])->name('create');
-        Route::post('/create', [VanPhongPhamController::class, 'store'])->name('store');
-        Route::get('/edit/{id?}', [VanPhongPhamController::class, 'edit'])->name('edit');
-        Route::put('/update/{id?}', [VanPhongPhamController::class, 'update'])->name('update');
-        Route::delete('/delete/{id?}', [VanPhongPhamController::class, 'delete'])->name('delete');
-        Route::get('export', [VanPhongPhamController::class, 'export_excel'])->name('export');
-        Route::get('download-template', [VanPhongPhamController::class, 'download_template'])->name('download_template');
-        Route::post('import', [VanPhongPhamController::class, 'import_excel'])->name('import');
+    Route::group(['as' => 'stationery.', 'prefix' => 'van-phong-pham', 'middleware' => 'acl:supplies-manage'], function () {
+        Route::get('/', [StationeryController::class, 'index'])->name('index');
+        Route::get('/tim-kiem', [StationeryController::class, 'search'])->name('search');
+        Route::get('/create', [StationeryController::class, 'create'])->name('create');
+        Route::post('/create', [StationeryController::class, 'store'])->name('store');
+        Route::get('/edit/{id?}', [StationeryController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [StationeryController::class, 'update'])->name('update');
+        Route::delete('/delete/{id?}', [StationeryController::class, 'delete'])->name('delete');
+        Route::get('export', [StationeryController::class, 'export_excel'])->name('export');
+        Route::get('download-template', [StationeryController::class, 'download_template'])->name('download_template');
+        Route::post('import', [StationeryController::class, 'import_excel'])->name('import');
     });
 
-    Route::group(['as' => 'thietbi.', 'prefix' => 'thiet-bi', 'middleware' => 'acl:vattu-manage'], function() {
-        Route::get('/', [ThietBiController::class, 'index'])->name('index');
-        Route::get('/tim-kiem', [ThietBiController::class, 'search'])->name('search');
-        Route::get('/create', [ThietBiController::class, 'create'])->name('create');
-        Route::post('/create', [ThietBiController::class, 'store'])->name('store');
-        Route::get('/edit/{id?}', [ThietBiController::class, 'edit'])->name('edit');
-        Route::put('/update/{id?}', [ThietBiController::class, 'update'])->name('update');
-        // Route::delete('/delete/{id?}', [ThietBiController::class, 'delete'])->name('delete');
-        Route::get('export', [ThietBiController::class, 'export_excel'])->name('export');
-        Route::get('download-template', [ThietBiController::class, 'download_template'])->name('download_template');
-        Route::post('import', [ThietBiController::class, 'import_excel'])->name('import');
+    Route::group(['as' => 'equipment.', 'prefix' => 'thiet-bi', 'middleware' => 'acl:supplies-manage'], function () {
+        Route::get('/', [EquipmentController::class, 'index'])->name('index');
+        Route::get('/tim-kiem', [EquipmentController::class, 'search'])->name('search');
+        Route::get('/create', [EquipmentController::class, 'create'])->name('create');
+        Route::post('/create', [EquipmentController::class, 'store'])->name('store');
+        Route::get('/edit/{id?}', [EquipmentController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [EquipmentController::class, 'update'])->name('update');
+        Route::get('export', [EquipmentController::class, 'export_excel'])->name('export');
+        Route::get('download-template', [EquipmentController::class, 'download_template'])->name('download_template');
+        Route::post('import', [EquipmentController::class, 'import_excel'])->name('import');
     });
-    Route::get('thiet-bi/list_ajax', [ThietBiController::class, 'list_ajax'])->name('thietbi.list_ajax');
+    Route::get('thiet-bi/list_ajax', [EquipmentController::class, 'list_ajax'])->name('equipment.list_ajax');
 
-    
-    Route::group(['as' => 'dotdangky.', 'prefix' => 'dot-dang-ky', 'middleware' => 'acl:dk-manage'], function() {
-        Route::get('/', [DotDangKyController::class, 'index'])->name('index');
-        Route::get('/create', [DotDangKyController::class, 'create'])->name('create');
-        Route::post('/create', [DotDangKyController::class, 'store'])->name('store');
-        Route::get('/edit/{id?}', [DotDangKyController::class, 'edit'])->name('edit');
-        Route::put('/update/{id?}', [DotDangKyController::class, 'update'])->name('update');
-        Route::delete('/delete/{id?}', [DotDangKyController::class, 'delete'])->name('delete');
-    });
 
-    Route::group(['as' => 'dangky_vpp.', 'prefix' => 'dk-vpp'], function() {
-        Route::get('/', [DangKyVanPhongPhamController::class, 'index'])->name('index');
-        Route::post('/save', [DangKyVanPhongPhamController::class, 'save'])->name('save');
+    Route::group(['as' => 'period.', 'prefix' => 'dot-dang-ky', 'middleware' => 'acl:period-manage'], function () {
+        Route::get('/', [PeriodRegistrationController::class, 'index'])->name('index');
+        Route::get('/create', [PeriodRegistrationController::class, 'create'])->name('create');
+        Route::post('/create', [PeriodRegistrationController::class, 'store'])->name('store');
+        Route::get('/edit/{id?}', [PeriodRegistrationController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [PeriodRegistrationController::class, 'update'])->name('update');
+        Route::delete('/delete/{id?}', [PeriodRegistrationController::class, 'delete'])->name('delete');
     });
 
-    Route::group(['as' => 'history.', 'prefix' => 'lich-su-dang-ky'], function() {
-        Route::get('/dot-dang-ky/{id_dotdk?}', [DangKyVanPhongPhamController::class, 'history'])->name('index');
+    Route::group(['as' => 'registration.', 'prefix' => 'dang-ky-van-phong-pham'], function () {
+        Route::get('/', [RegistrationController::class, 'index'])->name('index');
+        Route::post('/save', [RegistrationController::class, 'save'])->name('save');
     });
 
-    Route::group(['as' => 'phieumua.', 'prefix' => 'phieu-mua', 'middleware' => 'acl:phieumua-manage'], function() {
-        Route::get('/', [PhieuMuaController::class, 'index'])->name('index');
-        Route::get('/create/{id_dotdk}', [PhieuMuaController::class, 'create'])->name('create');
-        Route::get('/dot-dang-ky', [PhieuMuaController::class, 'list_dot_dang_ky'])->name('dot_dk');
-        Route::post('/create/{id_dotdk}', [PhieuMuaController::class, 'store'])->name('store');
-        Route::get('/detail/{id?}', [PhieuMuaController::class, 'detail'])->name('detail');
-        Route::get('/search', [PhieuMuaController::class, 'search'])->name('search');
+    Route::group(['as' => 'history.', 'prefix' => 'lich-su-dang-ky'], function () {
+        Route::get('/dot-dang-ky/{id_period?}', [RegistrationController::class, 'history'])->name('index');
     });
 
-    Route::group(['as' => 'phieusua.', 'prefix' => 'phieu-sua'], function() {
-        Route::get('/', [PhieuSuaController::class, 'index'])->name('index');
-        Route::get('/create', [PhieuSuaController::class, 'create'])->name('create');
-        Route::post('/create', [PhieuSuaController::class, 'store'])->name('store');
-        Route::get('/detail/{id?}', [PhieuSuaController::class, 'detail'])->name('detail');
-        Route::get('/edit/{id?}', [PhieuSuaController::class, 'edit'])->name('edit');
-        Route::put('/update/{id?}', [PhieuSuaController::class, 'update'])->name('update');
-        Route::get('/search', [PhieuSuaController::class, 'search'])->name('search');
-        Route::delete('/delete/{id?}', [PhieuSuaController::class, 'delete'])->name('delete');
+    Route::group(['as' => 'buy_note.', 'prefix' => 'phieu-mua', 'middleware' => 'acl:buy_note-manage'], function () {
+        Route::get('/', [BuyNoteController::class, 'index'])->name('index');
+        Route::get('/create/{id_period}', [BuyNoteController::class, 'create'])->name('create');
+        Route::get('/dot-dang-ky', [BuyNoteController::class, 'list_period'])->name('list_period');
+        Route::post('/create/{id_period}', [BuyNoteController::class, 'store'])->name('store');
+        Route::get('/detail/{id?}', [BuyNoteController::class, 'detail'])->name('detail');
+        Route::get('/search', [BuyNoteController::class, 'search'])->name('search');
     });
 
-    Route::group(['as' => 'confirm.', 'prefix' => 'xet-duyet', 'middleware' => 'acl:phieu-confirm'], function() {
-        Route::get('/', [ConfirmController::class, 'index'])->name('index');
-        Route::get('/detail/{id?}', [ConfirmController::class, 'detail'])->name('detail');
-        Route::post('/confirm/{id?}', [ConfirmController::class, 'confirm'])->name('confirm');
-        Route::post('/update-sua/{id?}', [ConfirmController::class, 'update_detail_sua'])->name('update_sua');
+    Route::group(['as' => 'fix_note.', 'prefix' => 'phieu-sua'], function () {
+        Route::get('/', [FixNoteController::class, 'index'])->name('index');
+        Route::get('/create', [FixNoteController::class, 'create'])->name('create');
+        Route::post('/create', [FixNoteController::class, 'store'])->name('store');
+        Route::get('/detail/{id?}', [FixNoteController::class, 'detail'])->name('detail');
+        Route::get('/edit/{id?}', [FixNoteController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [FixNoteController::class, 'update'])->name('update');
+        Route::get('/search', [FixNoteController::class, 'search'])->name('search');
+        Route::delete('/delete/{id?}', [FixNoteController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['as' => 'process_note.', 'prefix' => 'xu-ly', 'middleware' => 'acl:request_note-process'], function () {
+        Route::get('/', [ProcessNoteController::class, 'index'])->name('index');
+        Route::get('/detail/{id?}', [ProcessNoteController::class, 'detail'])->name('detail');
+        Route::post('/confirm/{id?}', [ProcessNoteController::class, 'confirm'])->name('confirm');
+        Route::post('/reject/{id?}', [ProcessNoteController::class, 'reject'])->name('reject');
+        Route::post('/update-sua/{id?}', [ProcessNoteController::class, 'update_detail_fix'])->name('update_detail_fix');
     });
 });

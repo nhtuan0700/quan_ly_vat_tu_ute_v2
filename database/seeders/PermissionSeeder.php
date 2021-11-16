@@ -24,31 +24,31 @@ class PermissionSeeder extends Seeder
                 'description' => 'Quản lý tài khoản hệ thống'
             ],
             [
-                'name' => 'vattu-manage',
+                'name' => 'supplies-manage',
                 'description' => 'Quản lý vật tư'
             ],
             [
-                'name' => 'dk-manage',
+                'name' => 'period-manage',
                 'description' => 'Quản lý đợt đăng ký văn phòng phẩm'
             ],
             [
-                'name' => 'hanmuc-manage',
+                'name' => 'limit-manage',
                 'description' => 'Quản lý hạn mức'
             ],
             [
-                'name' => 'phieu-confirm',
-                'description' => 'Xét duyệt phiếu đề nghị'
+                'name' => 'request_note-process',
+                'description' => 'Xử lý phiếu đề nghị'
             ],
             [
-                'name' => 'phieubangiao-manage',
+                'name' => 'handover_note-manage',
                 'description' => 'Quản lý phiếu bàn giao'
             ],
             [
-                'name' => 'phieumua-manage',
+                'name' => 'buy_note-manage',
                 'description' => 'Quản lý phiếu mua'
             ],
             [
-                'name' => 'dk-confirm',
+                'name' => 'registration-handover',
                 'description' => 'Bàn giao văn phòng phẩm đăng ký'
             ],
         ];
