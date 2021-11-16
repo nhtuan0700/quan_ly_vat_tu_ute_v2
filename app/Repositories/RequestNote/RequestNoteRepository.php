@@ -32,46 +32,28 @@ class RequestNoteRepository extends BaseRepository implements RequestNoteInterfa
         return $new_id;
     }
 
-    public function create_mua($attributes = [])
+    public function listBuyNoteByDepartment()
     {
-        $attributes['id'] = $this->getAutoId(true);
-        $attributes['is_mua'] = true;
-        $attributes['status'] = self::CONFIRMING;
-        $new_phieu = parent::create($attributes);
-        return $new_phieu;
-    }
-
-    public function create_sua($attributes = [])
-    {
-        $attributes['id'] = $this->getAutoId(false);
-        $attributes['is_mua'] = false;
-        $attributes['status'] = self::CONFIRMING;
-        $new_phieu = parent::create($attributes);
-        return $new_phieu;
-    }
-
-    public function listPhieuMuaDonVi()
-    {
-        return $this->model->mua()
-            ->where('id_donvi', auth()->user()->id_donvi)
+        return $this->model->buy()
+            ->where('id_department', auth()->user()->id_department)
             ->orderby('created_at', 'desc')
             ->paginate($this->limit);
     }
 
-    public function listPhieuSua()
+    public function listFixNote()
     {
-        return $this->model->sua()
+        return $this->model->fix()
             ->where('id_creator', auth()->id())
             ->orderby('created_at', 'desc')
             ->paginate($this->limit);
     }
 
-    public function search2($request, $is_mua = true)
+    public function search2($request, $is_buy = true)
     {
-        if ($is_mua) {
-            $model = $this->model->mua()->where('id_donvi', auth()->user()->id_donvi);
+        if ($is_buy) {
+            $model = $this->model->buy()->where('id_department', auth()->user()->id_department);
         } else {
-            $model = $this->model->sua()->where('id_creator', auth()->id());
+            $model = $this->model->fix()->where('id_creator', auth()->id());
         }
         if ($request->id) {
             $model->where('id', $request->id);
@@ -85,22 +67,40 @@ class RequestNoteRepository extends BaseRepository implements RequestNoteInterfa
             ->appends(request()->all());
     }
 
-    public function confirm($id)
+    public function process($id, $is_confirm)
     {
         $phieu = $this->model->findOrfail($id);
         $phieu->update([
-            'status' => self::CONFIRMED,
-            'id_csvc' => auth()->id(),
-            'confirmed_at' => now()
+            'status' => $is_confirm ? RequestNote::CONFIRMED : RequestNote::REJECTED,
+            'id_handler' => auth()->id(),
+            'processed_at' => now()
         ]);
     }
 
-    public function find_mua($id)
+    public function create_buy_note($attributes = [])
     {
-        return $this->model->mua()->where('id', $id)->firstOrFail();
+        $attributes['id'] = $this->getAutoId(true);
+        $attributes['is_buy'] = true;
+        $attributes['status'] = RequestNote::PROCESSING;
+        $new_note = parent::create($attributes);
+        return $new_note;
     }
-    public function find_sua($id)
+
+    public function create_fix_note($attributes = [])
     {
-        return $this->model->sua()->where('id', $id)->firstOrFail();
+        $attributes['id'] = $this->getAutoId(false);
+        $attributes['is_buy'] = false;
+        $attributes['status'] = RequestNote::PROCESSING;
+        $new_note = parent::create($attributes);
+        return $new_note;
+    }
+
+    public function find_buy_note($id)
+    {
+        return $this->model->buy()->where('id', $id)->firstOrFail();
+    }
+    public function find_fix_note($id)
+    {
+        return $this->model->fix()->where('id', $id)->firstOrFail();
     }
 }

@@ -1,21 +1,18 @@
 <?php
 namespace App\Repositories\RequestNote;
 
+use App\Models\RequestNote;
 use App\Repositories\RepositoryInterface;
 
 interface RequestNoteInterface extends RepositoryInterface
 {
-    public const CONFIRMING = 1;
-    public const CONFIRMED = 2;
-    public const FINISH = 3;
+    public function listBuyNoteByDepartment();
+    public function listFixNote();
+    public function search2($request, $is_buy = true);
+    public function create_buy_note($attributes = []);
+    public function create_fix_note($attributes = []);
+    public function find_buy_note($id);
+    public function find_fix_note($id);
 
-    public function listPhieuMuaDonVi();
-    public function listPhieuSua();
-    public function search2($request, $is_mua = true);
-    public function create_mua($attributes = []);
-    public function find_mua($id);
-    public function create_sua($attributes = []);
-    public function find_sua($id);
-
-    public function confirm($id);
+    public function process($id, $is_confirm);
 }

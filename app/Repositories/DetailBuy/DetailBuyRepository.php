@@ -12,11 +12,11 @@ class DetailBuyRepository extends BaseRepository implements DetailBuyInterface
         return DetailBuy::class;
     }
 
-    public function updateWhenConfirmed($id_phieu, $vanphongpham)
+    public function updateWhenConfirmed($id_note, $stationeries)
     {
-        foreach ($vanphongpham as $id_vanphongpham => $item) {
-            $this->model->where('id_phieu', $id_phieu)->where('id_vanphongpham', $id_vanphongpham)
-                ->update(['cost'=> $item['cost']]);
+        foreach ($stationeries as $id_stationery => $item) {
+            $this->model->where('id_note', $id_note)->where('id_stationery', $id_stationery)
+                ->update(['cost' => $item['cost']]);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Repositories\Equipment\EquipmentInterface;
 use App\Repositories\ThietBi\ThietBiRepository;
 use Illuminate\Database\Seeder;
 
@@ -54,9 +55,9 @@ class EquipmentSeeder extends Seeder
             ],
         ];
 
-        // $thietBiRepo = new ThietBiRepository;
+        // $equipmentRepo = app(EquipmentInterface::class);
         // foreach ($data as $item) {
-        //     $thietBiRepo->create($item);
+        //     $equipmentRepo->create($item);
         // }
     }
 }

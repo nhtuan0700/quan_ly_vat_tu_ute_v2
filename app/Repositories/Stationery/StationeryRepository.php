@@ -3,10 +3,8 @@ namespace App\Repositories\Stationery;
 
 use App\Models\Stationery;
 use App\Repositories\BaseRepository;
-use App\Repositories\HanMuc\HanMucRepository;
-use App\Repositories\StationLimit\StationLimitInterface;
+use App\Repositories\LimitStationery\LimitStationeryInterface;
 use App\Repositories\User\UserInterface;
-use App\Repositories\User\UserRepository;
 
 class StationeryRepository extends BaseRepository implements StationeryInterface
 {
@@ -19,7 +17,7 @@ class StationeryRepository extends BaseRepository implements StationeryInterface
     {
         $new_stationery = parent::create($attributes);
         $userRepo = app(UserInterface::class);
-        $limitRepo = app(StationLimitInterface::class);
+        $limitRepo = app(LimitStationeryInterface::class);
         $users = $userRepo->all();
         foreach ($users as $item) {
             $limit = [

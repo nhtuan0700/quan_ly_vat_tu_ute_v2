@@ -6,9 +6,9 @@ use App\Repositories\RepositoryInterface;
 
 interface RegistrationInterface extends RepositoryInterface
 {
-    public function listByUser($id_user, $id_dotdk);
-    public function detailByDonVi($id_dotdk, $id_donvi);
-    public function tongHopDangKyDonVi($id_dotdk, $id_donvi);
-    public function findItem($id_user, $id_vanphongpham, $id_dotdk);
-    public function updateAfterCreated($id_donvi, $id_dotdk, $id_phieu);
+    public function listByUser($id_period, $id_user);
+    public function listByDepartment($id_period, $id_departmentm, $id_note = null);
+    public function sumStationeryByDepartment($id_period, $id_donvi);
+    public function findItem($id_user, $id_vanphongpham, $id_period);
+    public function updateAfterCreated($id_period, $id_department, $id_note);
 }

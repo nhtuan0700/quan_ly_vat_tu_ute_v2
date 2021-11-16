@@ -37,9 +37,9 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
             $user->email,
             $user->tel,
             $user->dob,
-            $user->cmnd,
+            $user->id_card,
             $user->role->name,
-            $user->donvi->name
+            $user->department->name
         ];
     }
 }

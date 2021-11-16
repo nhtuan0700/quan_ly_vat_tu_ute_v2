@@ -3,19 +3,21 @@
 namespace App\Models;
 
 use App\Traits\TimestampFormatTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class RequestNote extends Model
 {
     use HasFactory, TimestampFormatTrait;
-    public const CONFIRMING = 1;
+    public const PROCESSING = 1;
     public const CONFIRMED = 2;
     public const FINISH = 3;
+    public const REJECTED = 4;
 
     protected $fillable = [
         'id', 'id_creator', 'id_handler', 'id_period', 'id_department', 'is_buy', 'status', 'processed_at',
+        'description'
     ];
 
     protected $table = 'request_note';
@@ -33,11 +35,11 @@ class RequestNote extends Model
 
     public function detail_buy()
     {
-        return $this->hasMany(DetailBuy::class, 'id_note', 'id');
+        return $this->hasMany(DetailBuy::class, 'id_note', 'id')->with('stationery');
     }
     public function detail_fix()
     {
-        return $this->hasMany(DetailFix::class, 'id_note', 'id');
+        return $this->hasMany(DetailFix::class, 'id_note', 'id')->with('equipment');
     }
 
     public function equipments()
@@ -45,23 +47,10 @@ class RequestNote extends Model
         return $this->belongsToMany(Equipment::class, 'detail_fix', 'id_note', 'id_equipment');
     }
 
-    // public function details()
-    // {
-    //     if ($this->is_mua) {
-    //         $data = DB::table('vanphongpham')
-    //             ->join('chitietmua', 'vanphongpham.id', '=', 'chitietmua.id_vanphongpham')
-    //             ->where('chitietmua.id_phieu', $this->id)
-    //             ->select('id', 'name', 'dvt', 'qty', 'cost')
-    //             ->get();
-    //     } else {
-    //         $data = DB::table('thietbi')
-    //             ->join('chitietsua', 'thietbi.id', '=', 'chitietsua.id_thietbi')
-    //             ->where('chitietsua.id_phieu', $this->id)
-    //             ->select('id', 'name', 'phong', 'reason', 'cost', 'status')
-    //             ->get();
-    //     }
-    //     return $data;
-    // }
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'id_department', 'id');
+    }
 
     public function scopeBuy($query)
     {
@@ -73,21 +62,28 @@ class RequestNote extends Model
         return $query->where('is_buy', false);
     }
 
+    public function getProcessedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format(app('datetime_format')); 
+    }
+
     public function getStatusHTMLAttribute()
     {
         switch ($this->status) {
-            case self::CONFIRMING:
-                return '<span class="badge badge-info">Chờ duyệt</span>';
+            case self::PROCESSING:
+                return '<span class="badge badge-info">Chờ xử lý</span>';
             case self::CONFIRMED:
                 return '<span class="badge badge-warning">Chờ bàn giao</span>';
             case self::FINISH:
                 return '<span class="badge badge-success">Đã hoàn thành</span>';
+            case self::REJECTED:
+                return '<span class="badge badge-danger">Bị từ chối</span>';
         }
     }
 
     public function getCategoryAttribute()
     {
-        if ($this->is_mua) {
+        if ($this->is_buy) {
             return 'Phiếu Mua';
         }
         return 'Phiếu Sửa';

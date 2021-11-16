@@ -4,9 +4,9 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Repositories\BaseRepository;
-use App\Repositories\Stationery\StationeryInterface;
-use App\Repositories\StationLimit\StationLimitInterface;
+use App\Repositories\LimitStationery\LimitStationeryInterface;
 use App\Repositories\User\UserInterface;
+use App\Repositories\Stationery\StationeryInterface;
 
 class UserRepository extends BaseRepository implements UserInterface
 {
@@ -37,7 +37,7 @@ class UserRepository extends BaseRepository implements UserInterface
         $attributes['id'] = $attributes['id'] ?? $this->getAutoId();
         $new_user = parent::create($attributes);
         $stationeryRepo = app(StationeryInterface::class);
-        $limitRepo = app(StationLimitInterface::class);
+        $limitRepo = app(LimitStationeryInterface::class);
         $stationeries = $stationeryRepo->all();
         foreach ($stationeries as $item) {
             $limit = [

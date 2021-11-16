@@ -25,7 +25,7 @@ Quản lý người dùng
               <div class="form-row">
                 {{-- ID --}}
                 <div class="form-group col-md-3">
-                  <label for="id">ID</label>
+                  <label for="id">Mã:</label>
                   <input type="text" class="form-control" id="id" name="id" value="{{ $user->id }}" disabled>
                 </div>
                 {{-- Created at --}}
@@ -48,10 +48,10 @@ Quản lý người dùng
                   @enderror
                 </div>
                 <div class="form-group col-md-3">
-                  <label for="cmnd">CMND:</label>
-                  <input type="text" class="form-control @error('cmnd') is-invalid @enderror" id="cmnd"
-                    name="cmnd" value="{{old('cmnd') ? old('cmnd') : $user->cmnd}}">
-                  @error('cmnd')
+                  <label for="id_card">CMND:</label>
+                  <input type="text" class="form-control @error('id_card') is-invalid @enderror" id="id_card"
+                    name="id_card" value="{{old('id_card') ? old('id_card') : $user->id_card}}" maxlength="9">
+                  @error('id_card')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
@@ -92,11 +92,11 @@ Quản lý người dùng
                     name="email" value="{{ $user->email }}" disabled>
                 </div>
                 <div class="form-group col-md-3">
-                  <label for="donvi">Đơn vị:</label>
-                  <select id="donvi" class="form-control select2 @error('id_donvi') is-invalid @enderror"
-                    name="id_donvi">
-                    @foreach ($list_donvi as $item)
-                      <option value="{{ $item->id }}" @if ($item->id === $user->id_donvi) selected @endif>
+                  <label for="department">Đơn vị:</label>
+                  <select id="department" class="form-control select2 @error('id_department') is-invalid @enderror"
+                    name="id_department">
+                    @foreach ($departments as $item)
+                      <option value="{{ $item->id }}" @if ($item->id === $user->id_department) selected @endif>
                         {{ $item->name }}
                       </option>
                     @endforeach
@@ -106,14 +106,14 @@ Quản lý người dùng
               <div class="form-row">
                 {{-- Role --}}
                 <div class="form-group col-md-3">
-                  <label for="role">Role</label>
+                  <label for="role">Vai trò:</label>
                   <select id="role" class="form-control @error('id_role') is-invalid @enderror" name="id_role">
                     @foreach ($roles as $role)
-                    @if ($role->id == $user->role->id)
-                    <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
-                    @else
-                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                    @endif
+                      @if ($role->id == $user->role->id)
+                        <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
+                      @else
+                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                      @endif
                     @endforeach
                   </select>
                   @error('id_role')
@@ -134,7 +134,7 @@ Quản lý người dùng
     </div>
   </div>
 </section>
-@include('user.components.modal_hanmuc')
+@include('user.components.modal_limit')
 @endsection
 
 @section('tag_head')

@@ -13,82 +13,82 @@ class RegistrationRepository extends BaseRepository implements RegistrationInter
         return Registration::class;
     }
 
-    public function listByUser($id_user, $id_dotdk)
+    public function listByUser($id_period, $id_user)
     {
-        return DB::table('dangky_vanphongpham')
-            ->join('vanphongpham', 'vanphongpham.id', '=', 'dangky_vanphongpham.id_vanphongpham')
-            ->join('hanmuc', 'hanmuc.id_vanphongpham', '=', 'vanphongpham.id')
-            ->where('dangky_vanphongpham.id_user', $id_user)
-            ->where('hanmuc.id_user', $id_user)
-            ->where('dangky_vanphongpham.id_dotdk', $id_dotdk)
-            ->whereNull('vanphongpham.deleted_at')
+        return DB::table('registration')
+            ->join('stationery', 'stationery.id', '=', 'registration.id_stationery')
+            ->join('limit_stationery', 'limit_stationery.id_stationery', '=', 'stationery.id')
+            ->where('registration.id_user', $id_user)
+            ->where('limit_stationery.id_user', $id_user)
+            ->where('registration.id_period', $id_period)
+            ->whereNull('stationery.deleted_at')
             ->orderBy('name', 'asc')
-            ->select('id', 'name', 'dvt', 'qty', 'id_phieu', 'received_at')
+            ->select('id', 'name', 'unit', 'qty', 'id_note', 'received_at')
             ->selectRaw('qty_max - qty_used as qty_remain')
             ->get();
     }
 
-    public function findItem($id_user, $id_vanphongpham, $id_dotdk)
+    public function listByDepartment($id_period, $id_department, $id_note = null)
     {
-        return $this->model
-            ->where('id_user', $id_user)
-            ->where('id_vanphongpham', $id_vanphongpham)
-            ->where('id_dotdk', $id_dotdk)
-            ->select('*')
-            ->selectRaw('qty_max - qty_used as qty_remain');
-    }
-
-    public function detailByDonVi($id_dotdk, $id_donvi, $id_phieu = null)
-    {
-        return DB::table('dangky_vanphongpham')
-            ->join('users', 'users.id', '=', 'dangky_vanphongpham.id_user')
-            ->join('donvi', 'donvi.id', '=', 'users.id_donvi')
-            ->join('vanphongpham', 'vanphongpham.id', '=', 'dangky_vanphongpham.id_vanphongpham')
-            ->where('dangky_vanphongpham.id_dotdk', $id_dotdk)
-            ->when(is_null($id_phieu), function ($query) use ($id_donvi) {
-                return $query->where('users.id_donvi', $id_donvi)
-                    ->whereNull('dangky_vanphongpham.id_phieu');
-            }, function ($query) use ($id_phieu) {
-                return $query->where('dangky_vanphongpham.id_phieu', $id_phieu);
+        return DB::table('registration')
+            ->join('users', 'users.id', '=', 'registration.id_user')
+            ->join('department', 'department.id', '=', 'users.id_department')
+            ->join('stationery', 'stationery.id', '=', 'registration.id_stationery')
+            ->where('registration.id_period', $id_period)
+            ->when(is_null($id_note), function ($query) use ($id_department) {
+                return $query->where('users.id_department', $id_department)
+                    ->whereNull('registration.id_note');
+            }, function ($query) use ($id_note) {
+                return $query->where('registration.id_note', $id_note);
             })
-            ->whereNull('vanphongpham.deleted_at')
+            ->whereNull('stationery.deleted_at')
             ->orderBy('users.id', 'asc')
             ->select(
                 'users.id as id_user',
-                'vanphongpham.id as id_vpp',
+                'stationery.id as id_stationery',
                 'users.name as name_user',
-                'vanphongpham.name as name_vpp',
-                'dvt',
+                'stationery.name as name_stationery',
+                'unit',
                 'qty',
                 'received_at',
-                'donvi.name as name_donvi'
+                'department.name as name_department'
             )
             ->get();
     }
 
-    public function tongHopDangKyDonVi($id_dotdk, $id_donvi)
+    public function findItem($id_user, $id_stationery, $id_period)
     {
-        return DB::table('dangky_vanphongpham')
-            ->join('users', 'users.id', '=', 'dangky_vanphongpham.id_user')
-            ->join('vanphongpham', 'vanphongpham.id', '=', 'dangky_vanphongpham.id_vanphongpham')
-            ->where('users.id_donvi', $id_donvi)
-            ->where('dangky_vanphongpham.id_dotdk', $id_dotdk)
-            ->whereNull('dangky_vanphongpham.id_phieu')
-            ->whereNull('vanphongpham.deleted_at')
-            ->select('id_vanphongpham', 'vanphongpham.name', 'dvt')
+        return $this->model
+            ->where('id_user', $id_user)
+            ->where('id_stationery', $id_stationery)
+            ->where('id_period', $id_period)
+            ->select('*')
+            ->selectRaw('qty_max - qty_used as qty_remain');
+    }
+
+    public function sumStationeryByDepartment($id_period, $id_department)
+    {
+        return DB::table('registration')
+            ->join('users', 'users.id', '=', 'registration.id_user')
+            ->join('stationery', 'stationery.id', '=', 'registration.id_stationery')
+            ->where('users.id_department', $id_department)
+            ->where('registration.id_period', $id_period)
+            ->whereNull('registration.id_note')
+            ->whereNull('stationery.deleted_at')
+            ->select('id_stationery', 'stationery.name', 'unit')
             ->selectRaw('sum(qty) as qty')
-            ->groupBy('id_vanphongpham', 'vanphongpham.name', 'dvt')
+            ->groupBy('id_stationery', 'stationery.name', 'unit')
             ->get();
     }
 
-    public function updateAfterCreated($id_donvi, $id_dotdk, $id_phieu)
+    public function updateAfterCreated($id_period, $id_department, $id_note)
     {
         return $this->model
-            ->whereIn('id_user', function ($query) use ($id_donvi) {
-                $query->select('id')->from('users')->where('id_donvi', $id_donvi);
+            ->whereIn('id_user', function ($query) use ($id_department) {
+                $query->select('id')->from('users')->where('id_department', $id_department);
             })
-            ->whereNull('id_phieu')
-            ->where('id_dotdk', $id_dotdk)
-            ->update(['id_phieu' => $id_phieu]);
+            ->whereNull('id_note')
+            ->where('id_period', $id_period)
+            ->update(['id_note' => $id_note]);
     }
 }

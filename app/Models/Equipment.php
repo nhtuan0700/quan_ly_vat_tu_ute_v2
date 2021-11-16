@@ -51,7 +51,7 @@ class Equipment extends Model
     public function setDateGrantAttribute($value)
     {
         if ($value) {
-            $this->attributes['date_grand'] =  Carbon::createFromFormat(app('date_format'), $value)->format('Y-m-d');
+            $this->attributes['date_grant'] =  Carbon::createFromFormat(app('date_format'), $value)->format('Y-m-d');
         }
     }
     

@@ -17,15 +17,16 @@ use App\Repositories\DetailFix\DetailFixRepository;
 use App\Repositories\Equipment\EquipmentRepository;
 use App\Repositories\Department\DepartmentInterface;
 use App\Repositories\Stationery\StationeryInterface;
+use App\Repositories\Department\DepartmentRepository;
+use App\Repositories\LimitStationery\LimitStationeryInterface;
+use App\Repositories\LimitStationery\LimitStationeryRepository;
 use App\Repositories\Stationery\StationeryRepository;
 use App\Repositories\RequestNote\RequestNoteInterface;
 use App\Repositories\RequestNote\RequestNoteRepository;
 use App\Repositories\Registration\RegistrationInterface;
-use App\Repositories\StationLimit\StationLimitInterface;
 use App\Repositories\Registration\RegistrationRepository;
-use App\Repositories\StationeryLimit\StationeryLimitRepository;
-use App\Repositories\PeriodRegistraion\PeriodRegistraionInterface;
-use App\Repositories\PeriodRegistraion\PeriodRegistraionRepository;
+use App\Repositories\PeriodRegistration\PeriodRegistrationInterface;
+use App\Repositories\PeriodRegistration\PeriodRegistrationRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -52,8 +53,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(StationeryInterface::class, StationeryRepository::class);
         $this->app->bind(EquipmentInterface::class, EquipmentRepository::class);
         $this->app->bind(CategoryInterface::class, CategoryRepository::class);
-        $this->app->bind(PeriodRegistraionInterface::class, PeriodRegistraionRepository::class);
-        $this->app->bind(StationLimitInterface::class, StationeryLimitRepository::class);
+        $this->app->bind(PeriodRegistrationInterface::class, PeriodRegistrationRepository::class);
+        $this->app->bind(LimitStationeryInterface::class, LimitStationeryRepository::class);
         $this->app->bind(RegistrationInterface::class, RegistrationRepository::class);
         $this->app->bind(RequestNoteInterface::class, RequestNoteRepository::class);
         $this->app->bind(DetailBuyInterface::class, DetailBuyRepository::class);

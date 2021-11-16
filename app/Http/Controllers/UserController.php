@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportUser;
-use App\Exports\ExportUserTemplate;
 use App\Imports\ImportUser;
 use Illuminate\Http\Request;
+use App\Exports\ExportUserTemplate;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\User\StoreUser;
@@ -13,59 +13,67 @@ use App\Http\Requests\User\UpdateUser;
 use App\Repositories\Role\RoleInterface;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\User\ResetPassword;
-use App\Repositories\DonVi\DonViInterface;
-use App\Repositories\HanMuc\HanMucInterface;
+use App\Repositories\Department\DepartmentInterface;
+use App\Repositories\LimitStationery\LimitStationeryInterface;
 
 class UserController extends Controller
 {
-    public $userRepository;
-    public $roleRepostitory;
-    public $donViRepository;
-    public $hanMucRepository;
+    private $userRepo;
+    private $roleRepo;
+    private $departmentRepo;
+    private $limitRepo;
 
     public function __construct(
         UserInterface $userInterface,
         RoleInterface $roleInterface,
-        DonViInterface $donViInterface,
-        HanMucInterface $hanMucInterface
+        DepartmentInterface $departmentInterface,
+        LimitStationeryInterface $limitStationeryInterface
     ) {
-        $this->userRepository = $userInterface;
-        $this->roleRepostitory = $roleInterface;
-        $this->donViRepository = $donViInterface;
-        $this->hanMucRepository = $hanMucInterface;
+        $this->userRepo = $userInterface;
+        $this->roleRepo = $roleInterface;
+        $this->departmentRepo = $departmentInterface;
+        $this->limitRepo = $limitStationeryInterface;
     }
 
     public function index()
     {
-        $users = $this->userRepository->paginate();
-        $list_donvi = $this->donViRepository->all();
-        $roles = $this->roleRepostitory->all();
-        return view('user.index', compact('users', 'roles', 'list_donvi'));
+        $users = $this->userRepo->paginate();
+        $departments = $this->departmentRepo->all();
+        $roles = $this->roleRepo->all();
+        return view('user.index', compact('users', 'roles', 'departments'));
     }
 
     public function create()
     {
-        $roles = $this->roleRepostitory->all();
-        $list_donvi = $this->donViRepository->all();
-        return view('user.create', compact('roles', 'list_donvi'));
+        $roles = $this->roleRepo->all();
+        $departments = $this->departmentRepo->all();
+        return view('user.create', compact('roles', 'departments'));
     }
 
     public function store(StoreUser $request)
     {
-        $data = $request->only(['name', 'tel', 'dob', 'cmnd', 'email', 'password', 'id_role', 'id_donvi']);
+        $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
-        $new = $this->userRepository->create($data);
-        return redirect(route('user.edit', ['id' => $new->id]))
+        $new_user = $this->userRepo->create($data);
+        return redirect(route('user.edit', ['id' => $new_user->id]))
             ->with('alert-success', trans('alert.create.success'));
     }
 
     public function edit($id)
     {
-        $user = $this->userRepository->findOrFail($id);
-        $roles = $this->roleRepostitory->all();
-        $list_donvi = $this->donViRepository->all();
-        $list_hanmuc = $this->hanMucRepository->listHanMucByUser($id);
-        return view('user.edit', compact('roles', 'user', 'list_donvi', 'list_hanmuc'));
+        $user = $this->userRepo->findOrFail($id);
+        $roles = $this->roleRepo->all();
+        $departments = $this->departmentRepo->all();
+        $limit_stationeries = $this->limitRepo->listByUser($id);
+        return view('user.edit', compact('roles', 'user', 'departments', 'limit_stationeries'));
+    }
+
+    public function update(UpdateUser $request, $id)
+    {
+        $data = $request->validated();
+        $data['id_role'] = $id == auth()->user()->id ? 1 : $request->id_role;
+        $this->userRepo->update($id, $data);
+        return back()->with('alert-success', trans('alert.update.success'));
     }
 
     function showFormResetPassword($id)
@@ -77,28 +85,20 @@ class UserController extends Controller
     {
         $data = $request->only('password');
         $data['password'] = Hash::make($data['password']);
-        $this->userRepository->findOrFail($id)->update($data);
+        $this->userRepo->findOrFail($id)->update($data);
         return redirect(route('user.edit', ['id' => $id]))
             ->with('alert-success', trans('passwords.reset'));
-    }
-
-    public function update(UpdateUser $request, $id)
-    {
-        $data = $request->only(['name', 'tel', 'dob', 'cmnd', 'id_donvi']);
-        $data['id_role'] = $id == auth()->user()->id ? 1 : $request->id_role;
-        $this->userRepository->update($id, $data);
-        return back()->with('alert-success', trans('alert.update.success'));
     }
 
     public function search(Request $request)
     {
         $columns = $request->only(['id', 'name', 'email']);
         $columns['id_role'] = $request->role;
-        $columns['id_donvi'] = $request->donvi;
-        $list_donvi = $this->donViRepository->all();
-        $roles = $this->roleRepostitory->all();
-        $users = $this->userRepository->search($columns, ['id', 'id_role', 'id_donvi']);
-        return view('user.index', compact('users', 'roles', 'list_donvi'));
+        $columns['id_department'] = $request->donvi;
+        $departments = $this->departmentRepo->all();
+        $roles = $this->roleRepo->all();
+        $users = $this->userRepo->search($columns, ['id', 'id_role', 'id_department']);
+        return view('user.index', compact('users', 'roles', 'departments'));
     }
 
     public function export_excel()
@@ -116,23 +116,23 @@ class UserController extends Controller
         // Excel::import(new ImportUser, request()->file('file_excel'));
         $users = Excel::toCollection(new ImportUser, request()->file('file_excel'));
         $error = [];
-        foreach ($users[0] as $key => $value) {
-            if($value->filter()->isEmpty()) {
+        foreach ($users[0] as $key => $item) {
+            if($item->filter()->isEmpty()) {
                 break;
             };
             try {
                 $user = [
-                    'id' => $value[0],
-                    'name' => $value[1],
-                    'email' => $value[2],
-                    'password' => Hash::make($value[3]),
-                    'tel' => $value[4],
-                    'dob' => transformDateExcel($value[5]),
-                    'cmnd' => $value[6],
-                    'id_role' => $value[7],
-                    'id_donvi' => $value[8],
+                    'id' => $item[0],
+                    'name' => $item[1],
+                    'email' => $item[2],
+                    'password' => Hash::make($item[3]),
+                    'tel' => $item[4],
+                    'dob' => transformDateExcel($item[5]),
+                    'id_card' => $item[6],
+                    'id_role' => $item[7],
+                    'id_department' => $item[8],
                 ];
-                $this->userRepository->create($user);
+                $this->userRepo->create($user);
             } catch (\Throwable $th) {
                 $index = $key + 1;
                 array_push($error, "Hàng thứ $index");
@@ -145,11 +145,11 @@ class UserController extends Controller
         return redirect(route('user.index'))->with('alert-success', 'Import Excel thành công!');
     }
 
-    public function updateHanMuc(Request $request, $id_user)
+    public function updateLimit(Request $request, $id_user)
     {
         try {
-            foreach ($request->hanmuc as $id_vanphongpham => $qty_max) {
-                $this->hanMucRepository->findItem($id_user, $id_vanphongpham)->update([
+            foreach ($request->limits as $id_stationery => $qty_max) {
+                $this->limitRepo->findItem($id_user, $id_stationery)->update([
                     'qty_max' => intval($qty_max)
                 ]);
             }

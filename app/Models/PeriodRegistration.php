@@ -35,24 +35,12 @@ class PeriodRegistration extends Model
         $this->attributes['end_time'] =  Carbon::createFromFormat(app('datetime_format'), $value)->format('Y-m-d H:i');
     }
 
-    // Ngoại trừ đã diễn ra có thể sửa
-    public function canEdit()
-    {
-        return Carbon::createFromFormat(app('datetime_format'), $this->end_time)->gt(now());
-    }
-
-    // Chưa diễn ra mới có thể xóa
-    public function canDelete()
-    {
-        return Carbon::createFromFormat(app('datetime_format'), $this->start_time)->gt(now());
-    }
-
     public function buy_notes()
     {
         return $this->hasMany(RequestNote::class, 'id_period', 'id')->where('is_buy', true);
     }
 
-    public function getPhieuMuaDonVi()
+    public function getBuyNoteDepartment()
     {
         $id_department = auth()->user()->id_department;
         return $this->buy_notes()->where('id_department', $id_department)->first();

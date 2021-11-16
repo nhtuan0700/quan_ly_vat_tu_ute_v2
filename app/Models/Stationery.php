@@ -10,7 +10,7 @@ class Stationery extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'name', 'unit', 'limit_avg', 'id_cateogry'
+        'name', 'unit', 'limit_avg', 'id_category'
     ];
 
     protected $table = 'stationery';
