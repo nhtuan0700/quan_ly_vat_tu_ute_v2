@@ -51,7 +51,7 @@
                   </tbody>
                 </table>
   
-                <button class="btn btn-primary">Lưu</button>  
+                <button class="btn btn-primary" id="btn-save">Lưu</button>  
               </form>
             </div>
             <br>  
@@ -118,7 +118,11 @@
     $("#key-search").on("keyup", function() {
       var value = $(this).val()
       filterTable(value)
-    });    
+    });
+
+    if ($('table#list-registration tbody tr').length == 0) {
+      $('button#btn-save').attr('disabled', 'disabled')
+    }
 
     $(".btn-add").click(function(e) {
       let parent = $(this).parent();
@@ -143,6 +147,7 @@
                 </tr>`
 
       $('#list-registration tbody').append(row)
+      $('button#btn-save').removeAttr('disabled')
       parent.parent().addClass('d-none')
 
       $('.btn-remove').click(function(e) {

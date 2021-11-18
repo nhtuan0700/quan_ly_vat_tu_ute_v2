@@ -26,7 +26,7 @@ class ProcessNoteController extends Controller
     public function index(Request $request)
     {
         $limit = Config::get('constants.limit_page');
-        $notes = $this->noteRepo->query()
+        $notes = $this->noteRepo->query()->with('department')
             ->when($request->status, function ($query) use ($request) {
                 return $query->where('status', $request->status);
             })
@@ -99,8 +99,7 @@ class ProcessNoteController extends Controller
                 ->with('alert-success', 'Cập nhật phiếu thành công');
         } catch (UpdateDetailFixException $e) {
             return back()->with('alert-fail', $e->getMessage());
-        } 
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             return ($th->getMessage());
             return back()->with('alert-fail', 'Cập nhật phiếu thất bại');
         }

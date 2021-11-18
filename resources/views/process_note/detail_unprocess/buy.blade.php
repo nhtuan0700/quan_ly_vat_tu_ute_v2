@@ -17,56 +17,7 @@ Xét duyệt phiếu đề nghị
           <div class="card-body">
             <form method="POST" action="{{ route('process_note.confirm', ['id' => $note->id]) }}">
               @csrf
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                  <label>Mã phiếu:</label>
-                  <p>{{ $note->id }}</p>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Ngày lập phiếu:</label>
-                  <p>{{ $note->created_at }}</p>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Trạng thái phiếu:</label>
-                  <p>{!! $note->statusHTML !!}</p>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                  <label>Người lập phiếu:</label>
-                  <p>{{ $note->creator->name }}</p>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Đơn vị:</label>
-                  <p>{{ $note->department->name }}</p>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Đợt đăng ký:</label>
-                  <p>{{ $note->id_period }}</p>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                  <label>Cán bộ duyệt:</label>
-                  <p>{{ optional($note->handler)->name }}</p>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Ngày duyệt:</label>
-                  <p>{{ $note->processed_at }}</p>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Loại phiếu:</label>
-                  <p>{{ $note->category }}</p>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="name">Ghi chú:</label>
-                  <p>
-                    {{ $note->description }}
-                  </p>
-                </div>
-              </div>
+              @include('buy_note.components.info', ['note' => $note])
               <hr>
               <div>
                 <h5>Danh sách tổng hợp đăng ký văn phòng phẩm của đơn vị 

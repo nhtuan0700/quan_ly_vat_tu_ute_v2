@@ -24,7 +24,7 @@ Quản lý phiếu sửa
                   <p>{{ $note->id }}</p>
                 </div>
                 <div class="form-group col-md-3">
-                  <label>Ngày lập phiếu:</label>
+                  <label>Ngày tạo phiếu:</label>
                   <p>{{ $note->created_at }}</p>
                 </div>
                 <div class="form-group col-md-3">
@@ -34,7 +34,7 @@ Quản lý phiếu sửa
               </div>
               <div class="form-row">
                 <div class="form-group col-md-3">
-                  <label>Người lập phiếu:</label>
+                  <label>Người đề nghị:</label>
                   <p>{{ $note->creator->name }}</p>
                 </div>
                 <div class="form-group col-md-3">
@@ -50,6 +50,10 @@ Quản lý phiếu sửa
                 <div class="form-group col-md-3">
                   <label>Ngày xử lý:</label>
                   <p>{{ $note->processed_at }}</p>
+                </div>
+                <div class="form-group col-md-3">
+                  <label>Loại phiếu:</label>
+                  <p>{{ $note->category }}</p>
                 </div>
               </div>
               <div class="form-row">

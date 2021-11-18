@@ -9,8 +9,6 @@ interface PeriodRegistrationInterface extends RepositoryInterface
     public function checkComing();
     public function getItemNow();
 
-    public function getDotDangKyLast();
-
     /**
      * Load danh sách các đợt đăng ký (đang diễn ra, đã diễn ra)
      */

@@ -11,12 +11,4 @@ class DetailFixRepository extends BaseRepository implements DetailFixInterface
     {
         return DetailFix::class;
     }
-
-    public function updateWhenConfirmed($id)
-    {
-        // foreach ($vanphongpham as $id_vanphongpham => $item) {
-        //     $this->model->where('id_phieu', $id_phieu)->where('id_vanphongpham', $id_vanphongpham)
-        //         ->update(['cost'=> $item['cost']]);
-        // }
-    }
 }

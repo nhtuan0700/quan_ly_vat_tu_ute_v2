@@ -5,7 +5,6 @@ namespace App\Repositories\PeriodRegistration;
 use App\Models\PeriodRegistration;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Config;
 
 class PeriodRegistrationRepository extends BaseRepository implements PeriodRegistrationInterface
 {
@@ -49,24 +48,6 @@ class PeriodRegistrationRepository extends BaseRepository implements PeriodRegis
     public function getItemNow()
     {
         return $this->model->where('start_time', '<=', now())->where('end_time', '>=', now())->first();
-    }
-
-    public function getDotDangKyLast()
-    {
-        $dotdk_last = $this->model->where('end_at', '<=', now())->orderby('end_at', 'desc')->first();
-        // dd($check);
-    }
-
-    /**
-     * Load danh sách các đợt đăng ký (đang diễn ra, đã diễn ra) mà đơn vị chưa tạo phiếu
-     */
-    public function listNotHasPhieu()
-    {
-        return $this->model->whereNotIn('id', function ($query) {
-            $query->select('id_donvi')->from('phieudenghi')
-                ->where('is_mua', true)
-                ->where('id_donvi', auth()->user()->id_donvi);
-        })->where('end_at', '<=', now())->get();
     }
 
     public function list()

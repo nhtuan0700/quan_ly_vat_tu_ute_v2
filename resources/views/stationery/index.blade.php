@@ -28,11 +28,11 @@ Quản lý văn phòng phẩm
                     value="{{ request()->name ?? '' }}" autocomplete="off">
                 </div>
                 <div class="form-group col-md-2">
-                  <label for="danhmuc">Danh mục:</label>
-                  <select name="danhmuc" id="danhmuc" class="form-control">
+                  <label for="category">Danh mục:</label>
+                  <select name="id_category" id="category" class="form-control">
                     <option value>Tất cả</option>
                     @foreach ($categories as $item)
-                      <option value="{{ $item->id }}" @if($item->id == request()->danhmuc) selected @endif>
+                      <option value="{{ $item->id }}" @if($item->id == request()->id_category) selected @endif>
                         {{ $item->name }}
                       </option>
                     @endforeach

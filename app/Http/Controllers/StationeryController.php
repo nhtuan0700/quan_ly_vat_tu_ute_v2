@@ -70,8 +70,7 @@ class StationeryController extends Controller
 
     public function search(Request $request)
     {
-        $columns = $request->only(['name']);
-        $columns['id_category'] = $request->danhmuc;
+        $columns = $request->only(['name', 'id_category']);
         $stationeries = $this->stationeryRepo->search($columns, ['id_category']);
         $rank = $stationeries->firstItem();
         $categories = $this->categoryRepo->all();

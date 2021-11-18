@@ -41,11 +41,11 @@ Quản lý người dùng
                 </div>
                 {{-- Đơn vị --}}
                 <div class="form-group col-md-3">
-                  <label for="donvi">Đơn vị:</label>
-                  <select id="donvi" class="form-control select2" name="donvi">
+                  <label for="department">Đơn vị:</label>
+                  <select id="department" class="form-control select2" name="id_department">
                     <option value="">Tất cả</option>
                     @foreach ($departments as $item)
-                      @if ($item->id == request()->donvi)
+                      @if ($item->id == request()->id_department)
                         <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
                       @else
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -56,10 +56,10 @@ Quản lý người dùng
                 {{-- Role --}}
                 <div class="form-group col-md-2">
                   <label for="role">Vai trò:</label>
-                  <select id="role" class="form-control" name="role">
+                  <select id="role" class="form-control" name="id_role">
                     <option value="">Tất cả</option>
                     @foreach ($roles as $role)
-                      @if ($role->id == request()->role)
+                      @if ($role->id == request()->id_role)
                         <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
                       @else
                         <option value="{{ $role->id }}">{{ $role->name }}</option>

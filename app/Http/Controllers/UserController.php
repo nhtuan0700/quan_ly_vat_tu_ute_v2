@@ -92,9 +92,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        $columns = $request->only(['id', 'name', 'email']);
-        $columns['id_role'] = $request->role;
-        $columns['id_department'] = $request->donvi;
+        $columns = $request->only(['id', 'name', 'email', 'id_role', 'id_department']);
         $departments = $this->departmentRepo->all();
         $roles = $this->roleRepo->all();
         $users = $this->userRepo->search($columns, ['id', 'id_role', 'id_department']);

@@ -44,6 +44,7 @@ Xét duyệt phiếu đề nghị
                 <tr>
                   <th scope="col">Mã phiếu</th>
                   <th scope="col">Ngày lập phiếu</th>
+                  <th scope="col">Đơn vị</th>
                   <th scope="col">Loại phiếu</th>
                   <th scope="col">Trạng thái</th>
                   <th scope="col" width="10%">Thao tác</th>
@@ -54,6 +55,7 @@ Xét duyệt phiếu đề nghị
                   <tr>
                     <th>{{ $item->id }}</th>
                     <td>{{ $item->created_at }}</td>
+                    <td>{{ $item->department->name }}</td>
                     <td>{{ $item->category }}</td>
                     <td>{!! $item->statusHTML !!}</td>
                     <td>
