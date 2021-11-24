@@ -7,6 +7,7 @@ use App\Http\Controllers\{
     PeriodRegistrationController,
     BuyNoteController,
     FixNoteController,
+    HandoverNoteController,
     RegistrationController,
     StationeryController,
     UserController,
@@ -115,11 +116,25 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id?}', [FixNoteController::class, 'delete'])->name('delete');
     });
 
-    Route::group(['as' => 'process_note.', 'prefix' => 'xu-ly', 'middleware' => 'acl:request_note-process'], function () {
+    Route::group(['as' => 'process_note.', 'prefix' => 'phieu-de-nghi', 'middleware' => 'acl:request_note-process'], function () {
         Route::get('/', [ProcessNoteController::class, 'index'])->name('index');
         Route::get('/detail/{id?}', [ProcessNoteController::class, 'detail'])->name('detail');
         Route::post('/confirm/{id?}', [ProcessNoteController::class, 'confirm'])->name('confirm');
         Route::post('/reject/{id?}', [ProcessNoteController::class, 'reject'])->name('reject');
         Route::post('/update-sua/{id?}', [ProcessNoteController::class, 'update_detail_fix'])->name('update_detail_fix');
     });
+
+    Route::group(['as' => 'handover_note.', 'prefix' => 'phieu-ban-giao', 'middleware' => 'acl:handover_note-manage'], function () {
+        Route::get('/', [HandoverNoteController::class, 'index'])->name('index');
+        Route::get('/create/{id_request_note?}', [HandoverNoteController::class, 'create'])->name('create');
+        Route::post('/create/{id_request_note?}', [HandoverNoteController::class, 'store'])->name('store');
+        Route::get('/detail/{id?}', [HandoverNoteController::class, 'detail'])->name('detail');
+        Route::get('/edit/{id?}', [HandoverNoteController::class, 'edit'])->name('edit');
+        Route::put('/update/{id?}', [HandoverNoteController::class, 'update'])->name('update');
+        Route::post('/confirm/{id?}', [HandoverNoteController::class, 'confirm'])->name('confirm');
+        Route::get('/search', [HandoverNoteController::class, 'search'])->name('search');
+        Route::delete('/delete/{id?}', [HandoverNoteController::class, 'delete'])->name('delete');
+    });
+    
+    Route::get('phieu-ban-giao/api/detail/{id?}', [HandoverNoteController::class, 'detail_ajax'])->name('handover_note.detail_ajax');
 });

@@ -77,12 +77,22 @@
 
         @can('request_note-process')
           <li class="nav-item">
-            <a href="{{ route('process_note.index') }}" class="nav-link" id="link-xu-ly">
+            <a href="{{ route('process_note.index') }}" class="nav-link" id="link-phieu-de-nghi">
               <p>
-                Xét duyệt phiếu đề nghị 
+                Danh sách phiếu đề nghị 
                 <span class="text-white">
                   <sup class="text-md">{{ count_note_processing() }}</sup>
                 </span>
+              </p>
+            </a>
+          </li>
+        @endcan
+
+        @can('handover_note-manage')
+          <li class="nav-item">
+            <a href="{{ route('handover_note.index') }}" class="nav-link" id="link-phieu-ban-giao">
+              <p>
+                Quản lý phiếu bàn giao
               </p>
             </a>
           </li>

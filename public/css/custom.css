@@ -127,3 +127,11 @@ input[type=number] {
     display: block;
   }
 }
+
+.modal-second {
+  z-index: 1052;
+}
+
+.modal-backdrop.fade + .modal-backdrop.fade  {
+  z-index: 1051;
+}

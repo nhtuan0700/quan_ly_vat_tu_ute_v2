@@ -19,18 +19,17 @@ Xét duyệt phiếu đề nghị
             <div>
               <h5>Danh sách thiết bị đề nghị sửa</h5>
               <table class="table">
-                <tr>
-                  <th>Mã thiết bị</th>
-                  <th>Tên thiết bị</th>
-                  <th>Phòng</th>
-                  <th>Tình trạng</th>
-                  <th>Lý do sửa</th>
-                  <th>Chi phí sửa</th>
-                </tr>
+                <thead>
+                  <tr>
+                    <th>Mã thiết bị</th>
+                    <th>Tên thiết bị</th>
+                    <th>Phòng</th>
+                    <th>Tình trạng</th>
+                    <th>Lý do sửa</th>
+                    <th>Chi phí sửa</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  @php
-                    $i = 1;
-                  @endphp
                   @foreach ($note->detail_fix as $item)
                     <tr>
                       <th>{{ $item->id_equipment }}</th>

@@ -26,7 +26,7 @@ class ProcessNoteController extends Controller
     public function index(Request $request)
     {
         $limit = Config::get('constants.limit_page');
-        $notes = $this->noteRepo->query()->with('department')
+        $notes = $this->noteRepo->query()->with('detail_buy', 'detail_fix')->with('department')
             ->when($request->status, function ($query) use ($request) {
                 return $query->where('status', $request->status);
             })

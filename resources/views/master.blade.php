@@ -64,18 +64,16 @@
   <!-- AdminLTE -->
   <script src="{{ asset('dist/js/adminlte.js') }}"></script>
   <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
-  
-  @php
-    if (session('alert-success'))
-    {
-      echo '<script>toastr.success("'.session('alert-success').'")</script>';
-    }
-    if (session('alert-fail'))
-    {
-      echo '<script>toastr.error("'.session('alert-fail').'")</script>';
-    }
-  @endphp 
-
+  @if (session('alert-success'))
+    <script>
+      toastr.success("{{ session('alert-success') }}")
+    </script>';
+  @endif
+  @if (session('alert-fail'))
+    <script>
+      toastr.error("{{ session('alert-fail') }}")
+    </script>';
+  @endif
   @yield('script')
 </body>
 

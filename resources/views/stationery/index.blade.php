@@ -64,14 +64,14 @@ Quản lý văn phòng phẩm
                   <td>
                     <div class="d-flex justify-content-center">
                       <a href="{{ route('stationery.edit', ['id' => $item->id]) }}"
-                        class="btn btn-info flex-grow-1">Sửa</a>
+                        class="btn btn-info">Sửa</a>
                       <div class="m-1"></div>
                       <form class="d-none" action="{{ route('stationery.delete', ['id' => $item->id]) }}"
                         method="post">
                         @csrf
                         @method('delete')
                       </form>
-                      <button type="button" class="btn btn-danger btn-delete flex-grow-1" 
+                      <button type="button" class="btn btn-danger btn-delete" 
                         data-name="{{ $item->name }}">
                         Xóa</button>
                     </div>

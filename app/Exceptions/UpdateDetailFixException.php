@@ -6,8 +6,8 @@ use Exception;
 
 class UpdateDetailFixException extends Exception
 {
-    public function __construct()
+    public function __construct($message)
     {
-        parent::__construct("Thiết bị sửa được thì chi phí không được để trống");
+        parent::__construct($message);
     }
 }

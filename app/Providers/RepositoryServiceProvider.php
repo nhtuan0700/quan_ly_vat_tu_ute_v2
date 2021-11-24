@@ -18,6 +18,12 @@ use App\Repositories\Equipment\EquipmentRepository;
 use App\Repositories\Department\DepartmentInterface;
 use App\Repositories\Stationery\StationeryInterface;
 use App\Repositories\Department\DepartmentRepository;
+use App\Repositories\DetailHandoverBuy\DetailHandoverBuyInterface;
+use App\Repositories\DetailHandoverBuy\DetailHandoverBuyRepository;
+use App\Repositories\DetailHandoverFix\DetailHandoverFixInterface;
+use App\Repositories\DetailHandoverFix\DetailHandoverFixRepository;
+use App\Repositories\HandoverNote\HandoverNoteInterface;
+use App\Repositories\HandoverNote\HandoverNoteRepository;
 use App\Repositories\LimitStationery\LimitStationeryInterface;
 use App\Repositories\LimitStationery\LimitStationeryRepository;
 use App\Repositories\Stationery\StationeryRepository;
@@ -59,5 +65,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RequestNoteInterface::class, RequestNoteRepository::class);
         $this->app->bind(DetailBuyInterface::class, DetailBuyRepository::class);
         $this->app->bind(DetailFixInterface::class, DetailFixRepository::class);
+        $this->app->bind(HandoverNoteInterface::class, HandoverNoteRepository::class);
+        $this->app->bind(DetailHandoverBuyInterface::class, DetailHandoverBuyRepository::class);
+        $this->app->bind(DetailHandoverFixInterface::class, DetailHandoverFixRepository::class);
     }
 }
