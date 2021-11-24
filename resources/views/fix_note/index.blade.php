@@ -44,7 +44,7 @@ Quản lý phiếu sửa
               <thead>
                 <tr>
                   <th scope="col">Mã phiếu</th>
-                  <th scope="col">Ngày lập phiếu</th>
+                  <th scope="col">Ngày tạo phiếu</th>
                   <th scope="col">Trạng thái</th>
                   <th scope="col" width="10%">Thao tác</th>
                 </tr>

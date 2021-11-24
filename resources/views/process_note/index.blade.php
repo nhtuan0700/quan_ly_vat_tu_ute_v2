@@ -43,7 +43,7 @@ Xét duyệt phiếu đề nghị
               <thead>
                 <tr>
                   <th scope="col">Mã phiếu</th>
-                  <th scope="col">Ngày lập phiếu</th>
+                  <th scope="col">Ngày tạo phiếu</th>
                   <th scope="col">Đơn vị</th>
                   <th scope="col">Loại phiếu</th>
                   <th scope="col">Trạng thái</th>

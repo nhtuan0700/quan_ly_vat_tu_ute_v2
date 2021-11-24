@@ -34,8 +34,8 @@
         <form action="{{ route('login') }}" method="post">
           @csrf
           <div class="input-group mb-3">
-            <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Email"
-              name="email" value="{{ old('email') }}" autofocus>
+            <input type="text" class="form-control @error('email') is-invalid @enderror"
+              placeholder="Email" name="email" value="{{ old('email') }}" autofocus>
 
             <div class="input-group-append">
               <div class="input-group-text">
@@ -43,23 +43,23 @@
               </div>
             </div>
             @error('email')
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
             @enderror
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-              name="password">
+            <input type="password" class="form-control @error('password') is-invalid @enderror"
+              placeholder="Password" name="password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
             @error('password')
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
             @enderror
           </div>
           <div class="form-group form-check d-flex justify-content-between">
@@ -82,11 +82,15 @@
 </body>
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+@if (session('alert-success'))
+  <script>
+    toastr.success("{{ session('alert-success') }}")
+  </script>
+@endif
+@if (session('alert-fail'))
+  <script>
+    toastr.error("{{ session('alert-fail') }}")
+  </script>
+@endif
 
-@php
-  if (session('alert-fail'))
-  {
-    echo '<script>toastr.error("'.session('alert-fail').'")</script>';
-  }
-@endphp 
 </html>

@@ -62,13 +62,15 @@ Xét duyệt phiếu đề nghị
                   </div>
                 </div>
                 <table class="table">
-                  <tr>
-                    <th>STT</th>
-                    <th>Tên văn phòng phẩm</th>
-                    <th>Đơn vị tính</th>
-                    <th class="text-center">Số lượng yêu cầu</th>
-                    <th width="20%">Giá</th>
-                  </tr>
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Tên văn phòng phẩm</th>
+                      <th>Đơn vị tính</th>
+                      <th class="text-center">Số lượng yêu cầu</th>
+                      <th width="20%">Giá</th>
+                    </tr>
+                  </thead>
                   <tbody>
                     @php
                       $i = 1;
@@ -108,5 +110,4 @@ Xét duyệt phiếu đề nghị
 
 @section('script')
 <script src="{{ asset('js/currency.js') }}"></script>
-    
 @endsection

@@ -13,6 +13,7 @@ use App\Repositories\RequestNote\RequestNoteInterface;
 use App\Repositories\Registration\RegistrationInterface;
 use App\Http\Requests\FixNote\UpdateDetailFixRequest;
 use App\Repositories\DetailFix\DetailFixInterface;
+use Exception;
 
 class ProcessNoteService
 {
@@ -74,23 +75,46 @@ class ProcessNoteService
 
     public function reject($note)
     {
-        DB::transaction(function() use ($note) {
+        DB::transaction(function () use ($note) {
             $this->noteRepo->process($note->id, false);
         });
     }
 
     public function update_detail_fix(UpdateDetailFixRequest $request, $id)
     {
-        $detailSuaRepo = app(DetailFixInterface::class);
-        DB::transaction(function () use ($request, $id, $detailSuaRepo) {
+        $detailFixRepo = app(DetailFixInterface::class);
+        DB::transaction(function () use ($request, $id, $detailFixRepo) {
             foreach ($request->equipments as $id_equipment => $item) {
-                throw_if(!!$item['status'] && is_null($item['cost']), new UpdateDetailFixException());
-                $detailSuaRepo->where('id_note', $id)->where('id_equipment', $id_equipment)->update([
-                    'cost' => !!$item['status'] ? $item['cost'] : null
-                ]);
-                $this->equipmentRepo->findOrFail($id_equipment)->update([
-                    'status' => !!$item['status'] ? $this->equipmentRepo::NORMAL : $this->equipmentRepo::BROKEN
-                ]);
+                throw_if(!!$item['is_fixable'] && is_null($item['cost']), new UpdateDetailFixException('Thiết bị sửa được thì chi phí không được để trống'));
+                $detail_fix = $detailFixRepo->findItem($id, $id_equipment);
+                throw_if($detail_fix->firstOrFail()->is_handovered, new UpdateDetailFixException('Thiết bị đã được bàn giao thì không thể cập nhật'));
+                if (!is_null($item['is_fixable'])) {
+                    if ($item['is_fixable']) {
+                        $detail_fix->update([
+                            'cost' => $item['cost'],
+                            'is_fixable' => true
+                        ]);
+                        $this->equipmentRepo->findOrFail($id_equipment)->update([
+                            'status' => $this->equipmentRepo::NORMAL
+                        ]);
+                    } else {
+                        $detail_fix->update([
+                            'is_fixable' => false,
+                            'cost' => null
+                        ]);
+                        $this->equipmentRepo->findOrFail($id_equipment)->update([
+                            'status' => $this->equipmentRepo::BROKEN
+                        ]);
+                    }
+                } else {
+                    $detail_fix->update([
+                        'is_fixable' => null,
+                        'cost' => null
+                    ]);
+                    $this->equipmentRepo->findOrFail($id_equipment)->update([
+                        'status' => $this->equipmentRepo::FIXING
+                    ]);
+                }
             }
         });
     }

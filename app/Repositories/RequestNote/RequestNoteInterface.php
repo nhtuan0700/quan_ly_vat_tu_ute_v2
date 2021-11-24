@@ -15,4 +15,5 @@ interface RequestNoteInterface extends RepositoryInterface
     public function find_fix_note($id);
 
     public function process($id, $is_confirm);
+    public function complete($id);
 }

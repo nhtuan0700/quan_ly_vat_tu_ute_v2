@@ -69,11 +69,20 @@ class RequestNoteRepository extends BaseRepository implements RequestNoteInterfa
 
     public function process($id, $is_confirm)
     {
-        $phieu = $this->model->findOrfail($id);
-        $phieu->update([
+        $note = $this->model->findOrfail($id);
+        $note->update([
             'status' => $is_confirm ? RequestNote::CONFIRMED : RequestNote::REJECTED,
             'id_handler' => auth()->id(),
             'processed_at' => now()
+        ]);
+    }
+
+    public function complete($id)
+    {
+        $note = $this->model->findOrfail($id);
+        $note->update([
+            'status' => RequestNote::COMPLETED,
+            'completed_at' => now()
         ]);
     }
 
@@ -99,6 +108,7 @@ class RequestNoteRepository extends BaseRepository implements RequestNoteInterfa
     {
         return $this->model->buy()->where('id', $id)->firstOrFail();
     }
+
     public function find_fix_note($id)
     {
         return $this->model->fix()->where('id', $id)->firstOrFail();
