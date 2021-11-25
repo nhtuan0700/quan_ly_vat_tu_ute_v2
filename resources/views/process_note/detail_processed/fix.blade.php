@@ -26,8 +26,10 @@
                         <th>Mã thiết bị</th>
                         <th>Tên thiết bị</th>
                         <th>Phòng</th>
-                        <th>Tình trạng</th>
                         <th>Lý do sửa</th>
+                        @if ($note->status !== $StatusNote::REJECTED)
+                          <th>Tình trạng</th>
+                        @endif
                         @can('view_handover', $note)
                           @php($can_view_handover = true)
                         @else
@@ -46,10 +48,12 @@
                           <th>{{ $item->id_equipment }}</th>
                           <td>{{ $item->equipment->name }}</td>
                           <td>{{ $item->equipment->room }}</td>
-                          <td>
-                            {{ $item->equipment->statusText }}
-                          </td>
                           <td>{{ $item->reason }}</td>
+                          @if ($note->status !== $StatusNote::REJECTED)
+                            <td>
+                              {{ $item->equipment->statusText }}
+                            </td>
+                          @endif
                           @if ($can_view_handover)
                             @if (!$item->is_handovered)
                               <td>

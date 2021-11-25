@@ -77,7 +77,7 @@ class ProcessNoteController extends Controller
 
     public function reject($id)
     {
-        $note = $this->noteRepo->find($id);
+        $note = $this->noteRepo->findOrFail($id);
         $this->authorize('reject', $note);
         try {
             $this->processService->reject($note);

@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($request_note->detail_fix as $item)
+    @foreach ($request_note->detail_fix->where('is_handovered', false) as $item)
       <tr>
         <th>{{ $item->id_equipment }}</th>
         <td>{{ $item->equipment->name }}</td>
@@ -24,16 +24,13 @@
         </td>
         <td>
           <div class="form-check">
-            @if ($item->is_handovered)
-              <span class="text-success"><i class="fas fa-check"></i></span>
-            @else
-              @if (!is_null($item->is_fixable))
-                <div class="icheck-success d-inline">
-                  <input type="checkbox" id="equipment{{$item->id_equipment}}" name="equipments[{{ $item->id_equipment }}]">
-                  <label for="equipment{{$item->id_equipment}}">
-                  </label>
-                </div>
-              @endif
+            @if (!is_null($item->is_fixable))
+              <div class="icheck-success d-inline">
+                <input type="checkbox" id="equipment{{ $item->id_equipment }}"
+                  name="equipments[{{ $item->id_equipment }}]">
+                <label for="equipment{{ $item->id_equipment }}">
+                </label>
+              </div>
             @endif
           </div>
         </td>

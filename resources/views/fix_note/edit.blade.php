@@ -72,8 +72,8 @@ Quản lý phiếu sửa
                       <th>Mã thiết bị</th>
                       <th>Tên thiết bị</th>
                       <th>Phòng</th>
-                      <th>Tình trạng</th>
                       <th>Lý do sửa</th>
+                      <th>Tình trạng</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -87,11 +87,11 @@ Quản lý phiếu sửa
                         <td>{{ $item->equipment->name }}</td>
                         <td>{{ $item->equipment->room }}</td>
                         <td>
-                         {{ $item->equipment->statusText }}
-                        </td>
-                        <td>
                           <input class="form-control" name="equipments[{{ $item->id_equipment }}]" 
                             value="{{ $item->reason }}" />
+                        </td>
+                        <td>
+                         {{ $item->equipment->statusText }}
                         </td>
                         <td>
                           <button type="button" class="btn btn-danger btn-remove btn-sm"  

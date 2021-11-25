@@ -21,7 +21,7 @@ class RegistrationRepository extends BaseRepository implements RegistrationInter
             ->where('registration.id_user', $id_user)
             ->where('limit_stationery.id_user', $id_user)
             ->where('registration.id_period', $id_period)
-            ->whereNull('stationery.deleted_at')
+            // ->whereNull('stationery.deleted_at')
             ->orderBy('name', 'asc')
             ->select('id', 'name', 'unit', 'qty', 'id_note', 'received_at')
             ->selectRaw('qty_max - qty_used as qty_remain')
@@ -41,7 +41,7 @@ class RegistrationRepository extends BaseRepository implements RegistrationInter
             }, function ($query) use ($id_note) {
                 return $query->where('registration.id_note', $id_note);
             })
-            ->whereNull('stationery.deleted_at')
+            // ->whereNull('stationery.deleted_at')
             ->orderBy('users.id', 'asc')
             ->select(
                 'users.id as id_user',
@@ -74,7 +74,7 @@ class RegistrationRepository extends BaseRepository implements RegistrationInter
             ->where('users.id_department', $id_department)
             ->where('registration.id_period', $id_period)
             ->whereNull('registration.id_note')
-            ->whereNull('stationery.deleted_at')
+            // ->whereNull('stationery.deleted_at')
             ->select('id_stationery', 'stationery.name', 'unit')
             ->selectRaw('sum(qty) as qty')
             ->groupBy('id_stationery', 'stationery.name', 'unit')

@@ -13,7 +13,7 @@
     @php
       $i = 1;
     @endphp
-    @foreach ($request_note->detail_buy as $item)
+    @foreach ($request_note->detail_buy()->whereRaw('qty > qty_handovered')->get() as $item)
       <tr>
         <th>{{ $i++ }}</th>
         <td>{{ $item->stationery->name }}</td>

@@ -13,7 +13,7 @@ use App\Repositories\RequestNote\RequestNoteInterface;
 use App\Repositories\Registration\RegistrationInterface;
 use App\Http\Requests\FixNote\UpdateDetailFixRequest;
 use App\Repositories\DetailFix\DetailFixInterface;
-use Exception;
+use App\Models\Equipment;
 
 class ProcessNoteService
 {
@@ -69,7 +69,7 @@ class ProcessNoteService
     {
         DB::transaction(function () use ($note) {
             $this->noteRepo->process($note->id, true);
-            $note->equipments()->update(['status' => $this->equipmentRepo::FIXING]);
+            // $note->equipments()->update(['status' => Equipment::FIXING]);
         });
     }
 
@@ -77,6 +77,7 @@ class ProcessNoteService
     {
         DB::transaction(function () use ($note) {
             $this->noteRepo->process($note->id, false);
+            $note->equipments()->update(['status' => Equipment::NORMAL]);
         });
     }
 
@@ -95,7 +96,7 @@ class ProcessNoteService
                             'is_fixable' => true
                         ]);
                         $this->equipmentRepo->findOrFail($id_equipment)->update([
-                            'status' => $this->equipmentRepo::NORMAL
+                            'status' => Equipment::NORMAL
                         ]);
                     } else {
                         $detail_fix->update([
@@ -103,7 +104,7 @@ class ProcessNoteService
                             'cost' => null
                         ]);
                         $this->equipmentRepo->findOrFail($id_equipment)->update([
-                            'status' => $this->equipmentRepo::BROKEN
+                            'status' => Equipment::BROKEN
                         ]);
                     }
                 } else {
@@ -112,7 +113,7 @@ class ProcessNoteService
                         'cost' => null
                     ]);
                     $this->equipmentRepo->findOrFail($id_equipment)->update([
-                        'status' => $this->equipmentRepo::FIXING
+                        'status' => Equipment::FIXING
                     ]);
                 }
             }

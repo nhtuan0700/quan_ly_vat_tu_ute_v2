@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\StoreFixEquipmentException;
 use App\Http\Requests\FixNote\UpdateFixNote;
 use App\Http\Requests\FixNote\StoreFixNote;
 use App\Services\FixNoteService;
@@ -36,6 +37,9 @@ class FixNoteController extends Controller
             $new_note = $this->fixNoteService->store($request);
             return redirect(route('fix_note.detail', ['id' => $new_note->id]))
                 ->with('alert-success', trans('alert.create.success'));
+        } catch (StoreFixEquipmentException $e) {
+            return back()
+                ->with('alert-fail', $e->getMessage());
         } catch (\Throwable $th) {
             // return $th->getMessage();
             return back()
@@ -63,6 +67,9 @@ class FixNoteController extends Controller
         $this->authorize('update_fix', $note);
         try {
             $this->fixNoteService->update($request, $note);
+        } catch (StoreFixEquipmentException $e) {
+            return back()
+                ->with('alert-fail', $e->getMessage());
         } catch (\Throwable $th) {
             // return $th->getMessage();
             return back()
@@ -76,7 +83,7 @@ class FixNoteController extends Controller
     {
         $note = $this->fixNoteRepo->find_fix_note($id);
         $this->authorize('delete_fix', $note);
-        $note->delete();
+        $this->fixNoteService->delete($note);
         return back()->with('alert-success', trans('alert.delete.success'));
     }
 

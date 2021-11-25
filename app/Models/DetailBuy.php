@@ -19,7 +19,7 @@ class DetailBuy extends Model
 
     public function stationery()
     {
-        return $this->belongsTo(Stationery::class, 'id_stationery', 'id');
+        return $this->belongsTo(Stationery::class, 'id_stationery', 'id')->withTrashed();
     }
 
     public function note()

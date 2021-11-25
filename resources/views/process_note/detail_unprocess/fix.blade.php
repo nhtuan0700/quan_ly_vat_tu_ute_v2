@@ -24,8 +24,8 @@ Xét duyệt phiếu đề nghị
                     <th>Mã thiết bị</th>
                     <th>Tên thiết bị</th>
                     <th>Phòng</th>
-                    <th>Tình trạng</th>
                     <th>Lý do sửa</th>
+                    <th>Tình trạng sửa</th>
                     <th>Chi phí sửa</th>
                   </tr>
                 </thead>
@@ -35,10 +35,10 @@ Xét duyệt phiếu đề nghị
                       <th>{{ $item->id_equipment }}</th>
                       <td>{{ $item->equipment->name }}</td>
                       <td>{{ $item->equipment->room }}</td>
-                      <td>
-                        {{ $item->equipment->statusText }}
-                      </td>
                       <td>{{ $item->reason }}</td>
+                      <td>
+                        {{ $item->statusText }}
+                      </td>
                       <td>{{ $item->cost }}</td>
                     </tr>
                   @endforeach

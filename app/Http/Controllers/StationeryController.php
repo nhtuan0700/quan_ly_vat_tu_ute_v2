@@ -96,9 +96,9 @@ class StationeryController extends Controller
                 break;
             };
             try {
-                $category = $this->categoryRepo->where('name', $item[3])->firstOrFail();
+                $category = $this->categoryRepo->where('name', $item[3])->first();
                 $is_exist = $this->stationeryRepo->where('name', $item[0])->exists();
-                throw_if($is_exist, new ImportExcelException());
+                throw_if($is_exist || is_null($category), new ImportExcelException());
                 $stationery = [
                     'name' => $item[0],
                     'unit' => $item[1],

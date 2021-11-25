@@ -24,6 +24,6 @@ class DetailHandoverBuy extends Model
 
     public function stationery()
     {
-        return $this->belongsTo(Stationery::class, 'id_stationery', 'id');
+        return $this->belongsTo(Stationery::class, 'id_stationery', 'id')->withTrashed();
     }
 }

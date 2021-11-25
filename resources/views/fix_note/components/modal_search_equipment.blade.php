@@ -18,7 +18,7 @@
             <button type="button" class="btn btn-info ml-1" id="btn-search">Tìm</button>
           </form>
         </div>
-        
+
         <table class="table" id="table-modal">
           <thead>
             <tr>
@@ -39,27 +39,32 @@
 </div>
 
 @push('js')
-<script src="{{ asset('js/ajax.js') }}"></script>
-<script>
-  $(function() {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-    $('#btn-search').click(function () {
-      let url = `{{ route('equipment.list_ajax') }}`;
-      let id_exists = [];
-      $('table#table-equipment tbody tr').each(function(item) {
-        id_exists.push($(this).data('id'))
+  <script src="{{ asset('js/ajax.js') }}"></script>
+  <script>
+    $(function() {
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
       });
-      let data =  {
-        id: $('input#id_equipment').val(),
-        id_exists: id_exists
-      };
-      ajax(url, data, "get", function(response) {
-        let rowHTML = response.map(function(item) {
-          return `<tr>
+      $('#btn-search').click(function() {
+        let url = `{{ route('equipment.list_ajax') }}`;
+        let id_exists = [];
+        $('table#table-equipment tbody tr').each(function(item) {
+          id_exists.push($(this).data('id'))
+        });
+        let data = {
+          id: $('input#id_equipment').val(),
+          id_exists: id_exists
+        };
+        ajax(url, data, "get", function(response) {
+          console.log(response)
+          let rowHTML = response.map(function(item) {
+            let disabled = '';
+            if (item.status != 1) {
+              disabled = 'disabled'
+            }
+            return `<tr>
                     <td class="id">${item.id}</td>
                     <td class="name">${item.name}</td>
                     <td class="room">${item.room}</td>
@@ -67,27 +72,27 @@
                     <td class="status">${item.statusText}</td>
                     <td>
                       <button type="button" class="btn btn-info btn-add btn-sm"  
-                        data-id="${item.id}" onclick="addItem(this)">
+                        data-id="${item.id}" onclick="addItem(this)" ${disabled}>
                         Chọn
-                      </button>  
+                      </button>
                     </td>
                   </tr>`
-        }).join('')
-        rowHTML = rowHTML || `<span class="text-danger">Không tìm thấy thiết bị</span>`
-        $('#table-modal tbody').html(rowHTML || 'Không tìm thấy thiết bị')
+          }).join('')
+          rowHTML = rowHTML || `<span class="text-danger">Không tìm thấy thiết bị</span>`
+          $('#table-modal tbody').html(rowHTML || 'Không tìm thấy thiết bị')
+        })
       })
     })
-  })
 
-  function addItem(elm) {
-    let parent = $(elm).closest('tr');
-    let obj = {
-      id: parent.find('td.id').text(),
-      name: parent.find('td.name').text(),
-      room: parent.find('td.room').text(),
-      statusText: parent.find('td.status').text()
-    }
-    let rowHTML = `<tr data-id="${obj.id}">
+    function addItem(elm) {
+      let parent = $(elm).closest('tr');
+      let obj = {
+        id: parent.find('td.id').text(),
+        name: parent.find('td.name').text(),
+        room: parent.find('td.room').text(),
+        statusText: parent.find('td.status').text()
+      }
+      let rowHTML = `<tr data-id="${obj.id}">
                     <th class="id">${obj.id}</th>
                     <td class="name">${obj.name}</td>
                     <td class="room">${obj.room}</td>
@@ -103,14 +108,14 @@
                     </td>
                   </tr>`;
 
-    $('table#table-equipment tbody').append(rowHTML);
-    $('input#id_equipment').val('');
-    $('#table-modal tbody').html('');
-    $('#modal').modal('hide');
-  }
+      $('table#table-equipment tbody').append(rowHTML);
+      $('input#id_equipment').val('');
+      $('#table-modal tbody').html('');
+      $('#modal').modal('hide');
+    }
 
-  function removeItem(elm) {
-    $(elm).closest('tr').remove();
-  }
-</script>
+    function removeItem(elm) {
+      $(elm).closest('tr').remove();
+    }
+  </script>
 @endpush

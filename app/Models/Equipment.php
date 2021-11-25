@@ -61,7 +61,7 @@ class Equipment extends Model
             case self::NORMAL:
                 return 'Bình thường';
             case self::FIXING:
-                return 'Đang sửa';
+                return 'Chờ sửa';
             default:
                 return 'Đã bị hư';
         }

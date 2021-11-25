@@ -29,7 +29,9 @@
                           <th>Phòng</th>
                           <th>Lý do sửa</th>
                           <th>Chi phí sửa</th>
-                          <th>Tình trạng sửa</th>
+                          @if ($note->status !== $StatusNote::REJECTED)
+                            <th>Tình trạng sửa</th>
+                          @endif
                           @can('view_handover', $note)
                             @php($can_view_handover = true)
                           @else
@@ -47,9 +49,11 @@
                               <td>{{ $item->equipment->room }}</td>
                               <td>{{ $item->reason }}</td>
                               <td>{{ format_currency($item->cost) }}</td>
-                              <td>
-                                {{ $item->statusText }}
-                              </td>
+                              @if ($note->status !== $StatusNote::REJECTED)
+                                <td>
+                                  {{ $item->statusText }}
+                                </td>
+                              @endif
                               @if ($can_view_handover)
                                 @if ($item->is_handovered)
                                   <td class="text-center">
