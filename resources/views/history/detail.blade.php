@@ -44,7 +44,7 @@ Lịch sử đăng ký văn phòng phẩm
                           <span class="text-danger"><i class="fas fa-times"></i></span>
                         @endif
                       </td>
-                      <td>{{ $item->received_at }}</td>
+                      <td>{{ format_datetime($item->received_at) }}</td>
                     </tr>
                   @endforeach
                 </tbody>

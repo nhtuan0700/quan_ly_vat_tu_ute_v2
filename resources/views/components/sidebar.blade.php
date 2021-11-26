@@ -114,11 +114,11 @@
           </a>
         </li>
         
-        @can('buy_note-manage')
+        @can('registration-handover')
           <li class="nav-item">
-            <a href="#" class="nav-link" id="link">
+            <a href="{{ route('handover_registration.list_period') }}" class="nav-link" id="link-ban-giao-dang-ky">
               <p>
-                Danh sách đăng ký văn phòng phẩm của đơn vị
+                Bàn giao đăng ký văn phòng phẩm của đơn vị
               </p>
             </a>
           </li>

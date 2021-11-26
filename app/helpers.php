@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\RequestNote;
+
 if (!function_exists('transformDateExcel')) {
     function transformDateExcel($value)
     {
@@ -43,5 +44,15 @@ if (!function_exists('count_note_processing')) {
     {
         $count = app(RequestNote::class)->where('status', RequestNote::PROCESSING)->count();
         return $count;
+    }
+}
+
+if (!function_exists('format_datetime')) {
+    function format_datetime($datetime)
+    {
+        if ($datetime) {
+            return \Carbon\Carbon::parse($datetime)->format(app('datetime_format'));
+        }
+        return '';
     }
 }

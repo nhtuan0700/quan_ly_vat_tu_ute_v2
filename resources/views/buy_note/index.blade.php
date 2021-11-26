@@ -44,6 +44,7 @@ Quản lý phiếu mua đơn vị
               <thead>
                 <tr>
                   <th scope="col">Mã phiếu</th>
+                  <th>Đợt đăng ký</th>
                   <th scope="col">Ngày tạo phiếu</th>
                   <th scope="col">Trạng thái</th>
                   <th scope="col" width="10%">Thao tác</th>
@@ -53,6 +54,7 @@ Quản lý phiếu mua đơn vị
                 @foreach ($notes as $item)
                 <tr>
                   <th>{{ $item->id }}</th>
+                  <td>{{ $item->id_period }}</td>
                   <td>{{ $item->created_at }}</td>
                   <td>{!! $item->statusHTML !!}</td>
                   <td>

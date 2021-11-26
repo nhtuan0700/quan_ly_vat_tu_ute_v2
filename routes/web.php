@@ -8,6 +8,7 @@ use App\Http\Controllers\{
     BuyNoteController,
     FixNoteController,
     HandoverNoteController,
+    HandoverRegistrationController,
     RegistrationController,
     StationeryController,
     UserController,
@@ -135,6 +136,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/search', [HandoverNoteController::class, 'search'])->name('search');
         Route::delete('/delete/{id?}', [HandoverNoteController::class, 'delete'])->name('delete');
     });
-    
     Route::get('phieu-ban-giao/api/detail/{id?}', [HandoverNoteController::class, 'detail_ajax'])->name('handover_note.detail_ajax');
+
+    Route::group(['as' => 'handover_registration.', 'prefix' => 'ban-giao-dang-ky', 'middleware' => 'acl:registration-handover'], function () {
+        Route::get('/', [HandoverRegistrationController::class, 'list_period'])->name('list_period');
+        Route::get('/danh-sach/{id_period?}', [HandoverRegistrationController::class, 'list_user'])->name('list_user');
+        Route::get('/detail', [HandoverRegistrationController::class, 'detail'])->name('detail');
+        Route::post('/handover', [HandoverRegistrationController::class, 'handover'])->name('handover');
+    });
 });

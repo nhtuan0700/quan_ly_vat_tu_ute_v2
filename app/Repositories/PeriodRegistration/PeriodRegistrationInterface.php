@@ -13,4 +13,9 @@ interface PeriodRegistrationInterface extends RepositoryInterface
      * Load danh sách các đợt đăng ký (đang diễn ra, đã diễn ra)
      */
     public function list();
+
+    /**
+     * Load danh sách các đợt đăng ký đã có phiếu của đơn vị
+     */
+    public function listHasNoteInDepartment();
 }

@@ -62,8 +62,7 @@ class RegistrationRepository extends BaseRepository implements RegistrationInter
             ->where('id_user', $id_user)
             ->where('id_stationery', $id_stationery)
             ->where('id_period', $id_period)
-            ->select('*')
-            ->selectRaw('qty_max - qty_used as qty_remain');
+            ->select('*');
     }
 
     public function sumStationeryByDepartment($id_period, $id_department)

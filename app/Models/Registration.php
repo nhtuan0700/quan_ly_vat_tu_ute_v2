@@ -17,4 +17,9 @@ class Registration extends Model
     protected $primaryKey = ['id_user', 'id_stationery', 'id_period'];
     public $incrementing = false;
 
+
+    public function buy_note()
+    {
+        return $this->belongsTo(RequestNote::class, 'id_note', 'id');
+    }
 }
