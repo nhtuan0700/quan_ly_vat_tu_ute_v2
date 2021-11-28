@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\ResetLimitStationeryCommand'
     ];
 
     /**
@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('limit:reset')->cron('0 0 1 1 *');
+        $schedule->command('limit:reset')->cron('0 0 1 5 *');
+        $schedule->command('limit:reset')->cron('0 0 1 9 *');
     }
 
     /**
@@ -34,7 +36,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
