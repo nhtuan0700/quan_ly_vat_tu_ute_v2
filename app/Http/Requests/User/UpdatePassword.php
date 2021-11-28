@@ -28,4 +28,11 @@ class UpdatePassword extends FormRequest
             'password' => 'required|min:6|confirmed',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'current_password' => 'Mật khẩu hiện tại',
+        ];
+    }
 }

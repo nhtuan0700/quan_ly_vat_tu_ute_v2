@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin | Log in</title>
+  <title>{{ config('app.name') }} | Đăng nhập</title>
+  <link rel="icon" href="{{ asset('iconute.ico') }}" type="image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -68,7 +69,7 @@
               <label class="form-check-label" for="remember">Nhớ tài khoản</label>
             </div>
             <p class="mb-1">
-              <a href="#">Quên mật khẩu?</a>
+              <a href="{{ route('forgot_password.submit_email') }}">Quên mật khẩu?</a>
             </p>
           </div>
           <button type="submit" class="btn btn-primary">Đăng nhập</button>

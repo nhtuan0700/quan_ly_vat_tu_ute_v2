@@ -56,3 +56,15 @@ if (!function_exists('format_datetime')) {
         return '';
     }
 }
+
+if (!function_exists('generateRandomStringNumber')) {
+	function generateRandomStringNumber($length = 8) {
+		$characters = '0123456789';
+		$stringResult = '';
+		$charactersLength = strlen($characters);
+		for ($i = 0; $i < $length; $i++) {
+			$stringResult .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $stringResult;
+	}
+}

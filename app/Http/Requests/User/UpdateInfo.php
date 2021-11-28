@@ -26,18 +26,17 @@ class UpdateInfo extends FormRequest
         return [
             'name' => 'required',
             'tel' => 'required|regex:/[0-9]{10}/',
-            'id_province' => 'required|exists:province,id',
-            'id_district' => 'required|exists:district,id',
-            'address' => 'required'
+            'dob' => 'required',
+            'id_card' => 'required',
         ];
     }
 
     public function attributes()
     {
         return [
-            'tel' => 'phone number',
-            'id_province' => 'province',
-            'id_district' => 'district',
+            'tel' => 'số điện thoại',
+            'id_card' => 'chứng minh nhân dân',
+            'dob' => 'ngày sinh'
         ];
     }
 }

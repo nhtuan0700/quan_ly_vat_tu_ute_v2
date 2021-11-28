@@ -7,8 +7,10 @@ use App\Http\Controllers\{
     PeriodRegistrationController,
     BuyNoteController,
     FixNoteController,
+    ForgotPasswordController,
     HandoverNoteController,
     HandoverRegistrationController,
+    ProfileController,
     RegistrationController,
     StationeryController,
     UserController,
@@ -32,6 +34,17 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [LoginController::class, 'login']);
 });
 
+Route::group(['as' => 'forgot_password.', 'middleware' => 'guest', 'prefix' => 'recovery'], function () {
+    Route::get('/recovery/submit_email', [ForgotPasswordController::class, 'showSubmitEmail'])->name('submit_email');
+    Route::post('/recovery/submit_email', [ForgotPasswordController::class, 'submitEmail']);
+    Route::get('/recovery/submit_email_code', [ForgotPasswordController::class, 'showSubmitCode'])->name('submit_code');
+    Route::post('/recovery/submit_email_code', [ForgotPasswordController::class, 'submitCode']);
+    Route::get('/recovery/reset_password', [ForgotPasswordController::class, 'showResetPassword'])->name('reset_password');
+    Route::post('/recovery/reset_password', [ForgotPasswordController::class, 'resetPassword']);
+    Route::post('/send_code', [ForgotPasswordController::class, 'sendCodeAgain'])->name('send_code');
+    Route::get('/result', [ForgotPasswordController::class, 'showResult'])->name('result');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -50,6 +63,13 @@ Route::middleware('auth')->group(function () {
         Route::post('import', [UserController::class, 'import_excel'])->name('import');
         Route::post('update-hanmuc/{id_user}', [UserController::class, 'updateLimit'])->name('update_limit')
             ->middleware('acl:limit-manage');
+    });
+
+    Route::group(['as' => 'profile.', 'prefix' => 'trang-ca-nhan'], function () {
+        Route::get('/info', [ProfileController::class, 'showInfo'])->name('info');
+        Route::put('/info', [ProfileController::class, 'updateInfo'])->name('update_info');
+        Route::get('/password', [ProfileController::class, 'showFormChangPassword'])->name('show_password');
+        Route::put('/password', [ProfileController::class, 'updatePassword'])->name('update_password');
     });
 
     Route::group(['as' => 'stationery.', 'prefix' => 'van-phong-pham', 'middleware' => 'acl:supplies-manage'], function () {
