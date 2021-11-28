@@ -118,5 +118,4 @@ Quản lý văn phòng phẩm
     }
   })
 </script>
-@stack('js')
 @endsection

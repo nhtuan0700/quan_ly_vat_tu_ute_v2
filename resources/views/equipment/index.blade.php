@@ -80,28 +80,3 @@ Quản lý thiết bị
   </div>
 </section>
 @endsection
-
-@section('tag_head')
-<!-- Select2 -->
-<link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-@endsection
-
-@section('script')
-<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-<script>
-  $(function () {
-    $('.select2').select2()
-  })
-
-  $('.btn-delete').click(function(e) {
-    e.preventDefault();
-    let name = $(this).data('name')
-    var isConfirm = confirm(`Bạn có chắc muốn xóa ${name}`)
-    if (isConfirm) {
-      $(this).siblings('form').submit()
-    }
-  })
-</script>
-@stack('js')
-@endsection

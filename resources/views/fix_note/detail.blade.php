@@ -91,7 +91,3 @@
     </div>
   </section>
 @endsection
-
-@section('script')
-  @stack('js')
-@endsection

@@ -58,7 +58,6 @@
           id_exists: id_exists
         };
         ajax(url, data, "get", function(response) {
-          console.log(response)
           let rowHTML = response.map(function(item) {
             let disabled = '';
             if (item.status != 1) {

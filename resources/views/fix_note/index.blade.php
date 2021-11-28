@@ -112,5 +112,4 @@ Quản lý phiếu sửa
     }
   })
 </script>
-@stack('js')
 @endsection

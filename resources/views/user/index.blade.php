@@ -133,5 +133,4 @@ Quản lý người dùng
     $('.select2').select2()
   })
 </script>
-@stack('js')
 @endsection

@@ -33,10 +33,9 @@
   </div>
 </div>
 @push('js')
-@php
-if (session('alert-result'))
-  {
-    echo '<script>alert("'.session('alert-result').'")</script>';
-  }
-@endphp
+  @if (session('alert-result'))
+    <script>
+      alert("{{ session('alert-result') }}")
+    </script>
+  @endif
 @endpush

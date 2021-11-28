@@ -67,14 +67,16 @@
   @if (session('alert-success'))
     <script>
       toastr.success("{{ session('alert-success') }}")
-    </script>';
+    </script>
   @endif
   @if (session('alert-fail'))
     <script>
       toastr.error("{{ session('alert-fail') }}")
-    </script>';
+    </script>
   @endif
   @yield('script')
+
+  @stack('js')
 </body>
 
 </html>

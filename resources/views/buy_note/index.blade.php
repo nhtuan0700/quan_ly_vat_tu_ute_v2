@@ -104,5 +104,4 @@ Quản lý phiếu mua đơn vị
     }
   })
 </script>
-@stack('js')
 @endsection

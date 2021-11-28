@@ -118,5 +118,4 @@
 
 @section('script')
   <script src="{{ asset('js/currency.js') }}"></script>
-  @stack('js')
 @endsection

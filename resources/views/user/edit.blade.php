@@ -164,5 +164,4 @@ Quản lý người dùng
     $("#dob input").val(dob);
   })
 </script>
-@stack('js')
 @endsection

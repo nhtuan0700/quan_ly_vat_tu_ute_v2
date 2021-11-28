@@ -135,5 +135,4 @@
       })
     })
   </script>
-  @stack('js')
 @endsection
