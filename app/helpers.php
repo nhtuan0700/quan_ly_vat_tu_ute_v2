@@ -58,13 +58,21 @@ if (!function_exists('format_datetime')) {
 }
 
 if (!function_exists('generateRandomStringNumber')) {
-	function generateRandomStringNumber($length = 8) {
-		$characters = '0123456789';
-		$stringResult = '';
-		$charactersLength = strlen($characters);
-		for ($i = 0; $i < $length; $i++) {
-			$stringResult .= $characters[rand(0, $charactersLength - 1)];
-		}
-		return $stringResult;
-	}
+    function generateRandomStringNumber($length = 8)
+    {
+        $characters = '0123456789';
+        $stringResult = '';
+        $charactersLength = strlen($characters);
+        for ($i = 0; $i < $length; $i++) {
+            $stringResult .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $stringResult;
+    }
+}
+
+if (!function_exists('getPathAfterDomain')) {
+    function getPathAfterDomain($path)
+    {
+        return parse_url($path)['path'];
+    }
 }

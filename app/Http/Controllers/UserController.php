@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Exports\ExportUser;
 use App\Imports\ImportUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Exports\ExportUserTemplate;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -13,7 +15,9 @@ use App\Http\Requests\User\UpdateUser;
 use App\Repositories\Role\RoleInterface;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\User\ResetPassword;
+use Illuminate\Support\Facades\Notification;
 use App\Repositories\Department\DepartmentInterface;
+use App\Notifications\UpdateLimitStationeryNotification;
 use App\Repositories\LimitStationery\LimitStationeryInterface;
 
 class UserController extends Controller
@@ -115,7 +119,7 @@ class UserController extends Controller
         $users = Excel::toCollection(new ImportUser, request()->file('file_excel'));
         $error = [];
         foreach ($users[0] as $key => $item) {
-            if($item->filter()->isEmpty()) {
+            if ($item->filter()->isEmpty()) {
                 break;
             };
             try {
@@ -146,12 +150,23 @@ class UserController extends Controller
     public function updateLimit(Request $request, $id_user)
     {
         try {
-            foreach ($request->limits as $id_stationery => $qty_max) {
-                $this->limitRepo->findItem($id_user, $id_stationery)->update([
-                    'qty_max' => intval($qty_max)
-                ]);
-            }
+            DB::transaction(function () use ($request, $id_user) {
+                $is_edit = false;
+                foreach ($request->limits as $id_stationery => $qty_max) {
+                    $limit = $this->limitRepo->findItem($id_user, $id_stationery);
+                    if ($limit->first()->qty_max != $qty_max) {
+                        $limit->update([
+                            'qty_max' => $qty_max
+                        ]);
+                        $is_edit = true;
+                    }
+                }
+                if ($is_edit) {
+                    Notification::send(User::find($id_user), new UpdateLimitStationeryNotification());
+                }
+            });
         } catch (\Throwable $th) {
+            return $th->getMessage();
             return back()->with('alert-fail', 'Cập nhật hạn mức thất bại');
         }
         return back()->with('alert-success', 'Cập nhật hạn mức thành công');

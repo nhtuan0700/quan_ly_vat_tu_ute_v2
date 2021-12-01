@@ -134,7 +134,7 @@ Quản lý người dùng
     </div>
   </div>
 </section>
-@include('user.components.modal_limit')
+@include('limit_stationery.components.modal_limit')
 @endsection
 
 @section('tag_head')

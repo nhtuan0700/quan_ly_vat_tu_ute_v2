@@ -37,32 +37,32 @@
         @endcan
 
         @can('supplies-manage')
-        <li class="nav-item">
-          <a href="#" class="nav-link" id="link-vat-tu">
-            <p>
-              Quản lý vật tư
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('stationery.index') }}" class="nav-link" id="link-van-phong-pham">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Văn phòng phẩm
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('equipment.index') }}" class="nav-link" id="link-thiet-bi">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Thiết bị
-                </p>
-              </a>
-            </li>
-          </ul>
-        </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="link-vat-tu">
+              <p>
+                Quản lý vật tư
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('stationery.index') }}" class="nav-link" id="link-van-phong-pham">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Văn phòng phẩm
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('equipment.index') }}" class="nav-link" id="link-thiet-bi">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Thiết bị
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
         @endcan
 
         @can('period-manage')
@@ -79,9 +79,9 @@
           <li class="nav-item">
             <a href="{{ route('process_note.index') }}" class="nav-link" id="link-phieu-de-nghi">
               <p>
-                Danh sách phiếu đề nghị 
+                Danh sách phiếu đề nghị
                 <span class="text-white">
-                  <sup class="text-md">{{ count_note_processing() }}</sup>
+                  <sup class="text-md" id="count_rq_note_processing">{{ count_note_processing() }}</sup>
                 </span>
               </p>
             </a>
@@ -99,6 +99,14 @@
         @endcan
 
         <li class="nav-item">
+          <a href="{{ route('limit.index') }}" class="nav-link" id="link-han-muc">
+            <p>
+              Hạn mức đăng ký văn phòng phẩm của tôi
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a href="{{ route('registration.index') }}" class="nav-link" id="link-dang-ky-van-phong-pham">
             <p>
               Đăng ký văn phòng phẩm
@@ -113,10 +121,11 @@
             </p>
           </a>
         </li>
-        
+
         @can('registration-handover')
           <li class="nav-item">
-            <a href="{{ route('handover_registration.list_period') }}" class="nav-link" id="link-ban-giao-dang-ky">
+            <a href="{{ route('handover_registration.list_period') }}" class="nav-link"
+              id="link-ban-giao-dang-ky">
               <p>
                 Bàn giao đăng ký văn phòng phẩm của đơn vị
               </p>
@@ -145,3 +154,26 @@
     </nav>
   </div>
 </aside>
+
+@push('js')
+  <script>
+    $(function() {
+      @if (auth()->user()->can('request_note-process'))
+        const channel = 'request-note';
+        window.Echo.private(channel).listen('.RequestNote', (data) => {
+          console.log(data)
+          $('#count_rq_note_processing').text(data.count);
+          if (data.is_create) {
+            $(document).Toasts('create', {
+              title: 'Thông báo',
+              position: 'bottomLeft',
+              body: 'Có phiếu đề nghị mới cần được xử lý',
+              delay: 5000,
+              autohide: true,
+            })
+          }
+        });
+      @endif
+    })
+  </script>
+@endpush

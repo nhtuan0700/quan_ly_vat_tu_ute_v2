@@ -10,7 +10,7 @@ Lịch sử đăng ký văn phòng phẩm
         <div class="card">
           <div class="card-header">
             <div>
-              <p class="card-title mr-3">Danh sách các đợt đăng ký</p>
+              <p class="card-title mr-3">Chi tiết đăng ký - Đợt {{ $id_period }}</p>
             </div>
           </div>
 

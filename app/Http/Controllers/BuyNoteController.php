@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RequestNoteEvent;
 use App\Services\BuyNoteService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class BuyNoteController extends Controller
 {
@@ -60,6 +60,7 @@ class BuyNoteController extends Controller
         }
         try {
             $new_note = $this->buyNoteService->store($request, $id_period);
+            event(new RequestNoteEvent(true));
             return redirect(route('buy_note.detail', ['id' => $new_note->id]))
                 ->with('alert-success', trans('alert.create.success'));
         } catch (\Throwable $th) {

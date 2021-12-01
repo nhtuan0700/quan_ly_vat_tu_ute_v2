@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\StoreFixEquipmentException;
-use App\Http\Requests\FixNote\UpdateFixNote;
-use App\Http\Requests\FixNote\StoreFixNote;
-use App\Services\FixNoteService;
 use Illuminate\Http\Request;
+use App\Events\RequestNoteEvent;
+use App\Services\FixNoteService;
+use App\Http\Requests\FixNote\StoreFixNote;
+use App\Http\Requests\FixNote\UpdateFixNote;
+use App\Exceptions\StoreFixEquipmentException;
 
 class FixNoteController extends Controller
 {
@@ -35,6 +36,7 @@ class FixNoteController extends Controller
     {
         try {
             $new_note = $this->fixNoteService->store($request);
+            event(new RequestNoteEvent(true));
             return redirect(route('fix_note.detail', ['id' => $new_note->id]))
                 ->with('alert-success', trans('alert.create.success'));
         } catch (StoreFixEquipmentException $e) {
@@ -84,6 +86,7 @@ class FixNoteController extends Controller
         $note = $this->fixNoteRepo->find_fix_note($id);
         $this->authorize('delete_fix', $note);
         $this->fixNoteService->delete($note);
+        event(new RequestNoteEvent(false));
         return back()->with('alert-success', trans('alert.delete.success'));
     }
 

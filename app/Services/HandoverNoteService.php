@@ -5,12 +5,16 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\HandoverListSuppliesException;
+use App\Models\User;
+use App\Notifications\CompleteRequestNoteNotification;
+use App\Notifications\HandoverNoteNotification;
 use App\Repositories\DetailBuy\DetailBuyInterface;
 use App\Repositories\DetailFix\DetailFixInterface;
 use App\Repositories\RequestNote\RequestNoteInterface;
 use App\Repositories\HandoverNote\HandoverNoteInterface;
 use App\Repositories\DetailHandoverBuy\DetailHandoverBuyInterface;
 use App\Repositories\DetailHandoverFix\DetailHandoverFixInterface;
+use Illuminate\Support\Facades\Notification;
 
 class HandoverNoteService
 {
@@ -55,6 +59,7 @@ class HandoverNoteService
             throw_if(empty($equipments), new HandoverListSuppliesException());
             $new_note = $this->store_handover_note_fix($request_note, $equipments);
         }
+        Notification::send(User::find($request_note->id_creator), new HandoverNoteNotification($new_note));
         return $new_note;
     }
 
@@ -93,6 +98,7 @@ class HandoverNoteService
                 $check_enough_handover = !$request_note->detail_buy()->whereRaw('qty > qty_handovered')->exists();
                 if ($check_enough_handover) {
                     $this->requestNoteRepo->complete($request_note->id);
+                    Notification::send(User::find($request_note->id_creator), new CompleteRequestNoteNotification($request_note));
                 }
             } else {
                 $detailFixRepo = app(DetailFixInterface::class);
@@ -100,6 +106,7 @@ class HandoverNoteService
                 $check_enough_handover = !$request_note->detail_fix()->where('is_handovered', false)->exists();
                 if ($check_enough_handover) {
                     $this->requestNoteRepo->complete($request_note->id);
+                    Notification::send(User::find($request_note->id_creator), new CompleteRequestNoteNotification($request_note));
                 }
             }
         });

@@ -39,7 +39,7 @@
   <script src="{{ asset('js/ajax.js') }}"></script>
   <script>
     $(function() {
-      var seconds = 10;
+      var seconds = 60;
       countdown(seconds);
 
       const email = `{{ session()->get('email') }}`;
@@ -71,14 +71,14 @@
         }
         ajax(url, data, "POST", function(result) {
           if (!result.error) {
-            toastr.success('Yêu cầu gửi mã thất bại')
+            toastr.success('Yêu cầu gửi lại mã thành công')
             countdown(seconds)
             $('#timeout span a').remove()
           } else {
-            toastr.error('Yêu cầu gửi mã thất bại')
+            toastr.error('Yêu cầu gửi lại mã thất bại')
           }
         }, function() {
-          toastr.error('Yêu cầu gửi mã thất bại')
+          toastr.error('Yêu cầu gửi lại mã thất bại')
         })
       }
     })

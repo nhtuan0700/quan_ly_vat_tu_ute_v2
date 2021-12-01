@@ -54,7 +54,7 @@ class RequestNote extends Model
 
     public function handover_notes()
     {
-        return $this->hasMany(HandoverNote::class, 'id_request_note', 'id');
+        return $this->hasMany(HandoverNote::class, 'id_request_note', 'id')->orderby('created_at', 'desc');
     }
 
     public function scopeBuy($query)

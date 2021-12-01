@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\UpdateDetailFixException;
-use App\Http\Requests\FixNote\UpdateDetailFixRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\ProcessNoteService;
 use Illuminate\Support\Facades\Config;
+use App\Exceptions\UpdateDetailFixException;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ProcessNoteNotification;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\FixNote\UpdateDetailFixRequest;
 
 class ProcessNoteController extends Controller
 {
@@ -65,6 +68,7 @@ class ProcessNoteController extends Controller
         $this->authorize('confirm', $note);
         try {
             $this->processService->confirm($request, $note);
+            Notification::send(User::find($note->id_creator), new ProcessNoteNotification($note));
         } catch (ValidationException $e) {
             return back();
         } catch (\Throwable $th) {
@@ -81,6 +85,7 @@ class ProcessNoteController extends Controller
         $this->authorize('reject', $note);
         try {
             $this->processService->reject($note);
+            Notification::send(User::find($note->id_creator), new ProcessNoteNotification($note));
         } catch (\Throwable $th) {
             // return ($th->getMessage());
             return back()->with('alert-fail', 'Xử lý phiếu thất bại');

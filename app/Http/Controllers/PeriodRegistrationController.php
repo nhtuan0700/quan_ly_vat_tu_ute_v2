@@ -6,7 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\PeriodRegistration\StorePeriodRegistration;
 use App\Http\Requests\PeriodRegistration\UpdatePeriodRegistration;
+use App\Models\User;
+use App\Notifications\PeriodRegistrationNotification;
 use App\Repositories\PeriodRegistration\PeriodRegistrationInterface;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\Notification;
 
 class PeriodRegistrationController extends Controller
 {
@@ -39,6 +43,8 @@ class PeriodRegistrationController extends Controller
         }
         $data = $request->validated();
         $new_period = $this->periodRepo->create($data);
+        $users = User::all();
+        Notification::send($users, new PeriodRegistrationNotification($new_period));
         return redirect(route('period.edit', ['id' => $new_period->id]))
             ->with('alert-success', trans('alert.create.success'));
     }
@@ -80,6 +86,7 @@ class PeriodRegistrationController extends Controller
         $period = $this->periodRepo->findOrFail($id);
         $this->authorize('delete', $period);
         $period->delete($id);
+        DatabaseNotification::whereJsonContains('data->id_period', $id)->delete();
         return back()->with('alert-success', trans('alert.delete.success'));
     }
 }

@@ -1,6 +1,4 @@
-<button type="button" class="btn btn-default ml-2" data-toggle="modal" data-target="#modalImport">
-  Import Excel
-</button>
+
 <div class="modal fade" id="modalImport" tabindex="-1" aria-labelledby="modalImportLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

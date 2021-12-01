@@ -10,6 +10,8 @@ use App\Http\Controllers\{
     ForgotPasswordController,
     HandoverNoteController,
     HandoverRegistrationController,
+    LimitStationeryController,
+    NotificationController,
     ProfileController,
     RegistrationController,
     StationeryController,
@@ -48,7 +50,14 @@ Route::group(['as' => 'forgot_password.', 'middleware' => 'guest', 'prefix' => '
 Route::middleware('auth')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::group(['as' => 'notification.', 'prefix' => 'notify'], function () {
+        Route::get('/', [NotificationController::class, 'list'])->name('list');
+        Route::get('/mark-read', [NotificationController::class, 'markAsRead'])->name('mark_read');
+    });
 
+    Route::group(['as' => 'limit.', 'prefix' => 'han-muc'], function () {
+        Route::get('/', [LimitStationeryController::class, 'index'])->name('index');
+    });
     Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => 'acl:user-manage'], function () {
         Route::get('index', [UserController::class, 'index'])->name('index');
         Route::get('search', [UserController::class, 'search'])->name('search');

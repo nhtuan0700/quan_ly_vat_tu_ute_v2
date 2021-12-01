@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\HandoverNoteService;
 use App\Exceptions\HandoverOverQtyException;
 use App\Exceptions\HandoverListSuppliesException;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Gate;
 
 class HandoverNoteController extends Controller
@@ -33,7 +33,6 @@ class HandoverNoteController extends Controller
     {
         $request_note = $this->requestNoteRepo->findOrFail($id);
         $this->authorize('create_handover', $request_note);
-
         return view('handover_note.create', compact('request_note'));
     }
 
@@ -68,7 +67,6 @@ class HandoverNoteController extends Controller
             $note = $this->handoverNoteRepo->query()->whereHas('request_note', function ($query) {
                 $query->where(function ($query) {
                     $query->where('is_buy', true)->where('id_department', auth()->user()->id_department);
-
                 })->orWhere(function ($query) {
                     $query->where('is_buy', false)->where('id_creator', auth()->id());
                 });
@@ -121,6 +119,7 @@ class HandoverNoteController extends Controller
         $note = $this->handoverNoteRepo->findOrFail($id);
         $this->authorize('delete', $note);
         $note->delete();
+        DatabaseNotification::whereJsonContains('data->id_handover_note', $id)->delete();
         return back()->with('alert-success', trans('alert.delete.success'));
     }
 }
