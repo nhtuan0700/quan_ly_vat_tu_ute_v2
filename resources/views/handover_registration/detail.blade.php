@@ -71,8 +71,8 @@
                                 </label>
                               </div>
                             @else
-                              <span class="text-success" data-toggle="tooltip" 
-                              data-placement="bottom" title="{{ format_datetime($item->received_at) }}">
+                              <span class="text-success" data-toggle="tooltip" data-placement="bottom"
+                                title="{{ format_datetime($item->received_at) }}">
                                 <i class="fas fa-check"></i></span>
                             @endif
                           </td>

@@ -36,6 +36,7 @@ Quản lý phiếu mua đơn vị
                 </div>
               </div>
             </div>
+            <a href="{{ route('buy_note.index') }}" class="btn btn-default mt-2">Quay lại</a>
           </div>
 
         </div>

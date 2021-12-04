@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             DepartmentSeeder::class,
             CategorySeeder::class,
-            StationerySeeder::class,
+            // StationerySeeder::class,
             // EquipmentSeeder::class,
             UserSeeder::class,
             RolePermissionSeeder::class,

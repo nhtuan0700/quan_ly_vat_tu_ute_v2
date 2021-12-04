@@ -1,4 +1,4 @@
-<h5>Danh sách thiết bị đề nghị sửa</h5>
+<h5>Danh sách bàn giao thiết bị</h5>
 <table class="table">
   <thead>
     <tr>

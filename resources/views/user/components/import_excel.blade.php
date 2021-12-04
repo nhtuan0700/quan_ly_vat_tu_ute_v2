@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="modalImport" tabindex="-1" aria-labelledby="modalImportLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -34,11 +33,11 @@
     </div>
   </div>
 </div>
+
 @push('js')
-@php
-if (session('alert-result'))
-  {
-    echo '<script>alert("'.session('alert-result').'")</script>';
-  }
-@endphp
+  @if (session('alert-result'))
+    <script>
+      alert("{{ session('alert-result') }}")
+    </script>
+  @endif
 @endpush

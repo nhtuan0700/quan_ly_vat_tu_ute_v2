@@ -61,10 +61,10 @@
                     @include('handover_note.components.edit_fix', ['note' => $note])
                   @endif
                 </div>
-                <a href="{{ route('handover_note.detail', ['id' => $note->id]) }}"
-                  class="btn btn-warning mr-2">Trở về</a>
+                <a href="{{ route('handover_note.detail', ['id' => $note->id]) }}" class="btn btn-default mr-1">
+                  Trở về</a>
                 @can('update', $note)
-                  <button href="#" class="btn btn-primary float-right">Lưu</button>
+                  <button href="#" class="btn btn-primary">Lưu</button>
                 @endcan
               </form>
             </div>

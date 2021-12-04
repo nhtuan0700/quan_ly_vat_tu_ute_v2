@@ -37,7 +37,7 @@ Quản lý người dùng
                       <input type="password" class="form-control" id="password_confirmation " name="password_confirmation">
                     </div>
                   </div>
-                  <a class="btn btn-warning mr-2" href="{{ url()->previous() }}">Quay lại</a>
+                  <a class="btn btn-default mr-1" href="{{ route('user.edit', ['id' => $id]) }}">Quay lại</a>
                   <button type="submit" class="btn btn-primary">Cập nhật</button>
                 </form>
               </div>

@@ -28,7 +28,7 @@ class ProcessNoteController extends Controller
 
     public function index(Request $request)
     {
-        $limit = Config::get('constants.limit_page');
+        $limit = config('constants.limit_page');
         $notes = $this->noteRepo->query()->with('detail_buy', 'detail_fix')->with('department')
             ->when($request->status, function ($query) use ($request) {
                 return $query->where('status', $request->status);
@@ -36,9 +36,12 @@ class ProcessNoteController extends Controller
             ->when($request->id, function ($query) use ($request) {
                 return $query->where('id', $request->id);
             })
+            ->when(!is_null($request->category), function ($query) use ($request) {
+                return $query->where('is_buy', !!$request->category);
+            })
             ->orderby('status', 'asc')
             ->orderby('created_at', 'asc')
-            ->paginate($limit)->appends(request()->all());
+            ->paginate($limit)->withQueryString();
         return view('process_note.index', compact('notes'));
     }
 

@@ -23,9 +23,18 @@ class HandoverNoteController extends Controller
         $this->requestNoteRepo = $handoverNoteService->getRequestNoteRepo();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $notes = $this->handoverNoteRepo->paginate();
+        $limit = config('constants.limit_page');
+        $notes = $this->handoverNoteRepo->query()
+            ->when($request->id, function ($query) use ($request) {
+                return $query->where('id', $request->id);
+            })
+            ->when($request->id_request_note, function ($query) use ($request) {
+                return $query->where('id_request_note', $request->id_request_note);
+            })
+            ->orderby('created_at', 'desc')
+            ->paginate($limit)->withQueryString();
         return view('handover_note.index', compact('notes'));
     }
 

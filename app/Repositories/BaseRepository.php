@@ -85,7 +85,7 @@ abstract class BaseRepository implements RepositoryInterface
                 $model = $model->where($column, 'like', '%' . $value . '%');
             }
         }
-        return $model->orderBy('id', 'desc')->paginate($limit)->appends(request()->all());
+        return $model->orderBy('id', 'desc')->paginate($limit)->withQueryString();
     }
 
     public function findOrFail($id)

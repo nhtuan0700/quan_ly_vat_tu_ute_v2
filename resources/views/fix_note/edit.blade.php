@@ -65,8 +65,11 @@
                 </div>
                 <hr>
                 <div>
-                  <h5>Danh sách thiết bị đề nghị sửa</h5>
-                  @include('fix_note.components.modal_search_equipment')
+                  <div class="mb-2">
+                    <h5 class="d-inline mr-1">Danh sách thiết bị đề nghị sửa</h5>
+                    <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="modal"
+                      data-target="#modal">Chọn thiết bị</button>
+                  </div>
                   <table class="table" id="table-equipment">
                     <thead>
                       <tr>
@@ -75,7 +78,7 @@
                         <th>Phòng</th>
                         <th>Lý do sửa</th>
                         <th>Tình trạng</th>
-                        <th></th>
+                        <th class="fit"></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -95,7 +98,7 @@
                               value="{{ $item->reason }}" />
                           </td>
                           <td>
-                            <button type="button" class="btn btn-danger btn-remove btn-sm" data-id="{{ $item->id }}"
+                            <button type="button" class="btn btn-danger btn-remove" data-id="{{ $item->id }}"
                               onclick="removeItem(this)">
                               Xóa
                             </button>
@@ -106,8 +109,10 @@
                   </table>
 
                 </div>
-                <a href="{{ route('fix_note.detail', ['id' => $note->id]) }}" class="btn btn-warning mr-2">Trở về</a>
-                <button class="btn btn-primary mr-2" form="form-phieu">Cập nhật</button>
+                <a class="btn btn-default mr-1" href="{{ route('fix_note.detail', ['id' => $note->id]) }}">
+                  Quay lại
+                </a>
+                <button class="btn btn-primary" form="form-phieu">Cập nhật</button>
               </form>
             </div>
           </div>
@@ -116,4 +121,6 @@
 
     </div>
   </section>
+  @include('fix_note.components.modal_search_equipment')
+
 @endsection

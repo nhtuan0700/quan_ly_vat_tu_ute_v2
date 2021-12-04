@@ -1,10 +1,9 @@
-<button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#modal">Chọn thiết bị</button>
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalLabel">
-          Chọn thiết bị
+          Thiết bị
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -27,7 +26,7 @@
               <th>Phòng</th>
               <th>Ngày cấp</th>
               <th>Trạng thái</th>
-              <th></th>
+              <th class="fit"></th>
             </tr>
           </thead>
           <tbody>
@@ -70,7 +69,7 @@
                     <td class="date_grant">${item.date_grant || ''}</td>
                     <td class="status">${item.statusText}</td>
                     <td>
-                      <button type="button" class="btn btn-info btn-add btn-sm"  
+                      <button type="button" class="btn btn-info btn-add"  
                         data-id="${item.id}" onclick="addItem(this)" ${disabled}>
                         Chọn
                       </button>
@@ -100,7 +99,7 @@
                       <input class="form-control" name="equipments[${obj.id}]" value="" />
                     </td>
                     <td>
-                      <button type="button" class="btn btn-danger btn-remove btn-sm"  
+                      <button type="button" class="btn btn-danger btn-remove"  
                         data-id="${obj.id}" onclick="removeItem(this)">
                         Xóa
                       </button>  

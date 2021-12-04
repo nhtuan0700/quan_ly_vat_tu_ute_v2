@@ -35,8 +35,11 @@
                 </div>
                 <hr>
                 <div>
-                  <h5>Danh sách thiết bị đề nghị sửa</h5>
-                  @include('fix_note.components.modal_search_equipment')
+                  <div class="mb-2">
+                    <h5 class="d-inline mr-1">Danh sách thiết bị đề nghị sửa</h5>
+                    <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="modal"
+                      data-target="#modal">Chọn thiết bị</button>
+                  </div>
                   <table class="table" id="table-equipment">
                     <thead>
                       <tr>
@@ -54,7 +57,7 @@
                   </table>
 
                 </div>
-                <a href="{{ route('fix_note.index') }}" class="btn btn-warning mr-2">Trở về</a>
+                <a class="btn btn-default mr-1" href="{{ route('fix_note.index') }}">Quay lại</a>
                 <button type="submit" class="btn btn-primary" form="form-phieu">Tạo phiếu</button>
               </form>
             </div>
@@ -63,5 +66,6 @@
       </div>
 
     </div>
+    @include('fix_note.components.modal_search_equipment')
   </section>
 @endsection

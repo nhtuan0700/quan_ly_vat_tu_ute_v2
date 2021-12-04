@@ -18,7 +18,7 @@
               @include('fix_note.components.info', ['note' => $note])
               <hr>
               <div>
-                <h5>Danh sách thiết bị đề nghị sửa</h5>
+                <h5 class="mb-2">Danh sách thiết bị đề nghị sửa</h5>
                 <table class="table">
                   <tr>
                     <th>Mã thiết bị</th>
@@ -66,15 +66,15 @@
                 </table>
 
               </div>
-              <a href="{{ route('fix_note.index') }}" class="btn btn-warning mr-2">Trở về</a>
+              <a class="btn btn-default mr-1" href="{{ route('fix_note.index') }}">Quay lại</a>
               @can('view_handover', $note)
-                <button type="button" class="btn btn-default mr-2" data-toggle="modal"
+                <button type="button" class="btn btn-default mr-1" data-toggle="modal"
                   data-target="#modalListHandover">
                   Lịch sử bàn giao</button>
                 @include('handover_note.components.modal_list', ['handover_notes' => $note->handover_notes])
               @endcan
               @can('update_fix', $note)
-                <a href="{{ route('fix_note.edit', ['id' => $note->id]) }}" class="btn btn-info mr-2">Sửa</a>
+                <a href="{{ route('fix_note.edit', ['id' => $note->id]) }}" class="btn btn-info">Sửa</a>
               @endcan
             </div>
           </div>

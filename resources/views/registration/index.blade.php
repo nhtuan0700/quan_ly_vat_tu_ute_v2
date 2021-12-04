@@ -29,9 +29,9 @@
                       <th>ID</th>
                       <th>Tên</th>
                       <th>Đơn vị tính</th>
-                      <th width="20%" class="text-center">Số lượng đăng ký</th>
-                      <th width="20%" class="text-center">Số lượng còn lại cho phép</th>
-                      <th></th>
+                      <th class="text-center">Số lượng đăng ký</th>
+                      <th class="text-center">Số lượng còn lại cho phép</th>
+                      <th class="fit"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -50,7 +50,6 @@
                     @endforeach
                   </tbody>
                 </table>
-  
                 <button class="btn btn-primary" id="btn-save">Lưu</button>  
               </form>
             </div>
@@ -67,7 +66,7 @@
                     <th>Đơn vị tính</th>
                     <th class="text-center">Số lượng đã đăng ký</th>
                     <th class="text-center">Hạn mức tối đa</th>
-                    <th></th>
+                    <th class="fit"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -113,6 +112,7 @@
 @endsection
 
 @section('script')
+<script src="{{ asset('js/nonAccentVietnamese.js') }}"></script>
 <script>
   $(function() {
     $("#key-search").on("keyup", function() {
@@ -164,9 +164,8 @@
   }
 
   function filterTable(value) {
-    value = value.toLowerCase()
     $("#list-stationery tbody tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      $(this).toggle(nonAccentVietnamese($(this).text()).indexOf(nonAccentVietnamese(value)) > -1)
     });
   }
 </script>

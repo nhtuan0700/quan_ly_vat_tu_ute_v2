@@ -71,12 +71,12 @@
 
             <div class="card-body">
               <div class="dt-buttons btn-group flex-wrap mb-2">
-                <button type="button" class="btn btn-secondary">
+                <a href="{{ route('user.export') }}" class="btn btn-secondary">
                   <span>Export Excel</span>
-                </button>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalImport">
+                </a>
+                <a class="btn btn-secondary" data-toggle="modal" data-target="#modalImport">
                   <span>Import Excel</span>
-                </button>
+                </a>
               </div>
               @include('user.components.import_excel')
               <table id="example1" class="table table-bordered table-striped">
@@ -88,7 +88,7 @@
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Đơn vị</th>
                     <th scope="col">Vai trò</th>
-                    <th scope="col" width="10%">Action</th>
+                    <th scope="col" class="fit">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -103,7 +103,7 @@
                       <td>
                         <div class="d-flex justify-content-center">
                           <a href="{{ route('user.edit', ['id' => $item->id]) }}"
-                            class="btn btn-info flex-grow-1">Sửa</a>
+                            class="btn btn-info">Sửa</a>
                         </div>
                       </td>
                     </tr>

@@ -75,7 +75,6 @@
     </script>
   @endif
   @yield('script')
-
   @stack('js')
 </body>
 

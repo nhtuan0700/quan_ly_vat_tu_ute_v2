@@ -48,8 +48,8 @@ class BuyNoteController extends Controller
         };
         $id_department = auth()->user()->id_department;
         $sum_stationeries = $this->registrationRepo->sumStationeryByDepartment($id_period, $id_department);
-        $depm_registations = $this->registrationRepo->listByDepartment($id_period, $id_department);
-        return view('buy_note.create', compact('sum_stationeries', 'depm_registations', 'id_period'));
+        $depm_registrations = $this->registrationRepo->listByDepartment($id_period, $id_department);
+        return view('buy_note.create', compact('sum_stationeries', 'depm_registrations', 'id_period'));
     }
 
     public function store(Request $request, $id_period)
@@ -74,12 +74,12 @@ class BuyNoteController extends Controller
     {
         $note = $this->buyNoteRepo->find_buy_note($id);
         $this->authorize('view_buy', $note);
-        $depm_registations = $this->registrationRepo->listByDepartment(
+        $depm_registrations = $this->registrationRepo->listByDepartment(
             $note->id_period,
             $note->id_department,
             $note->id
         );
-        return view('buy_note.detail', compact('note', 'depm_registations'));
+        return view('buy_note.detail', compact('note', 'depm_registrations'));
     }
 
     public function search(Request $request)

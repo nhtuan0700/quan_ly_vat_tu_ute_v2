@@ -90,14 +90,14 @@
                   </table>
 
                 </div>
-                <a href="{{ route('process_note.index') }}" class="btn btn-warning mr-2">Trở về</a>
+                <a href="{{ route('process_note.index') }}" class="btn btn-default mr-1">Trở về</a>
                 @can('view_handover', $note)
-                  <button type="button" class="btn btn-default mr-2" data-toggle="modal" data-target="#modalListHandover">
+                  <button type="button" class="btn btn-default mr-1" data-toggle="modal" data-target="#modalListHandover">
                     Lịch sử bàn giao</button>
                   @include('handover_note.components.modal_list', ['handover_notes' => $note->handover_notes])
                 @endcan
                 @can('update_detail_fix', $note)
-                  <button type="submit" class="btn btn-primary mr-2 float-right">Cập nhật</button>
+                  <button type="submit" class="btn btn-primary mr-1">Cập nhật</button>
                 @endcan
                 @if (auth()->user()->can('create_handover', $note))
                   <a href="{{ route('handover_note.create', ['id_request_note' => $note->id]) }}"
@@ -125,7 +125,6 @@
 
       $(`select[name*='[is_fixable]']`).change(function() {
         let value = parseInt($(this).val());
-        console.log(value);
         if (!value) {
           $(this).closest('tr').find('input').val('');
           $(this).closest('tr').find('input').attr('readonly', 'on');

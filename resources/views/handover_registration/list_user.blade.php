@@ -17,7 +17,7 @@
             <div class="card-body pb-0">
               {{-- Search --}}
               <form method="GET" action="{{ route('user.search') }}">
-                <div class="form-row">
+                <div class="form-row form-row-0">
                   {{-- ID --}}
                   <div class="form-group col-md-2">
                     <label for="id">Mã:</label>
@@ -38,7 +38,7 @@
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Đơn vị</th>
                     <th scope="col">Vai trò</th>
-                    <th scope="col" width="10%">Action</th>
+                    <th scope="col" class="fit">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -53,7 +53,7 @@
                       <td>
                         <div class="d-flex justify-content-center">
                           <a href="{{ route('handover_registration.detail', ['id_period' => $id_period, 'id_user' => $item->id]) }}"
-                            class="btn btn-info flex-grow-1">Xem</a>
+                            class="btn btn-info">Xem</a>
                         </div>
                       </td>
                     </tr>
@@ -72,12 +72,10 @@
 @section('script')
   <script>
     $(function() {
-      $(document).ready(function() {
-        $("input[name=id]").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#table tbody tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          });
+      $("input[name=id]").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#table tbody tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
     })

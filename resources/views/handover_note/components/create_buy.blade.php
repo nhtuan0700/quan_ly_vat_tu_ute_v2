@@ -1,4 +1,4 @@
-<h5>Danh sách tổng hợp đăng ký văn phòng phẩm của đơn vị </h5>
+<h5>Danh sách bàn giao văn phòng phẩm</h5>
 <table class="table">
   <tr>
     <th>STT</th>

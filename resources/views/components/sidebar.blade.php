@@ -161,7 +161,6 @@
       @if (auth()->user()->can('request_note-process'))
         const channel = 'request-note';
         window.Echo.private(channel).listen('.RequestNote', (data) => {
-          console.log(data)
           $('#count_rq_note_processing').text(data.count);
           if (data.is_create) {
             $(document).Toasts('create', {

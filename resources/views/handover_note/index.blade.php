@@ -17,14 +17,19 @@
 
             <div class="card-body pb-0">
               {{-- Search --}}
-              <form method="GET" action="#">
-                <div class="form-row">
+              <form method="GET" action="{{ route('handover_note.index') }}">
+                <div class="form-row form-row-0">
                   <div class="form-group col-md-2">
-                    <label for="id">Mã phiếu:</label>
+                    <label for="id">Mã phiếu bàn giao:</label>
                     <input type="text" class="form-control" id="id" name="id" 1 value="{{ request()->id ?? '' }}"
                       autocomplete="off">
                   </div>
-                  <button type="submit" class="btn btn-primary align-self-end mb-3 ml-2">Tìm kiếm</button>
+                  <div class="form-group col-md-2">
+                    <label for="id_request_note">Mã phiếu đề nghị:</label>
+                    <input type="text" class="form-control" id="id" name="id_request_note" 1
+                      value="{{ request()->id_request_note ?? '' }}" autocomplete="off">
+                  </div>
+                  <button type="submit" class="btn btn-primary align-self-end">Tìm kiếm</button>
                 </div>
               </form>
             </div>
@@ -37,7 +42,7 @@
                     <th scope="col">Mã phiếu đề nghị</th>
                     <th scope="col">Ngày tạo phiếu bàn giao</th>
                     <th scope="col">Trạng thái</th>
-                    <th scope="col" width="10%">Thao tác</th>
+                    <th scope="col" class="fit">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -87,10 +92,6 @@
 
 @section('script')
   <script>
-    $(function() {
-      $('.select2').select2()
-    })
-
     $('.btn-delete').click(function(e) {
       e.preventDefault();
       var isConfirm = confirm(`Bạn có chắc muốn xóa`)

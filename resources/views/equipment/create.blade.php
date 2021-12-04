@@ -83,7 +83,7 @@ Quản lý thiết bị
                   @enderror
                 </div>
               </div>
-              <a href="{{ route('equipment.index') }}" class="btn btn-warning mr-2">Trở về</a>
+              <a class="btn btn-default mr-1" href="{{ route('equipment.index') }}">Quay lại</a>
               <button type="submit" class="btn btn-primary">Lưu</button>
             </form>
           </div>
@@ -95,7 +95,6 @@ Quản lý thiết bị
 @endsection
 
 @section('tag_head')
-<!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 @endsection
 

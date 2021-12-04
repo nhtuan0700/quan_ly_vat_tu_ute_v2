@@ -39,4 +39,4 @@
     @include('handover_note.components.detail_fix')
   @endif
 </div>
-<a href="#" class="btn btn-secondary mr-2">In phiếu</a>
+{{-- <a href="#" class="btn btn-secondary">In phiếu</a> --}}

@@ -12,7 +12,7 @@
         <form action="{{ route('user.update_limit', ['id_user' => $user->id]) }}" method="post" id="form-limit">
           @csrf
           <div class="card-body table-responsive p-0" style="height: 400px;">
-            <table  class="table table-head-fixed text-nowrap" id="limit">
+            <table class="table table-head-fixed text-nowrap" id="limit">
               <thead>
                 <th scope="col">#</th>
                 <th scope="col">Tên</th>
@@ -49,6 +49,7 @@
 </div>
 
 @push('js')
+  <script src="{{ asset('js/nonAccentVietnamese.js') }}"></script>
   <script>
     $(function() {
       $("#key-search").on("keyup", function() {
@@ -58,9 +59,8 @@
     })
 
     function filterTable(value) {
-      value = value.toLowerCase()
       $("#limit tbody tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(this).toggle(nonAccentVietnamese($(this).text()).indexOf(nonAccentVietnamese(value)) > -1)
       });
     }
   </script>

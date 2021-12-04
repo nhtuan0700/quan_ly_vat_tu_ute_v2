@@ -173,3 +173,9 @@ input[type=number] {
 .form-row-0 > .form-group {
   margin-bottom: unset;
 }
+
+.table td.fit, 
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}

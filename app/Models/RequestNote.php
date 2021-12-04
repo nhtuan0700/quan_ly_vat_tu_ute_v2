@@ -87,7 +87,7 @@ class RequestNote extends Model
                     $qty_request = $this->detail_fix->count();
                     $qty_handovered = $this->detail_fix()->where('is_handovered', true)->count();
                 }
-                return sprintf('<span class="badge badge-warning">Chờ bàn giao(%s/%s)</span>', $qty_handovered, $qty_request);
+                return sprintf('<span class="badge badge-primary">Chờ bàn giao(%s/%s)</span>', $qty_handovered, $qty_request);
             case self::COMPLETED:
                 return '<span class="badge badge-success">Đã hoàn thành</span>';
             case self::REJECTED:

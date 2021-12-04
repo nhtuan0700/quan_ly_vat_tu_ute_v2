@@ -24,9 +24,10 @@
   <script src="{{ asset('js/app.js') }}" defer></script>
   <script>
     $(function() {
+      var title = `{{ config('app.name') }}`;
       var data = {
         page: 1
-      }
+      };
       var count_unread = 0;
       const url_list = `{{ route('notification.list') }}`;
       const url_mark_read = `{{ route('notification.mark_read') }}`;
@@ -40,6 +41,7 @@
             success: function(result) {
               if (result.success) {
                 count_unread = 0;
+                document.title = title;
                 $('#count_unread').html(getCountUnreadHTML(count_unread))
               }
             }
@@ -56,6 +58,7 @@
         }
         $('#no_notification').remove();
         $('#count_unread').html(getCountUnreadHTML(count_unread));
+        document.title = `(${count_unread}) ${title}`;
         $('#notification .content-body').prepend(getNotificationItemHTML(notification));
       })
 
@@ -66,7 +69,7 @@
           success: function(result) {
             if (result.success) {
               var notifications = result.notifications.data;
-              count_unread = result.count_unread
+              count_unread = result.count_unread;
               if (data.page == 1 && notifications.length == 0) {
                 let msg_no_notify =
                   '<p class="text-center text-danger" id="no_notification">Không có thông báo</p>';
@@ -101,17 +104,17 @@
           }
         })
       }
-    })
 
-    function getCountUnreadHTML(count) {
-      if (count > 0) {
-        return `<span class="badge badge-warning navbar-badge">${count}</span>`
+      function getCountUnreadHTML(count) {
+        if (count > 0) {
+          document.title = `(${count}) ${title}`;
+          return `<span class="badge badge-warning navbar-badge">${count}</span>`;
+        }
+        return '';
       }
-      return ''
-    }
 
-    function getNotificationItemHTML(notification) {
-      return `<a title="${notification.message}" href="${notification.path || '#'}" class="dropdown-item d-block">
+      function getNotificationItemHTML(notification) {
+        return `<a title="${notification.message}" href="${notification.path || '#'}" class="dropdown-item d-block">
                 <p class="notification-content">
                   ${notification.message}  
                 </p>
@@ -120,6 +123,7 @@
                 </span>
               </a>
               <div class="dropdown-divider"></div>`;
-    }
+      }
+    })
   </script>
 @endpush

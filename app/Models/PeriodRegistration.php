@@ -59,6 +59,6 @@ class PeriodRegistration extends Model
         if ($this->getRawOriginal('end_time') < now()) {
             return '<span class="badge badge-danger">Đã diễn ra</span>';
         }
-        return '<span class="badge badge-warning">Đang diễn ra</span>';
+        return '<span class="badge badge-info">Đang diễn ra</span>';
     }
 }

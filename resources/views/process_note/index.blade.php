@@ -17,11 +17,19 @@ Xét duyệt phiếu đề nghị
           <div class="card-body pb-0">
             {{-- Search --}}
             <form method="GET" action="">
-              <div class="form-row">
+              <div class="form-row form-row-0">
                 <div class="form-group col-md-2">
                   <label for="id">Mã phiếu:</label>
                   <input type="text" class="form-control" id="id" name="id"
                     value="{{ request()->id ?? '' }}" autocomplete="off">
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="category">Loại phiếu:</label>
+                  <select class="form-control" name="category">
+                    <option value>Tất cả</option>
+                    <option value="1" @if (request()->category == "1") selected @endif>Phiếu mua</option>
+                    <option value="0" @if (request()->category == "0") selected @endif>Phiếu sửa</option>
+                  </select>
                 </div>
                 <div class="form-group col-md-2">
                   <label for="status">Trạng thái phiếu:</label>
@@ -33,7 +41,7 @@ Xét duyệt phiếu đề nghị
                     <option value="4" @if (request()->status == 4) selected @endif>Bị từ chối</option>
                   </select>
                 </div>
-                <button type="submit" class="btn btn-primary align-self-end mb-3 ml-2">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary align-self-end">Tìm kiếm</button>
               </div>
             </form>
           </div>
@@ -47,7 +55,7 @@ Xét duyệt phiếu đề nghị
                   <th scope="col">Đơn vị</th>
                   <th scope="col">Loại phiếu</th>
                   <th scope="col">Trạng thái</th>
-                  <th scope="col" width="10%">Thao tác</th>
+                  <th scope="col" class="fit">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -61,7 +69,7 @@ Xét duyệt phiếu đề nghị
                     <td>
                       <div class="d-flex justify-content-center">
                         <a href="{{ route('process_note.detail', ['id' => $item->id]) }}"
-                          class="btn btn-info flex-grow-1">Xem</a>
+                          class="btn btn-info">Xem</a>
                       </div>
                     </td>
                   </tr>
