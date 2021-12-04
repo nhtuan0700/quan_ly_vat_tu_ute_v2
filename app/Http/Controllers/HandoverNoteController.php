@@ -131,4 +131,12 @@ class HandoverNoteController extends Controller
         DatabaseNotification::whereJsonContains('data->id_handover_note', $id)->delete();
         return back()->with('alert-success', trans('alert.delete.success'));
     }
+
+    public function print($id)
+    {
+        $note = $this->handoverNoteRepo->find($id);
+        $pdf = \Illuminate\Support\Facades\App::make('dompdf.wrapper');
+        $pdf->loadHTML(view('handover_note.pdf', compact('note')));
+        return $pdf->stream();
+    }
 }

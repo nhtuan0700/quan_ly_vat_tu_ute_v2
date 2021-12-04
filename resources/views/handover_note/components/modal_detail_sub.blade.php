@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-md-3">
     <label>Mã phiếu bàn giao:</label>
-    <p>{{ $note->id }}</p>
+    <p>
+      {{ $note->id }}
+    </p>
   </div>
   <div class="col-md-3">
     <label>Người tạo phiếu bàn giao:</label>
@@ -39,4 +41,8 @@
     @include('handover_note.components.detail_fix')
   @endif
 </div>
-{{-- <a href="#" class="btn btn-secondary">In phiếu</a> --}}
+
+@can('handover_note-manage', $note)
+  <a href="{{ route('handover_note.print', ['id' => $note->id]) }}" class="btn btn-secondary" target="_blank">
+    In phiếu</a>
+@endcan

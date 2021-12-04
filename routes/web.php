@@ -164,6 +164,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/confirm/{id?}', [HandoverNoteController::class, 'confirm'])->name('confirm');
         Route::get('/search', [HandoverNoteController::class, 'search'])->name('search');
         Route::delete('/delete/{id?}', [HandoverNoteController::class, 'delete'])->name('delete');
+        Route::get('/print/{id}', [HandoverNoteController::class, 'print'])->name('print');
     });
     Route::get('phieu-ban-giao/api/detail/{id?}', [HandoverNoteController::class, 'detail_ajax'])->name('handover_note.detail_ajax');
 

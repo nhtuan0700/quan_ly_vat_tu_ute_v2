@@ -59,7 +59,9 @@
                 @endif
               </div>
               <a href="{{ route('handover_note.index') }}" class="btn btn-default mr-1">Trở về</a>
-              <a href="#" class="btn btn-secondary mr-1">In phiếu</a>
+              <a href="{{ route('handover_note.print', ['id' => $note->id]) }}" 
+                target="_blank" class="btn btn-secondary mr-1">
+                In phiếu</a>
               @can('update', $note)
                 <a href="{{ route('handover_note.edit', ['id' => $note->id]) }}" class="btn btn-info mr-1">Sửa</a>
               @endcan
