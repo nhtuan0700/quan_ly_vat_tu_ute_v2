@@ -7,6 +7,7 @@ use App\Repositories\DetailBuy\DetailBuyInterface;
 use App\Repositories\RequestNote\RequestNoteInterface;
 use App\Repositories\Registration\RegistrationInterface;
 use App\Repositories\PeriodRegistration\PeriodRegistrationInterface;
+use Exception;
 use Illuminate\Http\Request;
 
 class BuyNoteService
@@ -56,6 +57,9 @@ class BuyNoteService
                 $id_period,
                 auth()->user()->id_department
             );
+            if ($sum_stationeies->isEmpty()) {
+                throw new Exception();
+            }
             foreach ($sum_stationeies as $item) {
                 $this->detailBuyRepo->create([
                     'id_note' => $new_note->id,

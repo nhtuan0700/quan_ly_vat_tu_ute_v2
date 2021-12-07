@@ -13,6 +13,7 @@ class HomeController extends Controller
     {
         $this->periodRepo = $periodRegistrationInterface;
     }
+    
     public function index()
     {
         $periods = $this->periodRepo->query()

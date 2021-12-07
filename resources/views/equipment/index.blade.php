@@ -46,6 +46,7 @@
                     <th scope="col">Mã</th>
                     <th scope="col">Tên</th>
                     <th scope="col">Phòng</th>
+                    <th scope="col">Ngày cấp</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col" class="fit">Thao tác</th>
                   </tr>
@@ -56,6 +57,7 @@
                       <th>{{ $item->id }}</th>
                       <td>{{ $item->name }}</td>
                       <td>{{ $item->room }}</td>
+                      <td>{{ $item->date_grant }}</td>
                       <td>{{ $item->statusText }}</td>
                       <td>
                         <div class="d-flex justify-content-center">

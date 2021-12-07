@@ -26,6 +26,7 @@
                         - Nếu đợt đăng ký đang diễn ra thì không thể chỉnh sửa <b>ngày bắt đầu</b>
                       </p>
                     </div>
+                    <br>
                     <form method="POST" action="{{ route('period.update', ['id' => $period->id]) }}">
                       @csrf
                       @method('put')
@@ -34,15 +35,9 @@
                           <label for="">ID</label>
                           <input type="text" class="form-control" value="{{ $period->id }}" disabled>
                         </div>
-                      </div>
-                      <div class="form-row">
                         <div class="form-group col-md-3">
-                          <label for="">Thời gian tạo</label>
+                          <label for="">Ngày tạo</label>
                           <input type="text" class="form-control" value="{{ $period->created_at }}" disabled>
-                        </div>
-                        <div class="form-group col-md-3">
-                          <label for="">Thời gian cập nhật</label>
-                          <input type="text" class="form-control" value="{{ $period->updated_at }}" disabled>
                         </div>
                       </div>
                       <div class="form-row">

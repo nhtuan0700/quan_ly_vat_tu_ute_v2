@@ -92,6 +92,6 @@ class HandoverNote extends Model
 
     public function getStatusTextAttribute()
     {
-        return !$this->confirmed_at ? 'Chờ xác nhận' : 'Đã xác nhận';
+        return !$this->confirmed_at ? 'Chờ kiểm tra' : 'Đã kiểm tra';
     }
 }

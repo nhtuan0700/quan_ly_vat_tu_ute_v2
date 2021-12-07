@@ -31,7 +31,8 @@ class PeriodRegistrationController extends Controller
     public function create()
     {
         $is_coming = $this->periodRepo->checkComing();
-        return view('period.create', compact('is_coming'));
+        $period_now = $this->periodRepo->getItemNow();
+        return view('period.create', compact('is_coming', 'period_now'));
     }
 
     public function store(StorePeriodRegistration $request)
@@ -40,6 +41,11 @@ class PeriodRegistrationController extends Controller
         if ($is_coming) {
             return redirect(route('period.index'))
                 ->with('alert-fail', 'Có đợt đăng ký mới sắp diễn ra nên không thể tạo thêm');
+        }
+        $period_now = $this->periodRepo->getItemNow();
+        if ($period_now) {
+            return redirect(route('period.index'))
+                ->with('alert-fail', 'Đợt đăng ký đang diễn ra vui lòng chờ kết thúc');
         }
         $data = $request->validated();
         $new_period = $this->periodRepo->create($data);

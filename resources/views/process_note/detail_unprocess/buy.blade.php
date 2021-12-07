@@ -47,7 +47,7 @@
                           <td>
                             <div class="input-group pr-3">
                               <input type="text" class="form-control d-inline w-75"
-                                name="stationeries[{{ $item->id_stationery }}][cost]" autocomplete="off"
+                                name="stationeries[{{ $item->id_stationery }}][cost]"
                                 data-type="currency">
                               <div class="input-group-prepend">
                                 <span class="input-group-text">đ</span>

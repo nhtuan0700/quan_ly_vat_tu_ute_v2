@@ -40,7 +40,7 @@ class ProcessNoteController extends Controller
                 return $query->where('is_buy', !!$request->category);
             })
             ->orderby('status', 'asc')
-            ->orderby('created_at', 'asc')
+            ->orderby('created_at', 'desc')
             ->paginate($limit)->withQueryString();
         return view('process_note.index', compact('notes'));
     }

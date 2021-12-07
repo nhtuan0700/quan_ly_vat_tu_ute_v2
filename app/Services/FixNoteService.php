@@ -44,7 +44,10 @@ class FixNoteService
             if ($request->equipments) {
                 foreach ($request->equipments as $id_equipment => $reason) {
                     $equipment = $this->equipmentRepo->findOrFail($id_equipment);
-                    throw_if($equipment->status !== Equipment::NORMAL, new StoreFixEquipmentException());
+                    throw_if(
+                        $equipment->status !== Equipment::NORMAL || is_null($equipment->date_grant),
+                        new StoreFixEquipmentException()
+                    );
                     $this->detailFixRepo->create([
                         'id_note' => $new_note->id,
                         'id_equipment' => $id_equipment,
@@ -66,7 +69,10 @@ class FixNoteService
                 $note->detail_fix()->delete();
                 foreach ($request->equipments as $id_equipment => $reason) {
                     $equipment = $this->equipmentRepo->findOrFail($id_equipment);
-                    throw_if($equipment->status !== Equipment::NORMAL, new StoreFixEquipmentException());
+                    throw_if(
+                        $equipment->status !== Equipment::NORMAL || is_null($equipment->date_grant),
+                        new StoreFixEquipmentException()
+                    );
                     $this->detailFixRepo->create([
                         'id_note' => $note->id,
                         'id_equipment' => $id_equipment,

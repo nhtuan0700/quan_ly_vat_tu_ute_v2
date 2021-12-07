@@ -52,10 +52,11 @@
                           @enderror
                         </div>
                       </div>
-
                       <a class="btn btn-default mr-1" href="{{ route('period.index') }}">Quay lại</a>
                       @if ($is_coming)
                         <p class="text-danger">Đợt đăng ký mới sắp diễn ra nên không thể tạo thêm</p>
+                      @elseif (!is_null($period_now))
+                        <p class="text-danger">Đợt đăng ký đang diễn ra, vui lòng chờ kết thúc</p>
                       @else
                         <button type="submit" class="btn btn-primary">Lưu</button>
                       @endif

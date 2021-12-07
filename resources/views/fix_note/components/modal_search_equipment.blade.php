@@ -59,7 +59,7 @@
         ajax(url, data, "get", function(response) {
           let rowHTML = response.map(function(item) {
             let disabled = '';
-            if (item.status != 1) {
+            if (item.status != 1 || item.date_grant == null) {
               disabled = 'disabled'
             }
             return `<tr>

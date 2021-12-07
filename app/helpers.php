@@ -5,6 +5,9 @@ use App\Models\RequestNote;
 if (!function_exists('transformDateExcel')) {
     function transformDateExcel($value)
     {
+        if (is_null($value)) {
+            return null;
+        }
         try {
             return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value)->format(app('date_format'));
         } catch (\Throwable $th) {

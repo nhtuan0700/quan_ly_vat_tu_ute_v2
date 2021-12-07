@@ -36,6 +36,10 @@ class RegistrationController extends Controller
 
     public function save(SaveRegistration $request)
     {
+        $period = $this->periodRepo->getItemNow();
+        if (is_null($period)) {
+            return back()->with('alert-fail', 'Không thể đăng ký văn phòng phẩm');
+        }
         try {
             $this->registrationService->save($request);
             return back()->with('alert-success', 'Đăng ký thành công');

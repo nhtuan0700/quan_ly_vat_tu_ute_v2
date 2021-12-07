@@ -24,7 +24,7 @@ class UpdateDetailFixRequest extends FormRequest
     public function rules()
     {
         return [
-            'equipments.*.cost' => 'nullable|numeric|min:1000',
+            'equipments.*.cost' => 'nullable|numeric|min:0',
         ];
     }
 
