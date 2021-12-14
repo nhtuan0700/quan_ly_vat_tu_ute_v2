@@ -57,12 +57,12 @@ class ProcessNoteController extends Controller
             if (!!$note->id_handler) {
                 return view('process_note.detail_processed.buy', compact('note', 'depm_registrations'));
             }
-            return view('process_note.detail_unprocess.buy', compact('note', 'depm_registrations'));
+            return view('process_note.detail_processing.buy', compact('note', 'depm_registrations'));
         }
         if (!!$note->id_handler) {
             return view('process_note.detail_processed.fix', compact('note'));
         }
-        return view('process_note.detail_unprocess.fix', compact('note'));
+        return view('process_note.detail_processing.fix', compact('note'));
     }
 
     public function confirm(Request $request, $id)

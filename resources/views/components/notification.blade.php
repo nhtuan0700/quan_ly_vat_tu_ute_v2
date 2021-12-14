@@ -17,11 +17,8 @@
   </div>
 </li>
 @push('js')
-  <script>
-    window.laravelEchoPort = `{{ env('LARAVEL_ECHO_PORT') }}`
-  </script>
-  <script src="//{{ request()->getHost() }}:{{ env('LARAVEL_ECHO_PORT') }}/socket.io/socket.io.js"></script>
-  <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="//{{ request()->getHost() }}:6001/socket.io/socket.io.js"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
   <script>
     $(function() {
       var title = `{{ config('app.name') }}`;
@@ -33,7 +30,6 @@
       const url_mark_read = `{{ route('notification.mark_read') }}`;
       const userId = `{{ auth()->id() }}`;
       loadNotify(url_list, data);
-
       $('#notification').on('show.bs.dropdown', function() {
         if (count_unread > 0) {
           $.ajax({
@@ -49,7 +45,7 @@
         }
       });
 
-      window.Echo.private('App.Models.User.' + userId).notification((data) => {
+      Echo.private('App.Models.User.' + userId).notification((data) => {
         count_unread += 1;
         let notification = {
           message: data.message,
