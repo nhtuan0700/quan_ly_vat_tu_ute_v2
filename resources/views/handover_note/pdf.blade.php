@@ -9,32 +9,26 @@
 
   <style>
     body {
-      font-family: "DejaVu Serif";
+      font-family: "roboto";
       font-size: 12px;
-      font-weight: 600px;
       padding: 0;
     }
-
     .text-center {
       text-align: center !important;
     }
-
     .text-border {
       border-bottom: 1px solid black;
       padding-bottom: 3px;
       display: inline-block
     }
-
     .w-100 {
       width: 100% !important;
     }
-
     .table {
       border-collapse: collapse;
       width: 100%;
       font-size: 11px;
     }
-
     .table td,
     .table th {
       text-align: left;
@@ -53,7 +47,7 @@
 
 <body>
   <div style="float: left;text-align:center">
-    <b>ĐẠI HỌC ĐÃ NẴNG</b><br>
+    <b>ĐẠI HỌC ĐÀ NẴNG</b><br>
     <b class="text-border">
       ĐẠI HỌC SƯ PHẠM KỸ THUẬT</b>
     </p>
