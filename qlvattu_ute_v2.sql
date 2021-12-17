@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 07/12/2021 13:53:09
+ Date: 17/12/2021 16:40:56
 */
 
 SET NAMES utf8mb4;
@@ -66,9 +66,11 @@ DROP TABLE IF EXISTS `detail_buy`;
 CREATE TABLE `detail_buy`  (
   `id_note` char(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_stationery` bigint UNSIGNED NOT NULL,
-  `qty` int NOT NULL,
+  `qty` int UNSIGNED NOT NULL,
   `cost` decimal(10, 0) NULL DEFAULT NULL,
-  `qty_handovered` int NOT NULL DEFAULT 0,
+  `qty_handovered` int UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_note`, `id_stationery`) USING BTREE,
   INDEX `detail_buy_id_stationery_foreign`(`id_stationery`) USING BTREE,
   CONSTRAINT `detail_buy_id_note_foreign` FOREIGN KEY (`id_note`) REFERENCES `request_note` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
@@ -78,122 +80,122 @@ CREATE TABLE `detail_buy`  (
 -- ----------------------------
 -- Records of detail_buy
 -- ----------------------------
-INSERT INTO `detail_buy` VALUES ('PM0120001', 1, 4, 30000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0120001', 2, 1, 20000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0120001', 3, 2, 40000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0120001', 4, 3, 2000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0120001', 5, 1, 10000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0120001', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0120002', 3, 2, 40000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0120002', 4, 6, 4000, 6);
-INSERT INTO `detail_buy` VALUES ('PM0120002', 5, 1, 2000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0120002', 6, 2, 10000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0120003', 1, 4, 30000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0120003', 2, 4, 20000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0120003', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0120003', 4, 4, 2000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0120004', 1, 1, 30000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0120004', 2, 1, 20000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0120004', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0120004', 5, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0120004', 6, 2, 3000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0120004', 7, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0121001', 2, 1, 20000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121001', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121001', 4, 2, 2000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0121001', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121001', 6, 3, 3000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0121001', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121002', 1, 1, 30000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121002', 2, 3, 20000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0121002', 4, 4, 2000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0121002', 5, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0121002', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121003', 1, 2, 30000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0121003', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121003', 4, 2, 2000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0121003', 5, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0121004', 1, 1, 30000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121004', 2, 2, 20000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0121004', 4, 6, 2000, 6);
-INSERT INTO `detail_buy` VALUES ('PM0121004', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0121004', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0520001', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0520001', 4, 3, 2000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0520001', 5, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0520001', 6, 2, 3000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0520001', 7, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0520002', 1, 3, 30000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0520002', 2, 3, 20000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0520002', 4, 3, 2000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0520002', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0520002', 6, 2, 3000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0520003', 2, 3, 20000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0520003', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0520003', 6, 6, 3000, 6);
-INSERT INTO `detail_buy` VALUES ('PM0520003', 7, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0520004', 1, 1, 30000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0520004', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0520004', 4, 3, 2000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0520004', 6, 3, 3000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0520004', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0521001', 1, 1, 30000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0521001', 4, 3, 2000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0521001', 5, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0521001', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0521002', 4, 3, 2000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0521002', 5, 3, 5000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0521002', 6, 2, 3000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0521002', 7, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0521003', 1, 2, 30000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0521003', 4, 6, 2000, 6);
-INSERT INTO `detail_buy` VALUES ('PM0521003', 5, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0521003', 6, 2, 3000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0521003', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0521004', 1, 2, 30000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0521004', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0521004', 6, 1, 3000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0521004', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920001', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920001', 4, 7, 2000, 7);
-INSERT INTO `detail_buy` VALUES ('PM0920001', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920001', 6, 2, 3000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0920001', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920002', 2, 3, 20000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0920002', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920002', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920002', 6, 4, 3000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0920002', 7, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0920003', 1, 2, 30000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0920003', 4, 4, 2000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0920003', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920003', 6, 1, 3000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920003', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920004', 1, 1, 30000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920004', 2, 4, 20000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0920004', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920004', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0920004', 6, 4, 3000, 4);
-INSERT INTO `detail_buy` VALUES ('PM0921001', 2, 1, 20000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921001', 3, 3, 40000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0921001', 4, 5, 2000, 5);
-INSERT INTO `detail_buy` VALUES ('PM0921001', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921001', 7, 2, 5000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0921002', 1, 3, 30000, 3);
-INSERT INTO `detail_buy` VALUES ('PM0921002', 2, 1, 20000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921002', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921002', 4, 2, 2000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0921002', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921003', 1, 2, 30000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0921003', 2, 1, 20000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921003', 3, 1, 40000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921003', 4, 2, 2000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0921003', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921003', 7, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921004', 1, 2, 30000, 2);
-INSERT INTO `detail_buy` VALUES ('PM0921004', 5, 1, 5000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921004', 6, 1, 3000, 1);
-INSERT INTO `detail_buy` VALUES ('PM0921004', 7, 1, 5000, 1);
+INSERT INTO `detail_buy` VALUES ('PM0120001', 1, 1, 30000, 4, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120001', 2, 1, 20000, 1, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120001', 3, 2, 40000, 2, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120001', 4, 3, 2000, 3, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120001', 5, 1, 10000, 1, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120001', 7, 1, 5000, 1, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120002', 3, 2, 40000, 2, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120002', 4, 6, 4000, 6, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120002', 5, 1, 2000, 1, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120002', 6, 2, 10000, 2, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120003', 1, 4, 30000, 4, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120003', 2, 4, 20000, 4, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120003', 3, 1, 40000, 1, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120003', 4, 4, 2000, 4, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120004', 1, 1, 30000, 1, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120004', 2, 1, 20000, 1, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120004', 3, 1, 40000, 1, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120004', 5, 2, 5000, 2, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120004', 6, 2, 3000, 2, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0120004', 7, 2, 5000, 2, '2020-01-19 17:46:33', '2020-01-19 17:46:33');
+INSERT INTO `detail_buy` VALUES ('PM0121001', 2, 1, 20000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121001', 3, 1, 40000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121001', 4, 2, 2000, 2, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121001', 5, 1, 5000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121001', 6, 3, 3000, 3, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121001', 7, 1, 5000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121002', 1, 1, 30000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121002', 2, 3, 20000, 3, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121002', 4, 4, 2000, 4, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121002', 5, 2, 5000, 2, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121002', 7, 1, 5000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121003', 1, 2, 30000, 2, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121003', 3, 1, 40000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121003', 4, 2, 2000, 2, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121003', 5, 2, 5000, 2, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121004', 1, 1, 30000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121004', 2, 2, 20000, 2, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121004', 4, 6, 2000, 6, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121004', 5, 1, 5000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0121004', 7, 1, 5000, 1, '2021-01-16 10:28:20', '2021-01-16 10:28:20');
+INSERT INTO `detail_buy` VALUES ('PM0520001', 3, 1, 40000, 1, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520001', 4, 3, 2000, 3, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520001', 5, 2, 5000, 2, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520001', 6, 2, 3000, 2, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520001', 7, 2, 5000, 2, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520002', 1, 3, 30000, 3, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520002', 2, 3, 20000, 3, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520002', 4, 3, 2000, 3, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520002', 5, 1, 5000, 1, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520002', 6, 2, 3000, 2, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520003', 2, 3, 20000, 3, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520003', 3, 1, 40000, 1, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520003', 6, 6, 3000, 6, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520003', 7, 2, 5000, 2, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520004', 1, 1, 30000, 1, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520004', 3, 1, 40000, 1, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520004', 4, 3, 2000, 3, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520004', 6, 3, 3000, 3, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0520004', 7, 1, 5000, 1, '2020-05-18 17:49:49', '2020-05-18 17:49:49');
+INSERT INTO `detail_buy` VALUES ('PM0521001', 1, 1, 30000, 1, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521001', 4, 3, 2000, 3, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521001', 5, 2, 5000, 2, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521001', 7, 1, 5000, 1, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521002', 4, 3, 2000, 3, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521002', 5, 3, 5000, 3, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521002', 6, 2, 3000, 2, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521002', 7, 2, 5000, 2, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521003', 1, 2, 30000, 2, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521003', 4, 6, 2000, 6, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521003', 5, 2, 5000, 2, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521003', 6, 2, 3000, 2, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521003', 7, 1, 5000, 1, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521004', 1, 2, 30000, 2, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521004', 3, 1, 40000, 1, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521004', 6, 1, 3000, 1, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0521004', 7, 1, 5000, 1, '2021-05-19 10:29:13', '2021-05-19 10:29:13');
+INSERT INTO `detail_buy` VALUES ('PM0920001', 3, 1, 40000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920001', 4, 7, 2000, 7, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920001', 5, 1, 5000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920001', 6, 2, 3000, 2, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920001', 7, 1, 5000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920002', 2, 3, 20000, 3, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920002', 3, 1, 40000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920002', 5, 1, 5000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920002', 6, 4, 3000, 4, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920002', 7, 2, 5000, 2, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920003', 1, 2, 30000, 2, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920003', 4, 4, 2000, 4, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920003', 5, 1, 5000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920003', 6, 1, 3000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920003', 7, 1, 5000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920004', 1, 1, 30000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920004', 2, 4, 20000, 4, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920004', 3, 1, 40000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920004', 5, 1, 5000, 1, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0920004', 6, 4, 3000, 4, '2020-09-16 17:50:34', '2020-09-16 17:50:34');
+INSERT INTO `detail_buy` VALUES ('PM0921001', 2, 1, 20000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921001', 3, 3, 40000, 3, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921001', 4, 5, 2000, 5, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921001', 5, 1, 5000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921001', 7, 2, 5000, 2, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921002', 1, 3, 30000, 3, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921002', 2, 1, 20000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921002', 3, 1, 40000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921002', 4, 2, 2000, 2, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921002', 5, 1, 5000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921003', 1, 2, 30000, 2, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921003', 2, 1, 20000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921003', 3, 1, 40000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921003', 4, 2, 2000, 2, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921003', 5, 1, 5000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921003', 7, 1, 5000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921004', 1, 2, 30000, 2, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921004', 5, 1, 5000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921004', 6, 1, 3000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
+INSERT INTO `detail_buy` VALUES ('PM0921004', 7, 1, 5000, 1, '2021-09-18 10:29:24', '2021-09-18 10:29:24');
 
 -- ----------------------------
 -- Table structure for detail_fix
@@ -206,6 +208,8 @@ CREATE TABLE `detail_fix`  (
   `cost` decimal(10, 0) NULL DEFAULT NULL,
   `is_handovered` tinyint(1) NOT NULL DEFAULT 0,
   `is_fixable` tinyint NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_note`, `id_equipment`) USING BTREE,
   INDEX `detail_fix_id_equipment_foreign`(`id_equipment`) USING BTREE,
   CONSTRAINT `detail_fix_id_equipment_foreign` FOREIGN KEY (`id_equipment`) REFERENCES `equipment` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
@@ -215,41 +219,41 @@ CREATE TABLE `detail_fix`  (
 -- ----------------------------
 -- Records of detail_fix
 -- ----------------------------
-INSERT INTO `detail_fix` VALUES ('PS0120001', 'TB000001', 'Không hiển thị', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0120001', 'TB000002', 'Không hiển thị', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0120002', 'TB000003', 'Không hiển thị 3', NULL, 0, NULL);
-INSERT INTO `detail_fix` VALUES ('PS0121001', 'TB000002', 'Không hiển thị', NULL, 1, 0);
-INSERT INTO `detail_fix` VALUES ('PS0220001', 'TB000006', 'Không nhận tín hiệu', 0, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0320001', 'TB000007', 'Không lên đèn', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0321001', 'TB000006', 'Không nhận tín hiệu', NULL, 0, NULL);
-INSERT INTO `detail_fix` VALUES ('PS0321002', 'TB000003', 'Không hiển thị', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0321002', 'TB000012', 'Không hoạt động', 150000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0420001', 'TB000015', 'Không lên nguồn', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0420001', 'TB000016', 'Không lên nguồn', 300000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0420002', 'TB000009', 'Không lên đèn', NULL, 0, NULL);
-INSERT INTO `detail_fix` VALUES ('PS0421001', 'TB000003', 'Không hiển thị', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0421001', 'TB000004', 'Không di chuyển được', 200000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0421002', 'TB000005', 'Bị hư', 50000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0621001', 'TB000007', 'Không lên đèn', NULL, 1, 0);
-INSERT INTO `detail_fix` VALUES ('PS0720001', 'TB000013', 'Bị hỏng', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0720001', 'TB000014', 'Bị Hỏng', NULL, 1, 0);
-INSERT INTO `detail_fix` VALUES ('PS0721001', 'TB000006', 'Không nhận tín hiệu', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0721001', 'TB000018', 'Không nhận tín hiệu', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0820001', 'TB000001', 'Bị vỡ', NULL, 1, 0);
-INSERT INTO `detail_fix` VALUES ('PS0820001', 'TB000002', 'Hiển thị màu xanh', 140000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0821001', 'TB000015', 'không lên nguồn', 260000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0821002', 'TB000015', 'Không nhận tín hiệu', NULL, 1, 0);
-INSERT INTO `detail_fix` VALUES ('PS0821002', 'TB000016', 'Không nhận tín hiệu', 170000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS0920001', 'TB000006', 'Không nhận tín hiệu', NULL, 0, NULL);
-INSERT INTO `detail_fix` VALUES ('PS0921001', 'TB000012', 'Không hoạt động', 0, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS1020001', 'TB000016', 'Không bật được', 120000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS1020001', 'TB000019', 'Không nhận tín hiệu', 80000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS1021001', 'TB000016', 'Không bật được', 100000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS1121001', 'TB000009', NULL, NULL, 0, NULL);
-INSERT INTO `detail_fix` VALUES ('PS1121002', 'TB000008', 'Không nhận tín hiệu', 0, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS1221001', 'TB000012', 'Không hoạt động', 0, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS1221001', 'TB000013', 'Không hoạt động', 250000, 1, 1);
-INSERT INTO `detail_fix` VALUES ('PS1221002', 'TB000009', 'Không lên đèn', NULL, 1, 0);
+INSERT INTO `detail_fix` VALUES ('PS0120001', 'TB000001', 'Không hiển thị', 100000, 1, 1, '2020-01-15 18:27:06', '2020-01-15 18:27:06');
+INSERT INTO `detail_fix` VALUES ('PS0120001', 'TB000002', 'Không hiển thị', 100000, 1, 1, '2020-01-15 18:27:06', '2020-01-15 18:27:06');
+INSERT INTO `detail_fix` VALUES ('PS0120002', 'TB000003', 'Không hiển thị 3', NULL, 0, NULL, '2020-01-15 18:23:06', '2020-01-15 18:23:06');
+INSERT INTO `detail_fix` VALUES ('PS0121001', 'TB000002', 'Không hiển thị', NULL, 1, 0, '2021-01-21 12:31:48', '2021-01-21 12:31:48');
+INSERT INTO `detail_fix` VALUES ('PS0220001', 'TB000006', 'Không nhận tín hiệu', 0, 1, 1, '2020-02-15 18:23:06', '2020-02-15 18:23:06');
+INSERT INTO `detail_fix` VALUES ('PS0320001', 'TB000007', 'Không lên đèn', 100000, 1, 1, '2020-03-15 18:23:06', '2020-03-15 18:23:06');
+INSERT INTO `detail_fix` VALUES ('PS0321001', 'TB000006', 'Không nhận tín hiệu', NULL, 0, NULL, '2021-03-03 12:32:11', '2021-03-03 12:32:11');
+INSERT INTO `detail_fix` VALUES ('PS0321002', 'TB000003', 'Không hiển thị', 100000, 1, 1, '2021-03-05 12:35:29', '2021-03-05 12:35:29');
+INSERT INTO `detail_fix` VALUES ('PS0321002', 'TB000012', 'Không hoạt động', 150000, 1, 1, '2021-03-05 12:35:29', '2021-03-05 12:35:29');
+INSERT INTO `detail_fix` VALUES ('PS0420001', 'TB000015', 'Không lên nguồn', 100000, 1, 1, '2020-04-06 18:39:15', '2020-04-06 18:39:15');
+INSERT INTO `detail_fix` VALUES ('PS0420001', 'TB000016', 'Không lên nguồn', 300000, 1, 1, '2020-04-06 18:39:15', '2020-04-06 18:39:15');
+INSERT INTO `detail_fix` VALUES ('PS0420002', 'TB000009', 'Không lên đèn', NULL, 0, NULL, '2020-05-06 18:39:15', '2020-05-06 18:39:15');
+INSERT INTO `detail_fix` VALUES ('PS0421001', 'TB000003', 'Không hiển thị', 100000, 1, 1, '2021-04-04 12:45:40', '2021-04-04 12:45:40');
+INSERT INTO `detail_fix` VALUES ('PS0421001', 'TB000004', 'Không di chuyển được', 200000, 1, 1, '2021-04-04 12:45:40', '2021-04-04 12:45:40');
+INSERT INTO `detail_fix` VALUES ('PS0421002', 'TB000005', 'Bị hư', 50000, 1, 1, '2021-04-08 12:45:40', '2021-04-08 12:45:40');
+INSERT INTO `detail_fix` VALUES ('PS0621001', 'TB000007', 'Không lên đèn', NULL, 1, 0, '2021-06-05 12:51:26', '2021-06-05 12:51:26');
+INSERT INTO `detail_fix` VALUES ('PS0720001', 'TB000013', 'Bị hỏng', 100000, 1, 1, '2020-07-07 19:07:19', '2020-07-07 19:07:19');
+INSERT INTO `detail_fix` VALUES ('PS0720001', 'TB000014', 'Bị Hỏng', NULL, 1, 0, '2020-07-07 19:07:19', '2020-07-07 19:07:19');
+INSERT INTO `detail_fix` VALUES ('PS0721001', 'TB000006', 'Không nhận tín hiệu', 100000, 1, 1, '2021-07-07 12:55:07', '2021-07-07 12:55:07');
+INSERT INTO `detail_fix` VALUES ('PS0721001', 'TB000018', 'Không nhận tín hiệu', 100000, 1, 1, '2021-07-07 12:55:07', '2021-07-07 12:55:07');
+INSERT INTO `detail_fix` VALUES ('PS0820001', 'TB000001', 'Bị vỡ', NULL, 1, 0, '2020-08-08 19:12:37', '2020-08-08 19:12:37');
+INSERT INTO `detail_fix` VALUES ('PS0820001', 'TB000002', 'Hiển thị màu xanh', 140000, 1, 1, '2020-08-08 19:12:37', '2020-08-08 19:12:37');
+INSERT INTO `detail_fix` VALUES ('PS0821001', 'TB000015', 'không lên nguồn', 260000, 1, 1, '2021-08-08 12:57:37', '2021-08-08 12:57:37');
+INSERT INTO `detail_fix` VALUES ('PS0821002', 'TB000015', 'Không nhận tín hiệu', NULL, 1, 0, '2021-08-09 13:00:19', '2021-08-09 13:00:19');
+INSERT INTO `detail_fix` VALUES ('PS0821002', 'TB000016', 'Không nhận tín hiệu', 170000, 1, 1, '2021-08-09 13:00:19', '2021-08-09 13:00:19');
+INSERT INTO `detail_fix` VALUES ('PS0920001', 'TB000006', 'Không nhận tín hiệu', NULL, 0, NULL, '2020-09-06 19:15:37', '2020-09-06 19:15:37');
+INSERT INTO `detail_fix` VALUES ('PS0921001', 'TB000012', 'Không hoạt động', 0, 1, 1, '2021-09-09 13:02:45', '2021-09-09 13:02:45');
+INSERT INTO `detail_fix` VALUES ('PS1020001', 'TB000016', 'Không bật được', 120000, 1, 1, '2020-10-10 19:18:15', '2020-10-10 19:18:15');
+INSERT INTO `detail_fix` VALUES ('PS1020001', 'TB000019', 'Không nhận tín hiệu', 80000, 1, 1, '2020-10-10 19:18:15', '2020-10-10 19:18:15');
+INSERT INTO `detail_fix` VALUES ('PS1021001', 'TB000016', 'Không bật được', 100000, 1, 1, '2021-10-10 13:06:02', '2021-10-10 13:06:02');
+INSERT INTO `detail_fix` VALUES ('PS1121001', 'TB000009', NULL, NULL, 0, NULL, '2021-11-10 13:09:03', '2021-11-10 13:09:03');
+INSERT INTO `detail_fix` VALUES ('PS1121002', 'TB000008', 'Không nhận tín hiệu', 0, 1, 1, '2021-11-11 13:10:00', '2021-11-11 13:10:00');
+INSERT INTO `detail_fix` VALUES ('PS1221001', 'TB000012', 'Không hoạt động', 0, 1, 1, '2021-12-09 13:12:22', '2021-12-09 13:12:22');
+INSERT INTO `detail_fix` VALUES ('PS1221001', 'TB000013', 'Không hoạt động', 250000, 1, 1, '2021-12-09 13:12:22', '2021-12-09 13:12:22');
+INSERT INTO `detail_fix` VALUES ('PS1221002', 'TB000009', 'Không lên đèn', NULL, 1, 0, '2021-12-10 13:12:22', '2021-12-10 13:12:22');
 
 -- ----------------------------
 -- Table structure for detail_handover_buy
@@ -258,7 +262,7 @@ DROP TABLE IF EXISTS `detail_handover_buy`;
 CREATE TABLE `detail_handover_buy`  (
   `id_note` char(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_stationery` bigint UNSIGNED NOT NULL,
-  `qty` int NOT NULL,
+  `qty` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id_note`, `id_stationery`) USING BTREE,
   INDEX `detail_handover_buy_id_stationery_foreign`(`id_stationery`) USING BTREE,
   CONSTRAINT `detail_handover_buy_id_note_foreign` FOREIGN KEY (`id_note`) REFERENCES `handover_note` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
@@ -455,9 +459,9 @@ CREATE TABLE `equipment`  (
 INSERT INTO `equipment` VALUES ('TB000001', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', '2020-05-01', '2016-01-01', 3, NULL, '2021-12-06 16:21:26', '2021-12-06 19:11:50');
 INSERT INTO `equipment` VALUES ('TB000002', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', '2019-05-01', '2016-01-01', 3, NULL, '2021-12-06 16:21:26', '2021-12-07 12:39:57');
 INSERT INTO `equipment` VALUES ('TB000003', 'Màn hình Dell', 'Phòng thực hành máy tính số 1', '2019-05-02', '2016-01-01', 1, NULL, '2021-12-06 16:21:26', '2021-12-07 12:46:15');
-INSERT INTO `equipment` VALUES ('TB000004', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2019-05-03', '2016-01-01', 1, NULL, '2021-12-06 16:21:26', '2021-12-07 12:46:15');
-INSERT INTO `equipment` VALUES ('TB000005', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2020-05-01', '2017-01-01', 1, NULL, '2021-12-06 16:21:26', '2021-12-07 12:47:24');
-INSERT INTO `equipment` VALUES ('TB000006', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2020-05-01', '2017-01-02', 1, NULL, '2021-12-06 16:21:26', '2021-12-07 12:55:29');
+INSERT INTO `equipment` VALUES ('TB000004', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2019-05-03', '2016-01-01', 1, NULL, '2021-12-06 16:21:26', '2021-12-11 16:11:57');
+INSERT INTO `equipment` VALUES ('TB000005', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2020-05-01', '2017-01-01', 1, NULL, '2021-12-06 16:21:26', '2021-12-07 14:34:38');
+INSERT INTO `equipment` VALUES ('TB000006', 'Chuột logitech', 'Phòng thực hành máy tính số 1', '2020-05-01', '2017-01-02', 1, NULL, '2021-12-06 16:21:26', '2021-12-17 15:08:08');
 INSERT INTO `equipment` VALUES ('TB000007', 'Máy chiếu', 'Phòng thực hành máy tính số 1', '2020-05-01', '2017-01-03', 3, NULL, '2021-12-06 16:21:26', '2021-12-07 12:51:48');
 INSERT INTO `equipment` VALUES ('TB000008', 'Máy chiếu', 'Phòng thực hành máy tính số 2', '2020-04-01', '2017-01-04', 1, NULL, '2021-12-06 16:21:26', '2021-12-07 13:10:14');
 INSERT INTO `equipment` VALUES ('TB000009', 'Máy chiếu', 'Phòng thực hành máy tính số 3', '2020-04-02', '2017-01-05', 3, NULL, '2021-12-06 16:21:26', '2021-12-07 13:14:11');
@@ -577,7 +581,7 @@ CREATE TABLE `jobs`  (
   `created_at` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `jobs_queue_index`(`queue`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jobs
@@ -590,8 +594,8 @@ DROP TABLE IF EXISTS `limit_stationery`;
 CREATE TABLE `limit_stationery`  (
   `id_user` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_stationery` bigint UNSIGNED NOT NULL,
-  `qty_used` int NOT NULL,
-  `qty_max` int NOT NULL,
+  `qty_used` int UNSIGNED NOT NULL,
+  `qty_max` int UNSIGNED NOT NULL,
   `quarter_year` int NOT NULL,
   `year` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -741,7 +745,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of migrations
@@ -775,6 +779,8 @@ INSERT INTO `migrations` VALUES (26, '2021_11_24_184519_add_is_fixable_to_detail
 INSERT INTO `migrations` VALUES (27, '2021_11_27_102512_add_code_to_users_table', 1);
 INSERT INTO `migrations` VALUES (28, '2021_11_27_115423_create_jobs_table', 1);
 INSERT INTO `migrations` VALUES (29, '2021_11_28_160649_create_notifications_table', 1);
+INSERT INTO `migrations` VALUES (30, '2021_12_17_145634_add_timestampe_to_detail_request_table', 2);
+INSERT INTO `migrations` VALUES (32, '2021_12_17_162406_change_qty_constraint_in_tables', 3);
 
 -- ----------------------------
 -- Table structure for notifications
@@ -796,6 +802,7 @@ CREATE TABLE `notifications`  (
 -- ----------------------------
 -- Records of notifications
 -- ----------------------------
+INSERT INTO `notifications` VALUES ('7586a7b5-7bae-400b-99bc-6d9ff21b64c8', 'App\\Notifications\\ProcessNoteNotification', 'App\\Models\\User', 5050004, '{\"id_note\":\"PS1221003\",\"message\":\"Phi\\u1ebfu PS1221003 \\u0111\\u00e3 \\u0111\\u01b0\\u1ee3c duy\\u1ec7t\",\"path\":\"\\/phieu-sua\\/detail\\/PS1221003\"}', '2021-12-17 15:07:07', '2021-12-17 15:07:05', '2021-12-17 15:07:07');
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -890,7 +897,7 @@ CREATE TABLE `registration`  (
   `id_user` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_stationery` bigint UNSIGNED NOT NULL,
   `id_period` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qty` int NOT NULL,
+  `qty` int UNSIGNED NOT NULL,
   `received_at` datetime NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1201,7 +1208,7 @@ CREATE TABLE `stationery`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `unit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `limit_avg` int NOT NULL,
+  `limit_avg` int UNSIGNED NOT NULL,
   `id_category` tinyint UNSIGNED NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1258,7 +1265,7 @@ INSERT INTO `users` VALUES ('5050004', 'Nguyễn Thị Hà Quyên', '1977-01-01'
 INSERT INTO `users` VALUES ('5050005', 'Trần Bửu Dung', '1985-02-01', '201201203', '0123456790', 'dung123@ute.udn.vn', '$2y$10$UmWUtSOcTLB6KuCRkWe74.dP.GbXStKbDvS7U/HVYl5Utk.XrJbu6', NULL, '2021-12-07 13:33:11', '2021-12-07 13:33:11', 4, 'KD', NULL);
 INSERT INTO `users` VALUES ('5050006', 'Hoàng Thị Mỹ Lệ', '1985-02-02', '201201204', '0123456791', 'le123@ute.udn.vn', '$2y$10$FzC2kdtVQdKmbUTp4bl6pebbbNJHlzV0WCBIdt8bzaDdIF0p87N4S', NULL, '2021-12-07 13:33:11', '2021-12-07 13:33:11', 4, 'KD', NULL);
 INSERT INTO `users` VALUES ('5050007', 'Nguyễn Văn B', '1985-02-03', '201201205', '0123456792', 'b123@ute.udn.vn', '$2y$10$M3yEZp6py.ufT74YK20OjOq2NvOlGw90QyzU9NlrrjyEsogTM25r6', NULL, '2021-12-07 13:33:11', '2021-12-07 13:33:11', 3, 'PCSVC', NULL);
-INSERT INTO `users` VALUES ('5050008', 'Trần Hòa', '1985-02-04', '201201206', '0123456793', 'hoa123@ute.udn.vn', '$2y$10$MUqOaRHFl406kDqh5aBpWe3u6DNxoC66vlB36kAQ9/xU5LnKdwvXa', NULL, '2021-12-07 13:33:11', '2021-12-07 13:33:11', 2, 'PCSVC', NULL);
+INSERT INTO `users` VALUES ('5050008', 'Trần Hòa', '1985-02-04', '201201206', '0123456793', 'hoa123@ute.udn.vn', '$2y$10$MUqOaRHFl406kDqh5aBpWe3u6DNxoC66vlB36kAQ9/xU5LnKdwvXa', 'eNsUWtqq00LEEVXq5R5B7SCgbSkvA5MHpxrkEVHViomRFwc87QEbtWFmPnd3', '2021-12-07 13:33:11', '2021-12-07 13:33:11', 2, 'PCSVC', NULL);
 INSERT INTO `users` VALUES ('5050009', 'Lê Thu', '1985-02-05', '201201207', '0123456794', 'thu123@ute.udn.vn', '$2y$10$9nl8GMAXPNzvZiCAgDNlYuETGJA4F4K7f3zam8ze.00GU1woD2chC', NULL, '2021-12-07 13:33:11', '2021-12-07 13:33:11', 2, 'PCSVC', NULL);
 INSERT INTO `users` VALUES ('5050010', 'Nguyễn Văn C', '1985-02-06', '201201207', '0123456795', 'c123@ute.udn.vn', '$2y$10$UJ.R.qPTES3ObUOuilte5ez62OtfAMxATPNYNKz6aPvRBPd.nVV4y', NULL, '2021-12-07 13:33:11', '2021-12-07 13:33:11', 3, 'KXD', NULL);
 INSERT INTO `users` VALUES ('5050011', 'Huỳnh Sinh', '1985-02-07', '201201207', '0123456796', 'sinh123@ute.udn.vn', '$2y$10$TBnY6vNGlzTIA0hXxfSGxOXsEIMZ/6.g2qLnWOem/DJckSJsaiJtq', NULL, '2021-12-07 13:33:11', '2021-12-07 13:33:11', 4, 'KXD', NULL);
