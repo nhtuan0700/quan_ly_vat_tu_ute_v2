@@ -15,7 +15,6 @@ class DetailBuy extends Model
 
     protected $table = 'detail_buy';
     public $incrementing = false;
-    public $timestamps = false;
 
     public function stationery()
     {
