@@ -21,7 +21,10 @@ class DetailBuyRepository extends BaseRepository implements DetailBuyInterface
     {
         foreach ($stationeries as $id_stationery => $item) {
             $this->findItem($id_note, $id_stationery)
-                ->update(['cost' => $item['cost']]);
+                ->update([
+                    'cost' => $item['cost'],
+                    'pay_at' => now()
+                ]);
         }
     }
 

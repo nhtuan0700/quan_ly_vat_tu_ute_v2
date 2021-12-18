@@ -47,7 +47,7 @@ class ProcessNoteController extends Controller
 
     public function detail($id)
     {
-        $note = $this->noteRepo->find($id);
+        $note = $this->noteRepo->findOrFail($id);
         if ($note->is_buy) {
             $depm_registrations = $this->registrationRepo->listByDepartment(
                 $note->id_period,
@@ -67,7 +67,7 @@ class ProcessNoteController extends Controller
 
     public function confirm(Request $request, $id)
     {
-        $note = $this->noteRepo->find($id);
+        $note = $this->noteRepo->findOrFail($id);
         $this->authorize('confirm', $note);
         try {
             $this->processService->confirm($request, $note);
