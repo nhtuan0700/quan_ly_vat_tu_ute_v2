@@ -93,7 +93,8 @@ class ProcessNoteService
                     if ($item['is_fixable']) {
                         $detail_fix->update([
                             'cost' => $item['cost'],
-                            'is_fixable' => true
+                            'is_fixable' => true,
+                            'pay_at' => now()
                         ]);
                         $this->equipmentRepo->findOrFail($id_equipment)->update([
                             'status' => Equipment::NORMAL
@@ -101,7 +102,8 @@ class ProcessNoteService
                     } else {
                         $detail_fix->update([
                             'is_fixable' => false,
-                            'cost' => null
+                            'cost' => null,
+                            'pay_at' => now()
                         ]);
                         $this->equipmentRepo->findOrFail($id_equipment)->update([
                             'status' => Equipment::BROKEN
@@ -110,7 +112,8 @@ class ProcessNoteService
                 } else {
                     $detail_fix->update([
                         'is_fixable' => null,
-                        'cost' => null
+                        'cost' => null,
+                        'pay_at' => null
                     ]);
                     $this->equipmentRepo->findOrFail($id_equipment)->update([
                         'status' => Equipment::FIXING

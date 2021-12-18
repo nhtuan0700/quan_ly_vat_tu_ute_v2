@@ -14,6 +14,7 @@ class DetailFix extends Model
 
     protected $table = 'detail_fix';
     public $incrementing = false;
+    public $timestamps = false;
 
     public function equipment()
     {
