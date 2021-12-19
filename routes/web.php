@@ -153,6 +153,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/confirm/{id?}', [ProcessNoteController::class, 'confirm'])->name('confirm');
         Route::post('/reject/{id?}', [ProcessNoteController::class, 'reject'])->name('reject');
         Route::post('/update-sua/{id?}', [ProcessNoteController::class, 'update_detail_fix'])->name('update_detail_fix');
+        Route::get('/print/{id?}', [ProcessNoteController::class, 'print'])->name('print');
     });
 
     Route::group(['as' => 'handover_note.', 'prefix' => 'phieu-ban-giao', 'middleware' => 'acl:handover_note-manage'], function () {

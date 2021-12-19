@@ -27,7 +27,7 @@
                     <tr>
                       <th>STT</th>
                       <th>Tên văn phòng phẩm</th>
-                      <th>Đơn vị tính</th>
+                      <th class="text-center">Đơn vị tính</th>
                       <th class="text-center">Số lượng yêu cầu</th>
                       <th width="20%">Giá</th>
                       @can('view_handover', $note)
@@ -46,7 +46,7 @@
                       <tr>
                         <th>{{ $i++ }}</th>
                         <td>{{ $item->stationery->name }}</td>
-                        <td>{{ $item->stationery->unit }}</td>
+                        <td class="text-center">{{ $item->stationery->unit }}</td>
                         <td class="text-center">{{ $item->qty }}</td>
                         <td>
                           {{ format_currency($item->cost) }}
@@ -60,16 +60,22 @@
                 </table>
 
               </div>
-              <a href="{{ route('process_note.index') }}" class="btn btn-default mr-1">Quay lại</a>
-              @can('view_handover', $note)
-                <button type="button" class="btn btn-default mr-1" data-toggle="modal" data-target="#modalListHandover">
-                  Lịch sử bàn giao</button>
-                @include('handover_note.components.modal_list', ['handover_notes' => $note->handover_notes])
-              @endcan
-              @can('create_handover', $note)
-                <a href="{{ route('handover_note.create', ['id_request_note' => $note->id]) }}"
-                  class="btn btn-success">Tạo phiếu bàn giao</a>
-              @endcan
+              <div class="d-flex">
+                <a href="{{ route('process_note.index') }}" class="btn btn-default mr-1">Quay lại</a>
+                @can('view_handover', $note)
+                  <button type="button" class="btn btn-default mr-1" data-toggle="modal" data-target="#modalListHandover">
+                    Lịch sử bàn giao</button>
+                  @include('handover_note.components.modal_list', ['handover_notes' => $note->handover_notes])
+                @endcan
+                @can('create_handover', $note)
+                  <a href="{{ route('handover_note.create', ['id_request_note' => $note->id]) }}"
+                    class="btn btn-success">Tạo phiếu bàn giao</a>
+
+                @endcan
+                <a href="{{ route('process_note.print', ['id' => $note->id]) }}" target="_blank"
+                  class="btn btn-secondary ml-auto">
+                  In phiếu</a>
+              </div>
             </div>
           </div>
         </div>

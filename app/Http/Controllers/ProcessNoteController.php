@@ -112,4 +112,25 @@ class ProcessNoteController extends Controller
             return back()->with('alert-fail', 'Cập nhật phiếu thất bại');
         }
     }
+
+    public function print($id)
+    {
+        $note = $this->noteRepo->findOrFail($id);
+        $pdf = \Illuminate\Support\Facades\App::make('dompdf.wrapper');
+        if ($note->is_buy) {
+            if (!!$note->id_handler) {
+                $pdf->loadHTML(view('process_note.detail_processed.print_buy', compact('note')));
+            }
+            else {
+                $pdf->loadHTML(view('process_note.detail_processing.print_buy', compact('note')));
+            }
+        } else {
+            if (!!$note->id_handler) {
+                $pdf->loadHTML(view('process_note.detail_processed.print_fix', compact('note')));
+            } else {
+                $pdf->loadHTML(view('process_note.detail_processing.print_fix', compact('note')));
+            }
+        }
+        return $pdf->stream();
+    }
 }

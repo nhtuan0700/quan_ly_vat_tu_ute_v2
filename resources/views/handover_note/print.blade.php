@@ -13,22 +13,27 @@
       font-size: 12px;
       padding: 0;
     }
+
     .text-center {
       text-align: center !important;
     }
+
     .text-border {
       border-bottom: 1px solid black;
       padding-bottom: 3px;
       display: inline-block
     }
+
     .w-100 {
       width: 100% !important;
     }
+
     .table {
       border-collapse: collapse;
       width: 100%;
       font-size: 11px;
     }
+
     .table td,
     .table th {
       text-align: left;
@@ -39,9 +44,17 @@
     .table th {
       text-align: center;
     }
+
     .clear-both {
       clear: both
     }
+
+    td.fit,
+    th.fit {
+      white-space: nowrap;
+      width: 1%;
+    }
+
   </style>
 </head>
 
@@ -147,21 +160,22 @@
     </table>
   @endif
   <div style="margin-top: 30px"></div>
-  <div style="float:right;">
-    <span>Đà nẵng ngày {{ now()->day }} tháng {{ now()->month }} năm {{ now()->year }}</span>
-  </div>
-  <div class="clear-both"></div>
   <table class="w-100">
     <tr>
-      <td style="padding-left: 90px">
-        <b>Người tạo phiếu</b>
-      </td>
-      <td style="text-align: right; padding-right: 90px">
-        <b>Người nhận</b>
+      <td></td>
+      <td></td>
+      <td class="fit">
+        <span>Đà nẵng ngày {{ now()->day }} tháng {{ now()->month }} năm {{ now()->year }}</span>
       </td>
     </tr>
     <tr>
-
+      <td style="text-align: center">
+        <b>Người tạo phiếu</b>
+      </td>
+      <td></td>
+      <td style="text-align: center">
+        <b>Người nhận</b>
+      </td>
     </tr>
   </table>
 </body>

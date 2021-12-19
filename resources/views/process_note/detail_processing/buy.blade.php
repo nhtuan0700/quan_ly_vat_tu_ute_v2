@@ -29,7 +29,7 @@
                       <tr>
                         <th>STT</th>
                         <th>Tên văn phòng phẩm</th>
-                        <th>Đơn vị tính</th>
+                        <th class="text-center">Đơn vị tính</th>
                         <th class="text-center">Số lượng yêu cầu</th>
                         <th width="20%">Giá</th>
                       </tr>
@@ -42,13 +42,12 @@
                         <tr>
                           <th>{{ $i++ }}</th>
                           <td>{{ $item->stationery->name }}</td>
-                          <td>{{ $item->stationery->unit }}</td>
+                          <td class="text-center">{{ $item->stationery->unit }}</td>
                           <td class="text-center">{{ $item->qty }}</td>
                           <td>
                             <div class="input-group pr-3">
                               <input type="text" class="form-control d-inline w-75"
-                                name="stationeries[{{ $item->id_stationery }}][cost]"
-                                data-type="currency">
+                                name="stationeries[{{ $item->id_stationery }}][cost]" data-type="currency">
                               <div class="input-group-prepend">
                                 <span class="input-group-text">đ</span>
                               </div>
@@ -60,8 +59,13 @@
                   </table>
 
                 </div>
-                <a href="{{ route('process_note.index') }}" class="btn btn-default mr-1">Quay lại</a>
-                <button class="btn btn-primary">Duyệt phiếu</button>
+                <div class="d-flex">
+                  <a href="{{ route('process_note.index') }}" class="btn btn-default mr-1">Quay lại</a>
+                  <button class="btn btn-primary">Duyệt phiếu</button>
+                  <a href="{{ route('process_note.print', ['id' => $note->id]) }}" 
+                    target="_blank" class="btn btn-secondary ml-auto">
+                    In phiếu</a>
+                </div>
               </form>
             </div>
           </div>

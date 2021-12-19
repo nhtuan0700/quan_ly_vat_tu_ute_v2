@@ -90,20 +90,26 @@
                   </table>
 
                 </div>
-                <a href="{{ route('process_note.index') }}" class="btn btn-default mr-1">Trở về</a>
-                @can('view_handover', $note)
-                  <button type="button" class="btn btn-default mr-1" data-toggle="modal" data-target="#modalListHandover">
-                    Lịch sử bàn giao</button>
-                  @include('handover_note.components.modal_list', ['handover_notes' => $note->handover_notes])
-                @endcan
-                @can('update_detail_fix', $note)
-                  <button type="submit" class="btn btn-primary mr-1">Cập nhật</button>
-                @endcan
-                @if (auth()->user()->can('create_handover', $note))
-                  <a href="{{ route('handover_note.create', ['id_request_note' => $note->id]) }}"
-                    class="btn btn-success">Tạo phiếu bàn giao</a>
-                @endif
+                <div class="d-flex">
+                  <a href="{{ route('process_note.index') }}" class="btn btn-default mr-1">Trở về</a>
+                  @can('view_handover', $note)
+                    <button type="button" class="btn btn-default mr-1" data-toggle="modal" data-target="#modalListHandover">
+                      Lịch sử bàn giao</button>
+                    @include('handover_note.components.modal_list', ['handover_notes' => $note->handover_notes])
+                  @endcan
+                  @can('update_detail_fix', $note)
+                    <button type="submit" class="btn btn-primary mr-1">Cập nhật</button>
+                  @endcan
+                  @if (auth()->user()->can('create_handover', $note))
+                    <a href="{{ route('handover_note.create', ['id_request_note' => $note->id]) }}"
+                      class="btn btn-success">Tạo phiếu bàn giao</a>
+                  @endif
+                  <a href="{{ route('process_note.print', ['id' => $note->id]) }}" target="_blank"
+                    class="btn btn-secondary ml-auto">
+                    In phiếu</a>
+                </div>
               </form>
+
             </div>
           </div>
         </div>

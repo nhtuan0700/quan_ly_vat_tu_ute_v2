@@ -61,6 +61,9 @@
                     <button type="submit" class="btn btn-primary">Duyệt phiếu</button>
                   </form>
                 @endcan
+                <a href="{{ route('process_note.print', ['id' => $note->id]) }}" 
+                  target="_blank" class="btn btn-secondary ml-auto">
+                  In phiếu</a>
               </div>
             </div>
           </div>

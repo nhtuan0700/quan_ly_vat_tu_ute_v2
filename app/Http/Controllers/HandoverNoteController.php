@@ -134,9 +134,9 @@ class HandoverNoteController extends Controller
 
     public function print($id)
     {
-        $note = $this->handoverNoteRepo->find($id);
+        $note = $this->handoverNoteRepo->findOrFail($id);
         $pdf = \Illuminate\Support\Facades\App::make('dompdf.wrapper');
-        $pdf->loadHTML(view('handover_note.pdf', compact('note')));
+        $pdf->loadHTML(view('handover_note.print', compact('note')));
         return $pdf->stream();
     }
 }
