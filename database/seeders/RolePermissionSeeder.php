@@ -23,7 +23,7 @@ class RolePermissionSeeder extends Seeder
             Role::find(1)->permissions()->attach($permission);
         }
 
-        $handler_permissions = ['request_note-process', 'handover_note-manage'];
+        $handler_permissions = ['request_note-process', 'handover_note-manage', 'statistic'];
         foreach ($handler_permissions as $item) {
             $permission = Permission::where('name', $item)->first()->id;
             Role::find(2)->permissions()->attach($permission);

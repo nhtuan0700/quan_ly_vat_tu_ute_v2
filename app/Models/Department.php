@@ -12,4 +12,9 @@ class Department extends Model
     protected $table = 'department';
 
     public $incrementing = false;
+
+    public function notes()
+    {
+        return $this->hasMany(RequestNote::class, 'id_department');
+    }
 }

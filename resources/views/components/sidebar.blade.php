@@ -150,6 +150,16 @@
             </p>
           </a>
         </li>
+
+        @can('statistic')
+          <li class="nav-item">
+            <a href="{{ route('statistic.index') }}" class="nav-link" id="link-thong-ke">
+              <p>
+                Thống kê
+              </p>
+            </a>
+          </li>
+        @endcan
       </ul>
     </nav>
   </div>

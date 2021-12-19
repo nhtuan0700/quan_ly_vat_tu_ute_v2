@@ -38,7 +38,7 @@ if (!function_exists('format_currency')) {
         if ($currency) {
             return number_format($currency) . " đ";
         }
-        return '';
+        return '0 đ';
     }
 }
 

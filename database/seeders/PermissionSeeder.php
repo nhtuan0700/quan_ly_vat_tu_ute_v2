@@ -51,6 +51,10 @@ class PermissionSeeder extends Seeder
                 'name' => 'registration-handover',
                 'description' => 'Bàn giao văn phòng phẩm đăng ký'
             ],
+            [
+                'name' => 'statistic',
+                'description' => 'Thống kê'
+            ],
         ];
 
         DB::table('permission')->insert($data);

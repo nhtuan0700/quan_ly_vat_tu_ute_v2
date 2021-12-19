@@ -15,6 +15,7 @@ use App\Http\Controllers\{
     ProfileController,
     RegistrationController,
     StationeryController,
+    StatisticController,
     UserController,
 };
 use App\Http\Controllers\Auth\LoginController;
@@ -173,5 +174,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/danh-sach/{id_period?}', [HandoverRegistrationController::class, 'list_user'])->name('list_user');
         Route::get('/detail', [HandoverRegistrationController::class, 'detail'])->name('detail');
         Route::post('/handover', [HandoverRegistrationController::class, 'handover'])->name('handover');
+    });
+
+    Route::group(['as' => 'statistic.', 'prefix' => 'thong-ke', 'middleware' => 'acl:statistic'], function () {
+        Route::get('/', [StatisticController::class, 'index'])->name('index');
     });
 });
