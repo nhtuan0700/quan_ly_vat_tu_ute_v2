@@ -13,7 +13,6 @@
           <a href="{{ route('stationery.download_template') }}" class="btn btn-light btn-sm">Tải file mẫu</a>
           <ul>
             <li>Tên không được trùng</li>
-            <li>Tên danh mục phải có trong cơ sở dữ liệu</li>
           </ul>
         </div>
         <form action="{{ route('stationery.import') }}" method="post" id="import_excel" enctype="multipart/form-data">

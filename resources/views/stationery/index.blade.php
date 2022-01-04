@@ -25,7 +25,7 @@
                     <input type="text" class="form-control" id="name" name="name" value="{{ request()->name ?? '' }}"
                       autocomplete="off">
                   </div>
-                  <div class="form-group col-md-2">
+                  {{-- <div class="form-group col-md-2">
                     <label for="category">Danh mục:</label>
                     <select name="id_category" id="category" class="form-control">
                       <option value>Tất cả</option>
@@ -35,7 +35,7 @@
                         </option>
                       @endforeach
                     </select>
-                  </div>
+                  </div> --}}
                   <button type="submit" class="btn btn-primary align-self-end">Tìm kiếm</button>
                 </div>
               </form>
@@ -57,7 +57,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Tên</th>
                     <th scope="col">Đơn vị tính</th>
-                    <th scope="col">Danh mục</th>
+                    {{-- <th scope="col">Danh mục</th> --}}
                     <th scope="col" class="fit">Thao tác</th>
                   </tr>
                 </thead>
@@ -67,7 +67,7 @@
                       <th>{{ $rank++ }}</th>
                       <td>{{ $item->name }}</td>
                       <td>{{ $item->unit }}</td>
-                      <td>{{ optional($item->category)->name }}</td>
+                      {{-- <td>{{ optional($item->category)->name }}</td> --}}
                       <td>
                         <div class="d-flex justify-content-center">
                           <a href="{{ route('stationery.edit', ['id' => $item->id]) }}" class="btn btn-info">Sửa</a>

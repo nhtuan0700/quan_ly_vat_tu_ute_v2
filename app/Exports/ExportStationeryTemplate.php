@@ -16,8 +16,7 @@ class ExportStationeryTemplate implements FromArray, WithHeadings
         return [
             'Tên',
             'Đơn vị tính',    
-            'Hạn mức trung bình',
-            'Danh mục'
+            'Hạn mức TB',
         ];
     }
 }

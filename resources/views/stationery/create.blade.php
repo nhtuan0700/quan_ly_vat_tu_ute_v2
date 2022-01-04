@@ -28,6 +28,8 @@ Quản lý văn phòng phẩm
                   </div>
                   @enderror
                 </div>
+              </div>
+              <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="unit">Đơn vị tính:</label>
                   <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit"
@@ -50,7 +52,7 @@ Quản lý văn phòng phẩm
                   @enderror
                 </div>
               </div>
-              <div class="form-row">
+              {{-- <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="category">Danh mục:</label>
                   <select id="category" class="form-control  @error('id_category') is-invalid @enderror" name="id_category">
@@ -64,8 +66,7 @@ Quản lý văn phòng phẩm
                   </div>
                   @enderror
                 </div>
-
-              </div>
+              </div> --}}
               <a class="btn btn-default mr-1" href="{{ route('stationery.index') }}">Quay lại</a>
               <button type="submit" class="btn btn-primary">Lưu</button>
             </form>

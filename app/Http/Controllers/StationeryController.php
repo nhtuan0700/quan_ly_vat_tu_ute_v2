@@ -7,7 +7,6 @@ use App\Exports\ExportStationery;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exceptions\ImportExcelException;
 use App\Exports\ExportStationeryTemplate;
-use App\Repositories\Category\CategoryInterface;
 use App\Http\Requests\Stationery\StoreStationery;
 use App\Http\Requests\Stationery\UpdateStationery;
 use App\Imports\ImportStationery;
@@ -16,28 +15,23 @@ use App\Repositories\Stationery\StationeryInterface;
 class StationeryController extends Controller
 {
     private $stationeryRepo;
-    private $categoryRepo;
 
     public function __construct(
-        StationeryInterface $stationeryInterface,
-        CategoryInterface $categoryInterface
+        StationeryInterface $stationeryInterface
     ) {
         $this->stationeryRepo = $stationeryInterface;
-        $this->categoryRepo = $categoryInterface;
     }
 
     public function index()
     {
         $stationeries = $this->stationeryRepo->paginate();
-        $categories = $this->categoryRepo->all();
         $rank = $stationeries->firstItem();
-        return view('stationery.index', compact('stationeries', 'rank', 'categories'));
+        return view('stationery.index', compact('stationeries', 'rank'));
     }
 
     public function create()
     {
-        $categories = $this->categoryRepo->all();
-        return view('stationery.create', compact('categories'));
+        return view('stationery.create');
     }
 
     public function store(StoreStationery $request)
@@ -51,8 +45,7 @@ class StationeryController extends Controller
     public function edit($id)
     {
         $stationery = $this->stationeryRepo->findOrFail($id);
-        $categories = $this->categoryRepo->all();
-        return view('stationery.edit', compact('stationery', 'categories'));
+        return view('stationery.edit', compact('stationery'));
     }
 
     public function update(UpdateStationery $request, $id)
@@ -70,11 +63,10 @@ class StationeryController extends Controller
 
     public function search(Request $request)
     {
-        $columns = $request->only(['name', 'id_category']);
-        $stationeries = $this->stationeryRepo->search($columns, ['id_category']);
+        $columns = $request->only(['name']);
+        $stationeries = $this->stationeryRepo->search($columns, []);
         $rank = $stationeries->firstItem();
-        $categories = $this->categoryRepo->all();
-        return view('stationery.index', compact('stationeries', 'rank', 'categories'));
+        return view('stationery.index', compact('stationeries', 'rank'));
     }
 
     public function export_excel()
@@ -96,17 +88,15 @@ class StationeryController extends Controller
                 break;
             };
             try {
-                $category = $this->categoryRepo->where('name', $item[3])->first();
                 $is_exist = $this->stationeryRepo->where('name', $item[0])->exists();
-                throw_if($is_exist || is_null($category), new ImportExcelException());
+                throw_if($is_exist, new ImportExcelException());
                 $stationery = [
                     'name' => $item[0],
                     'unit' => $item[1],
                     'limit_avg' => $item[2],
-                    'id_category' => $category->id,
                 ];
                 $this->stationeryRepo->create($stationery);
-            } catch (ImportExcelException $e) {
+            } catch (\Throwable $e) {
                 $index = $key + 1;
                 array_push($error, "Hàng thứ $index");
             }

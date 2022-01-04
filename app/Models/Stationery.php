@@ -10,13 +10,14 @@ class Stationery extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'name', 'unit', 'limit_avg', 'id_category'
+        'name', 'unit', 'limit_avg', 
+        // 'id_category'
     ];
 
     protected $table = 'stationery';
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'id_category', 'id');
+        // return $this->belongsTo(Category::class, 'id_category', 'id');
     }
 }
