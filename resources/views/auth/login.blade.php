@@ -19,18 +19,39 @@
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
   <!-- Toastr -->
   <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+  <style>
+    .login-page {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      
+    }
+    .login-box {
+      width: 400px
+    }
+  </style>
 </head>
 
-<body class="hold-transition login-page" style="height: unset">
-  <div class="login-box w-50 mt-5">
-    <div class="login-logo">
+<body class="login-page" style="height: unset;background: url('{{ asset('img/background_login.png') }}')" >
+  <div class="login-box">
+    {{-- <div class="login-logo">
       <b>HỆ THỐNG VẬT TƯ</b>
       <p>Trường Đại Học Sư Phạm Kỹ Thuật</p>
-    </div>
+    </div> --}}
     <!-- /.login-logo -->
     <div class="card">
+      <div class="card-body pb-0">
+        <div class="logo">
+          <a href="{{ route('welcome') }}">
+            <img src="{{ asset('img/logo2.png') }}" alt="" style="height: 60px">
+          </a>
+        </div>
+      </div>
+
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Đăng nhập để tiếp tục</p>
+        <p class="login-box-msg text-bold">Đăng nhập để tiếp tục</p>
 
         <form action="{{ route('login') }}" method="post">
           @csrf

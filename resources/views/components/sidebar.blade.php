@@ -11,15 +11,17 @@
       <div class="info">
         {{-- <a href="#" class="d-block">{{ Auth::user()->role->name }}</a> --}}
         <h5 class="text-light m-0">{{ auth()->user()->name }}</h5>
-        <p class="text-light m-0">{{ auth()->user()->role->name }}</p>
+        <p class="text-light m-0">Đơn vị: {{ auth()->user()->department->name }}</p>
+        <p class="text-light m-0">Vai trò: {{ auth()->user()->role->name }}</p>
       </div>
     </div>
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <ul class="nav nav-pills nav-sidebar flex-column list-menu" data-widget="treeview" role="menu"
+        data-accordion="false">
         <li class="nav-item">
-          <a href="{{ route('index') }}" class="nav-link" id="link-home">
+          <a href="{{ route('index') }}" class="nav-link" data-link="home">
             <p>
               Trang chủ
             </p>
@@ -28,7 +30,7 @@
 
         @can('user-manage')
           <li class="nav-item">
-            <a href="{{ route('user.index') }}" class="nav-link" id="link-user">
+            <a href="{{ route('user.index') }}" class="nav-link" data-link="user">
               <p>
                 Quản lý người dùng
               </p>
@@ -37,8 +39,8 @@
         @endcan
 
         @can('supplies-manage')
-          <li class="nav-item">
-            <a href="#" class="nav-link" id="link-vat-tu">
+          <li class="nav-item menu-parent">
+            <a href="#" class="nav-link" data-link="suplies">
               <p>
                 Quản lý vật tư
                 <i class="right fas fa-angle-left"></i>
@@ -46,7 +48,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('stationery.index') }}" class="nav-link" id="link-van-phong-pham">
+                <a href="{{ route('stationery.index') }}" class="nav-link" data-link="stationery">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Văn phòng phẩm
@@ -54,7 +56,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('equipment.index') }}" class="nav-link" id="link-thiet-bi">
+                <a href="{{ route('equipment.index') }}" class="nav-link" data-link="equipment">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Thiết bị
@@ -67,7 +69,7 @@
 
         @can('period-manage')
           <li class="nav-item">
-            <a href="{{ route('period.index') }}" class="nav-link" id="link-dot-dang-ky">
+            <a href="{{ route('period.index') }}" class="nav-link" data-link="period">
               <p>
                 Quản lý đợt đăng ký mua văn phòng phẩm
               </p>
@@ -77,7 +79,7 @@
 
         @can('request_note-process')
           <li class="nav-item">
-            <a href="{{ route('process_note.index') }}" class="nav-link" id="link-phieu-de-nghi">
+            <a href="{{ route('process_note.index') }}" class="nav-link" data-link="request_note">
               <p>
                 Danh sách phiếu đề nghị
                 <span class="text-white">
@@ -90,7 +92,7 @@
 
         @can('handover_note-manage')
           <li class="nav-item">
-            <a href="{{ route('handover_note.index') }}" class="nav-link" id="link-phieu-ban-giao">
+            <a href="{{ route('handover_note.index') }}" class="nav-link" data-link="handover_note">
               <p>
                 Quản lý phiếu bàn giao
               </p>
@@ -98,34 +100,10 @@
           </li>
         @endcan
 
-        <li class="nav-item">
-          <a href="{{ route('limit.index') }}" class="nav-link" id="link-han-muc">
-            <p>
-              Hạn mức đăng ký văn phòng phẩm của tôi
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('registration.index') }}" class="nav-link" id="link-dang-ky-van-phong-pham">
-            <p>
-              Đăng ký văn phòng phẩm
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('history.index') }}" class="nav-link" id="link-lich-su-dang-ky">
-            <p>
-              Lịch sử đăng ký văn phòng phẩm của tôi
-            </p>
-          </a>
-        </li>
-
         @can('registration-handover')
           <li class="nav-item">
             <a href="{{ route('handover_registration.list_period') }}" class="nav-link"
-              id="link-ban-giao-dang-ky">
+              data-link="handover_registration">
               <p>
                 Bàn giao đăng ký văn phòng phẩm của đơn vị
               </p>
@@ -135,7 +113,7 @@
 
         @can('buy_note-manage')
           <li class="nav-item">
-            <a href="{{ route('buy_note.index') }}" class="nav-link" id="link-phieu-mua">
+            <a href="{{ route('buy_note.index') }}" class="nav-link" data-link="buy_note">
               <p>
                 Quản lý phiếu mua của đơn vị
               </p>
@@ -143,32 +121,61 @@
           </li>
         @endcan
 
-        <li class="nav-item">
-          <a href="{{ route('fix_note.index') }}" class="nav-link" id="link-phieu-sua">
-            <p>
-              Quản lý phiếu sửa của tôi
-            </p>
-          </a>
-        </li>
-
         @can('statistic')
           <li class="nav-item">
-            <a href="{{ route('statistic.index') }}" class="nav-link" id="link-thong-ke">
+            <a href="{{ route('statistic.index') }}" class="nav-link" data-link="statisctic">
               <p>
                 Thống kê
               </p>
             </a>
           </li>
         @endcan
+
+        <li class="nav-item menu-guest">
+          <a href="{{ route('limit.index') }}" class="nav-link" data-link="limit">
+            <p>
+              Hạn mức đăng ký văn phòng phẩm của tôi
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item menu-guest">
+          <a href="{{ route('registration.index') }}" class="nav-link" data-link="registration">
+            <p>
+              Đăng ký văn phòng phẩm
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item menu-guest">
+          <a href="{{ route('history.index') }}" class="nav-link" data-link="history_registration">
+            <p>
+              Lịch sử đăng ký văn phòng phẩm của tôi
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item menu-guest">
+          <a href="{{ route('fix_note.index') }}" class="nav-link" data-link="phieu-sua">
+            <p>
+              Quản lý phiếu sửa của tôi
+            </p>
+          </a>
+        </li>
+
       </ul>
     </nav>
   </div>
 </aside>
 
 @push('js')
+  {{-- Active Link --}}
+  <script src="{{ asset('js/active-link.js') }}"></script>
+  <script src="{{ asset('js/combine-menu.js') }}"></script>
   <script>
     $(function() {
-      @if (auth()->user()->can('request_note-process'))
+      var checkPermisionRequestNote = `{{ auth()->user()->can('request_note-process') }}`;
+      if (checkPermisionRequestNote) {
         const channel = 'request-note';
         Echo.private(channel).listen('.RequestNote', (data) => {
           $('#count_rq_note_processing').text(data.count);
@@ -182,7 +189,26 @@
             })
           }
         });
-      @endif
+      }
+
+      var options = {
+        'stationery': 'van-phong-pham',
+        'equipment': 'thiet-bi',
+        'period': 'dot-dang-ky',
+        'handover_registration': 'ban-giao-dang-ky',
+        'request_note': 'phieu-de-nghi',
+        'handover_note': 'phieu-ban-giao',
+        'buy_note': 'phieu-mua',
+        'statisctic': 'thong-ke',
+        'limit': 'han-muc',
+        'registration': 'dang-ky-van-phong-pham',
+        'history_registration': 'lich-su-dang-ky',
+        'fix_note': 'phieu-sua',
+      };
+      ActiveLink('.list-menu', options);
     })
+
+    var isCombine = `{{ auth()->user()->id_role !== App\Models\Role::GUEST }}`;
+    CombineMenu('.list-menu', !!isCombine ? 'Các chức năng khác của tôi' : undefined);
   </script>
 @endpush
