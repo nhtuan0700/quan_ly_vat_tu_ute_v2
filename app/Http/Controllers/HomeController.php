@@ -13,8 +13,16 @@ class HomeController extends Controller
     {
         $this->periodRepo = $periodRegistrationInterface;
     }
+
+    public function welcome() {
+        return view('welcome.home');
+    }
+
+    public function introduce() {
+        return view('welcome.introduce');
+    }
     
-    public function index()
+    public function home()
     {
         $periods = $this->periodRepo->query()
             ->where(function ($query) {
@@ -22,6 +30,6 @@ class HomeController extends Controller
             })->orWhere(function ($query) {
                 $query->where('start_time', '>', now());
             })->orderby('created_at', 'desc')->get();
-        return view('home.index', compact('periods'));
+        return view('home.index2', compact('periods'));
     }
 }

@@ -31,7 +31,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
+Route::get('/quy-dinh', [HomeController::class, 'introduce'])->name('introduce');
 Route::middleware('guest')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
@@ -50,7 +51,7 @@ Route::group(['as' => 'forgot_password.', 'middleware' => 'guest', 'prefix' => '
 
 Route::middleware('auth')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/home', [HomeController::class, 'home'])->name('index');
     Route::group(['as' => 'notification.', 'prefix' => 'notify'], function () {
         Route::get('/', [NotificationController::class, 'list'])->name('list');
         Route::get('/mark-read', [NotificationController::class, 'markAsRead'])->name('mark_read');

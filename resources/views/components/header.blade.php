@@ -7,9 +7,11 @@
           class="fas fa-bars"></i></a>
     </li>
     <li>
-      <a href="{{ route('index') }}" class="d-flex align-items-center pl-2 pr-2">
+      <a href="{{ route('welcome') }}" class="d-flex align-items-center pl-2 pr-2">
         <img src="{{ asset('img/logo.png') }}" alt="" width="38px">
-        <h2 class="h5 m-0 ml-1">HỆ THỐNG VẬT TƯ - ĐẠI HỌC SƯ PHẠM KỸ THUẬT ĐÀ NẴNG</h2>
+        <p class="m-0 ml-2">HỆ THỐNG VẬT TƯ<br>
+          <span style="color: #f28b43">ĐẠI HỌC SƯ PHẠM KỸ THUẬT ĐÀ NẴNG</span>
+        </p>
       </a>
     </li>
   </ul>
@@ -31,9 +33,6 @@
         <div class="dropdown-divider"></div>
         <a href="{{ route('profile.info') }}" class="dropdown-item">
           <i class="fas fa-user mr-2"></i>Trang cá nhân
-        </a>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-question mr-2"></i>Hướng dẫn
         </a>
         <div class="dropdown-divider"></div>
         <a href="{{ route('logout') }}" class="dropdown-item">
