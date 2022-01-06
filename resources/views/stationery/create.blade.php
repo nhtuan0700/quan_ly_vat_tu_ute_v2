@@ -28,24 +28,12 @@ Quản lý văn phòng phẩm
                   </div>
                   @enderror
                 </div>
-              </div>
-              <div class="form-row">
+                
                 <div class="form-group col-md-3">
                   <label for="unit">Đơn vị tính:</label>
                   <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit"
                     name="unit" value="{{ old('unit') }}">
                   @error('unit')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                  @enderror
-                </div>
-                <div class="form-group col-md-3">
-                  <label for="limit_avg">Hạn mức trung bình:</label>
-                  <input type="text" class="form-control @error('limit_avg') is-invalid @enderror" 
-                    id="limit_avg" name="limit_avg"
-                    value="{{ old('limit_avg') }}">
-                  @error('limit_avg')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>

@@ -93,10 +93,10 @@ class StationeryController extends Controller
                 $stationery = [
                     'name' => $item[0],
                     'unit' => $item[1],
-                    'limit_avg' => $item[2],
                 ];
                 $this->stationeryRepo->create($stationery);
             } catch (\Throwable $e) {
+                // dd($e->getMessage());
                 $index = $key + 1;
                 array_push($error, "Hàng thứ $index");
             }

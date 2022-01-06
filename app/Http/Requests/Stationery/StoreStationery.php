@@ -32,7 +32,6 @@ class StoreStationery extends FormRequest
                 })
             ],
             'unit' => 'required|string',
-            'limit_avg' => 'required|integer|min:0',
             // 'id_category' => 'required|exists:category,id'
         ];
     }
@@ -41,7 +40,6 @@ class StoreStationery extends FormRequest
     {
         return [
             'unit' => 'đơn vị tính',
-            'limit_avg' => 'hạn mức trung bình',
             // 'id_category' => 'danh mục',
         ];
     }

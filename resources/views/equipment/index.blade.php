@@ -32,7 +32,7 @@
 
             <div class="card-body">
               <div class="dt-buttons btn-group flex-wrap mb-2">
-                <a href="{{ route('equipment.export') }}" class="btn btn-secondary">
+                <a href="{{ route('equipment.export') }}" class="btn btn-secondary mr-1">
                   <span>Export Excel</span>
                 </a>
                 <a class="btn btn-secondary" data-toggle="modal" data-target="#modalImport">

@@ -21,7 +21,6 @@ class ExportStationery implements FromCollection, WithHeadings, WithMapping
         return [
             'Tên',
             'Đơn vị tính',    
-            'Hạn mức TB',
         ];
     }
 
@@ -29,7 +28,6 @@ class ExportStationery implements FromCollection, WithHeadings, WithMapping
         return [
             $vpp->name,
             $vpp->unit,
-            $vpp->limit_avg,
         ];
     }
 }

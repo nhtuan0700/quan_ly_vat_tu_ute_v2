@@ -43,7 +43,7 @@
 
             <div class="card-body">
               <div class="dt-buttons btn-group flex-wrap mb-2">
-                <a href="{{ route('stationery.export') }}" class="btn btn-secondary">
+                <a href="{{ route('stationery.export') }}" class="btn btn-secondary mr-1">
                   <span>Export Excel</span>
                 </a>
                 <a class="btn btn-secondary" data-toggle="modal" data-target="#modalImport">
@@ -54,7 +54,7 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Tên</th>
                     <th scope="col">Đơn vị tính</th>
                     {{-- <th scope="col">Danh mục</th> --}}
@@ -64,7 +64,7 @@
                 <tbody>
                   @foreach ($stationeries as $item)
                     <tr>
-                      <th>{{ $rank++ }}</th>
+                      <th>{{ $item->id }}</th>
                       <td>{{ $item->name }}</td>
                       <td>{{ $item->unit }}</td>
                       {{-- <td>{{ optional($item->category)->name }}</td> --}}

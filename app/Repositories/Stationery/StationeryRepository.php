@@ -16,20 +16,20 @@ class StationeryRepository extends BaseRepository implements StationeryInterface
     public function create($attributes = [])
     {
         $new_stationery = parent::create($attributes);
-        $userRepo = app(UserInterface::class);
-        $limitRepo = app(LimitStationeryInterface::class);
-        $users = $userRepo->all();
-        foreach ($users as $item) {
-            $limit = [
-                'id_user' => $item->id,
-                'id_stationery' => $new_stationery->id,
-                'qty_used' => 0,
-                'qty_max' => $new_stationery->limit_avg,
-                'quarter_year' => quarter_of_year(),
-                'year' => now()->year
-            ];
-            $limitRepo->create($limit);
-        }
+        // $userRepo = app(UserInterface::class);
+        // $limitRepo = app(LimitStationeryInterface::class);
+        // $users = $userRepo->all();
+        // foreach ($users as $item) {
+        //     $limit = [
+        //         'id_user' => $item->id,
+        //         'id_stationery' => $new_stationery->id,
+        //         'qty_used' => 0,
+        //         'qty_max' => $new_stationery->limit_avg,
+        //         'quarter_year' => quarter_of_year(),
+        //         'year' => now()->year
+        //     ];
+        //     $limitRepo->create($limit);
+        // }
         return $new_stationery;
     }
 }
