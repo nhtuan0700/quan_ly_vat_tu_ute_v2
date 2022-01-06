@@ -11,6 +11,7 @@
 .carousel-control-next, .carousel-control-prev {
   width: 5%;
 }
+
 .carousel-item .description {
   position: absolute;
   top: 0px;
@@ -209,4 +210,9 @@ input[type=number] {
 .table th.fit {
     white-space: nowrap;
     width: 1%;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, 
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+  background-color: #f28b43;
 }

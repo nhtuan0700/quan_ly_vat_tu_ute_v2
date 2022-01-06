@@ -32,7 +32,7 @@ class DropCategoryTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-        Schema::create('stationery', function (Blueprint $table) {
+        Schema::table('stationery', function (Blueprint $table) {
             $table->unsignedTinyInteger('id_category')->nullable();
             $table->foreign('id_category')->references('id')->on('category');
         });

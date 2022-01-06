@@ -19,15 +19,7 @@
                   {{-- ID --}}
                   <div class="form-group col-md-3">
                     <label for="id">Mã:</label>
-                    <input type="text" class="form-control" id="id" name="id" value="{{ $user->id }}" disabled>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="role">Vai trò:</label>
-                    <p>{{ $user->role->name }}</p>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="department">Đơn vị:</label>
-                    <p>{{ $user->department->name }}</p>
+                    <div>{{ $user->id }}</div>
                   </div>
                 </div>
                 <div class="form-row">
@@ -87,6 +79,21 @@
                     <label for="email">Email:</label>
                     <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
                       value="{{ $user->email }}" disabled>
+                  </div>
+                </div>
+                <div class="form-row">
+                  
+                  <div class="form-group col-md-3">
+                    <label for="department">Đơn vị:</label>
+                    <div>{{ $user->department->name }}</div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="department">Đơn vị:</label>
+                    <div>{{ $user->position->name }}</div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="role">Vai trò:</label>
+                    <div>{{ $user->role->name }}</div>
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Cật nhật</button>

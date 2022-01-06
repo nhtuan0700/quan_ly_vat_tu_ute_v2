@@ -35,12 +35,8 @@
             <img src="{{ asset('img/logo2.png') }}" alt="">
           </a>
         </div>
-        <a href="{{ route('login') }}" class="btn btn-outline-primary">
-          @if (auth()->check())
-            Đến hệ thống  
-          @else
-            Đăng nhập
-          @endif
+        <a href="{{ route('index') }}" class="btn btn-outline-primary">
+          Đến hệ thống  
         </a>
       </div>
     </div>

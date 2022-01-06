@@ -31,7 +31,8 @@ class StoreUser extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'id_role' => 'required|exists:role,id',
-            'id_department' => 'required|exists:department,id'
+            'id_department' => 'required|exists:department,id',
+            'id_position' => 'nullable|exists:position,id',
         ];
     }
 
@@ -42,7 +43,8 @@ class StoreUser extends FormRequest
             'id_card' => 'chứng minh nhân dân',
             'dob' => 'ngày sinh',
             'id_role' => 'vai trò',
-            'id_department' => 'đơn vị'
+            'id_department' => 'đơn vị',
+            'id_position' => 'chức vụ',
         ];
     }
 }

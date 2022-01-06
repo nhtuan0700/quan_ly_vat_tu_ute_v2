@@ -29,7 +29,11 @@ class RoleSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'name' => "Cán bộ"
+                'name' => "Người dùng"
+            ],
+            [
+                'id' => 5,
+                'name' => "Giám sát hạn mức"
             ],
         ];
 

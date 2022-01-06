@@ -15,8 +15,9 @@ class User extends Authenticatable
     use HasFactory, Notifiable, TimestampFormatTrait;
 
     protected $fillable = [
-        'id', 'name', 'dob', 'tel', 'id_card', 'id_department', 'id_role',
-        'email', 'password',
+        'id', 'name', 'dob', 'tel', 'id_card', 
+        'email', 'password', 'is_disabled',
+        'id_department', 'id_role', 'id_position',
     ];
 
     protected $hidden = [
@@ -45,6 +46,11 @@ class User extends Authenticatable
     public function department()
     {
         return $this->belongsTo(Department::class, 'id_department', 'id');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'id_position', 'id');
     }
 
     public function hasPermission(Permission $permission)

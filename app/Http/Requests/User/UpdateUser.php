@@ -30,7 +30,8 @@ class UpdateUser extends FormRequest
             'dob' => 'required|date_format:d/m/Y',
             'id_card' => 'required|string|min:9|max:12',
             'id_role' => 'required|exists:role,id',
-            'id_department' => 'required|exists:department,id'
+            'id_department' => 'required|exists:department,id',
+            'id_position' => 'nullable|exists:position,id',
         ];
     }
 
@@ -41,7 +42,8 @@ class UpdateUser extends FormRequest
             'id_role' => 'vai trò',
             'dob' => 'ngày sinh',
             'id_card' => 'chứng minh nhân dân',
-            'id_department' => 'đơn vị'
+            'id_department' => 'đơn vị',
+            'id_position' => 'chức vụ',
         ];
     }
 }

@@ -19,6 +19,10 @@ class LoginController extends Controller
         $crendentials = $request->only('email', 'password');
         $bool = $request->has('remember') ? true : false;
         if (Auth::attempt($crendentials, $bool)) {
+            if (auth()->user()->is_disabled) {
+                Auth::logout();
+                return back()->with('alert-fail', 'Tài khoản đã bị khóa');
+            }
             return redirect(route('index'));
         }
         return back()->with('alert-fail', trans('auth.failed'));

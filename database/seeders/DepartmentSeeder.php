@@ -17,7 +17,7 @@ class DepartmentSeeder extends Seeder
         $data = [
             [
                 'id' => 'KD',
-                'name' => 'Khoa Điện',
+                'name' => 'Khoa Điện - Điện Tử',
             ],
             [
                 'id' => 'KXD',
@@ -46,6 +46,18 @@ class DepartmentSeeder extends Seeder
             [
                 'id' => 'PCTSV',
                 'name' => 'Phòng Công Tác Sinh Viên',
+            ],
+            [
+                'id' => 'PKHTC',
+                'name' => 'Phòng Kế Hoạch Tài Chính',
+            ],
+            [
+                'id' => 'PTCHC',
+                'name' => 'Phòng Tổ Chức Hành Chính',
+            ],
+            [
+                'id' => 'PQLKH',
+                'name' => 'Phòng QLKH và HTQT',
             ],
         ];
         DB::table('department')->insert($data);

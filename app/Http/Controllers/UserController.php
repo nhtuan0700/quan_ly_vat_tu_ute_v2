@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ImportExcelException;
 use App\Models\User;
 use App\Exports\ExportUser;
 use App\Imports\ImportUser;
@@ -19,11 +20,13 @@ use Illuminate\Support\Facades\Notification;
 use App\Repositories\Department\DepartmentInterface;
 use App\Notifications\UpdateLimitStationeryNotification;
 use App\Repositories\LimitStationery\LimitStationeryInterface;
+use App\Repositories\Position\PositionInterface;
 
 class UserController extends Controller
 {
     private $userRepo;
     private $roleRepo;
+    private $positionRepo;
     private $departmentRepo;
     private $limitRepo;
 
@@ -31,10 +34,12 @@ class UserController extends Controller
         UserInterface $userInterface,
         RoleInterface $roleInterface,
         DepartmentInterface $departmentInterface,
+        PositionInterface $positionInterface,
         LimitStationeryInterface $limitStationeryInterface
     ) {
         $this->userRepo = $userInterface;
         $this->roleRepo = $roleInterface;
+        $this->positionRepo = $positionInterface;
         $this->departmentRepo = $departmentInterface;
         $this->limitRepo = $limitStationeryInterface;
     }
@@ -51,7 +56,8 @@ class UserController extends Controller
     {
         $roles = $this->roleRepo->all();
         $departments = $this->departmentRepo->all();
-        return view('user.create', compact('roles', 'departments'));
+        $positions = $this->positionRepo->all();
+        return view('user.create', compact('roles', 'departments', 'positions'));
     }
 
     public function store(StoreUser $request)
@@ -68,8 +74,9 @@ class UserController extends Controller
         $user = $this->userRepo->findOrFail($id);
         $roles = $this->roleRepo->all();
         $departments = $this->departmentRepo->all();
+        $positions = $this->positionRepo->all();
         $limit_stationeries = $this->limitRepo->listByUser($id);
-        return view('user.edit', compact('roles', 'user', 'departments', 'limit_stationeries'));
+        return view('user.edit', compact('roles', 'user', 'departments', 'limit_stationeries', 'positions'));
     }
 
     public function update(UpdateUser $request, $id)
@@ -110,15 +117,19 @@ class UserController extends Controller
 
     public function download_template()
     {
-        return Excel::download(new ExportUserTemplate, 'users_template.xlsx');
+        $file = public_path() . "/excel_template/users_template.xlsx";
+        return response()->download($file, 'users_template.xlsx');
     }
 
     public function import_excel()
     {
-        // Excel::import(new ImportUser, request()->file('file_excel'));
         $users = Excel::toCollection(new ImportUser, request()->file('file_excel'));
         $error = [];
         foreach ($users[0] as $key => $item) {
+            $department = $this->departmentRepo->where('name', $item[7])->first();
+            $position = $this->positionRepo->where('name', $item[8])->first();
+            $role = $this->roleRepo->where('name', $item[9])->first();
+            throw_if(is_null($department || $role), new ImportExcelException());
             if ($item->filter()->isEmpty()) {
                 break;
             };
@@ -131,8 +142,10 @@ class UserController extends Controller
                     'tel' => $item[4],
                     'dob' => transformDateExcel($item[5]),
                     'id_card' => $item[6],
-                    'id_role' => $item[7],
-                    'id_department' => $item[8],
+                    'id_department' => $department->id,
+                    'id_department' => $department->id,
+                    'id_position' => optional($position)->id,
+                    'id_role' => $role->id,
                 ];
                 $this->userRepo->create($user);
             } catch (\Throwable $th) {
@@ -170,5 +183,14 @@ class UserController extends Controller
             return back()->with('alert-fail', 'Cập nhật hạn mức thất bại');
         }
         return back()->with('alert-success', 'Cập nhật hạn mức thành công');
+    }
+
+    public function handle_account(Request $request, $id)
+    {
+        $user = $this->userRepo->findOrFail($id);
+        $user->update([
+            'is_disabled' => !!(int) $request->is_block
+        ]);
+        return back()->with('alert-success', trans('alert.update.success'));
     }
 }

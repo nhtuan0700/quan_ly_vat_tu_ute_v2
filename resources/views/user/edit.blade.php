@@ -58,6 +58,9 @@
                       </div>
                     @enderror
                   </div>
+                  
+                </div>
+                <div class="form-row">
                   {{-- Phone number --}}
                   <div class="form-group col-md-3">
                     <label for="tel">Số điện thoại:</label>
@@ -92,6 +95,9 @@
                     <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
                       value="{{ $user->email }}" disabled>
                   </div>
+                  
+                </div>
+                <div class="form-row">
                   <div class="form-group col-md-3">
                     <label for="department">Đơn vị:</label>
                     <select id="department" class="form-control select2 @error('id_department') is-invalid @enderror"
@@ -103,8 +109,25 @@
                       @endforeach
                     </select>
                   </div>
-                </div>
-                <div class="form-row">
+                  {{-- Chức vụ --}}
+                  <div class="form-group col-md-3">
+                    <label for="position">Chức vụ:</label>
+                    <select id="position" class="form-control @error('id_position') is-invalid @enderror" name="id_position">
+                      @foreach ($positions as $position)
+                        @if ($position->id == optional($user->position)->id)
+                          <option value="{{ $position->id }}" selected>{{ $position->name }}</option>
+                        @else
+                          <option value="{{ $position->id }}">{{ $position->name }}</option>
+                        @endif
+                      @endforeach
+                      <option value @if(is_null($user->id_position)) selected @endif>Khác</option>
+                      @error('id_position')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </select>
+                  </div>
                   {{-- Role --}}
                   <div class="form-group col-md-3">
                     <label for="role">Vai trò:</label>

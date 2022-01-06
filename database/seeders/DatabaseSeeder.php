@@ -18,11 +18,12 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             DepartmentSeeder::class,
-            CategorySeeder::class,
+            // CategorySeeder::class,
             // StationerySeeder::class,
             // EquipmentSeeder::class,
-            UserSeeder::class,
             RolePermissionSeeder::class,
+            PositionSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

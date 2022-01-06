@@ -15,8 +15,7 @@
             <li>Mã không được trùng</li>
             <li>Email không được trùng</li>
             <li>CMND không được trùng</li>
-            <li>Mã vai trò phải có trong cơ sở dữ liệu</li>
-            <li>Mã khoa phải có trong cơ sở dữ liệu</li>
+            <li>Các dữ liệu dạng dropdown không được sửa</li>
           </ul>
         </div>
         <form action="{{ route('user.import') }}" method="post" id="import_excel" enctype="multipart/form-data">

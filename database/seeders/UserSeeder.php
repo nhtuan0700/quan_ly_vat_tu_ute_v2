@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('123123'),
                 'id_role' => 1,
                 'id_department' => 'PCSVC',
+                'id_position' => 1,
             ],
             [
                 'name' => 'Nguyễn Hữu Tuấn',
@@ -35,8 +36,9 @@ class UserSeeder extends Seeder
                 'id_card' => '201818606',
                 'email' => '1811505310350@sv.ute.udn.vn',
                 'password' => Hash::make('123123'),
-                'id_role' => 2,
-                'id_department' => 'PCSVC',
+                'id_role' => 5,
+                'id_department' => 'PKHTC',
+                'id_position' => 1,
             ]
         ];
 

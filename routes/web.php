@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
         Route::get('export', [UserController::class, 'export_excel'])->name('export');
         Route::get('download-template', [UserController::class, 'download_template'])->name('download_template');
         Route::post('import', [UserController::class, 'import_excel'])->name('import');
+        Route::post('xu-ly/{id}', [UserController::class, 'handle_account'])->name('handle');
         Route::post('update-hanmuc/{id_user}', [UserController::class, 'updateLimit'])->name('update_limit')
             ->middleware('acl:limit-manage');
     });

@@ -33,6 +33,8 @@ use App\Repositories\Registration\RegistrationInterface;
 use App\Repositories\Registration\RegistrationRepository;
 use App\Repositories\PeriodRegistration\PeriodRegistrationInterface;
 use App\Repositories\PeriodRegistration\PeriodRegistrationRepository;
+use App\Repositories\Position\PositionInterface;
+use App\Repositories\Position\PositionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -68,5 +70,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(HandoverNoteInterface::class, HandoverNoteRepository::class);
         $this->app->bind(DetailHandoverBuyInterface::class, DetailHandoverBuyRepository::class);
         $this->app->bind(DetailHandoverFixInterface::class, DetailHandoverFixRepository::class);
+        $this->app->bind(PositionInterface::class, PositionRepository::class);
     }
 }

@@ -10,9 +10,10 @@
       </div>
       <div class="info">
         {{-- <a href="#" class="d-block">{{ Auth::user()->role->name }}</a> --}}
-        <h5 class="text-light m-0">{{ auth()->user()->name }}</h5>
-        <p class="text-light m-0">Đơn vị: {{ auth()->user()->department->name }}</p>
-        <p class="text-light m-0">Vai trò: {{ auth()->user()->role->name }}</p>
+        <h5 class="text-light mt-1">{{ auth()->user()->name }}</h5>
+        <div class="text-light mt-1"><b>Đơn vị:</b> {{ auth()->user()->department->name }}</div>
+        <div class="text-light mt-1"><b>Chức vụ:</b> {{ auth()->user()->position->name }}</div>
+        <div class="text-light mt-1"><b>Vai trò: </b>{{ auth()->user()->role->name }}</div>
       </div>
     </div>
 

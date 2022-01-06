@@ -25,8 +25,9 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
             'Số điện thoại',
             'Ngày sinh',
             'Chứng minh nhân dân',
+            'Đơn vị',
+            'Chức vụ',
             'Vai trò',
-            'Đơn vị'
         ];
     }
 
@@ -38,8 +39,9 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
             $user->tel,
             $user->dob,
             $user->id_card,
+            $user->department->name,
+            optional($user->position)->name,
             $user->role->name,
-            $user->department->name
         ];
     }
 }

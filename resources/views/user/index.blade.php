@@ -71,7 +71,7 @@
 
             <div class="card-body">
               <div class="dt-buttons btn-group flex-wrap mb-2">
-                <a href="{{ route('user.export') }}" class="btn btn-secondary">
+                <a href="{{ route('user.export') }}" class="btn btn-secondary mr-1">
                   <span>Export Excel</span>
                 </a>
                 <a class="btn btn-secondary" data-toggle="modal" data-target="#modalImport">
@@ -88,7 +88,8 @@
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Đơn vị</th>
                     <th scope="col">Vai trò</th>
-                    <th scope="col" class="fit">Thao tác</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -101,9 +102,21 @@
                       <td>{{ $item->department->name }}</td>
                       <td>{{ $item->role->name }}</td>
                       <td>
+                        {{ $item->is_disabled ? 'Bị khóa' : 'Kích hoạt' }}
+                      </td>
+                      <td>
                         <div class="d-flex justify-content-center">
-                          <a href="{{ route('user.edit', ['id' => $item->id]) }}"
-                            class="btn btn-info">Sửa</a>
+                          <a href="{{ route('user.edit', ['id' => $item->id]) }}" class="btn btn-info mr-1">Sửa</a>
+                          <form action="{{ route('user.handle', ['id' => $item->id]) }}" method="post">
+                            @csrf
+                            @if (!$item->is_disabled)
+                              <input type="hidden" value="1" name="is_block">
+                              <button class="btn btn-danger btn-handle">Khóa</button>
+                            @else
+                              <input type="hidden" value="0" name="is_block">
+                              <button class="btn btn-warning btn-handle">Kích hoạt</button>
+                            @endif
+                          </form>
                         </div>
                       </td>
                     </tr>
@@ -137,6 +150,18 @@
   <script>
     $(function() {
       $('.select2').select2()
+
+      $('.btn-handle').click(function(e) {
+        e.preventDefault();
+        var isBlock = !!Number($(this).siblings('[name="is_block"]').val());
+        var message = isBlock ? 'Bạn có chắc muốn khóa tài khoản này?' :
+          'Bạn có chắc muốn kích hoạt lại tài khoản này';
+        var isConfirm = confirm(message)
+        if (isConfirm) {
+          console.log($(this).closest('form'));
+          $(this).closest('form').submit()
+        }
+      })
     })
   </script>
 @endsection
