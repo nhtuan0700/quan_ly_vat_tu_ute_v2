@@ -39,6 +39,16 @@
           </li>
         @endcan
 
+        @can('limit-manage')
+          <li class="nav-item">
+            <a href="{{ route('limit_default.index') }}" class="nav-link" data-link="limit_default">
+              <p>
+                Quản lý hạn mức mặc định
+              </p>
+            </a>
+          </li>
+        @endcan
+
         @can('supplies-manage')
           <li class="nav-item menu-parent">
             <a href="#" class="nav-link" data-link="suplies">
@@ -202,6 +212,7 @@
         'buy_note': 'phieu-mua',
         'statisctic': 'thong-ke',
         'limit': 'han-muc',
+        'limit_default': 'han-muc-mac-dinh',
         'registration': 'dang-ky-van-phong-pham',
         'history_registration': 'lich-su-dang-ky',
         'fix_note': 'phieu-sua',

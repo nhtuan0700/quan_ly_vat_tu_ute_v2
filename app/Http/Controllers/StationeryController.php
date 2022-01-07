@@ -11,6 +11,7 @@ use App\Http\Requests\Stationery\StoreStationery;
 use App\Http\Requests\Stationery\UpdateStationery;
 use App\Imports\ImportStationery;
 use App\Repositories\Stationery\StationeryInterface;
+use Illuminate\Support\Facades\DB;
 
 class StationeryController extends Controller
 {
@@ -94,9 +95,11 @@ class StationeryController extends Controller
                     'name' => $item[0],
                     'unit' => $item[1],
                 ];
-                $this->stationeryRepo->create($stationery);
+                DB::transaction(function () use ($stationery) {
+                    $this->stationeryRepo->create($stationery);
+                });
             } catch (\Throwable $e) {
-                // dd($e->getMessage());
+                dd($e->getMessage());
                 $index = $key + 1;
                 array_push($error, "Hàng thứ $index");
             }

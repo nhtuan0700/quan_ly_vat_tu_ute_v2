@@ -42,9 +42,9 @@
                           <td class="unit">{{ $item->unit }}</td>
                           <td class="text-center qty">
                             <input class="form-control w-25 text-center m-auto" name="stationeries[{{ $item->id }}]"
-                              type="number" value="{{ $item->qty }}" min="1" step="1" />
+                              type="number" value="{{ intval($item->qty) }}" min="1" step="1" />
                           </td>
-                          <td class="text-center qty_max">{{ $item->qty_remain }}</td>
+                          <td class="text-center qty_max">{{ intval($item->qty_remain) }}</td>
                           <td><a class="btn btn-danger btn-remove" data-id="{{ $item->id }}"
                               onclick="remove(event, this)">Xóa</a></td>
                         </tr>
@@ -62,7 +62,7 @@
                 <table class="table" id="list-stationery">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>Mã</th>
                       <th>Tên</th>
                       <th>Đơn vị tính</th>
                       <th class="text-center">Số lượng đã đăng ký</th>
@@ -80,9 +80,9 @@
                           <td class="id">{{ $item->id }}</td>
                           <td class="name">{{ $item->name }}</td>
                           <td class="unit">{{ $item->unit }}</td>
-                          <td class="text-center qty_used" data-qty="{{ $item_regis->qty }}">{{ $item->qty_used }}
+                          <td class="text-center qty_used" data-qty="{{ intval($item_regis->qty) }}">{{ intval($item->qty_used) }}
                           </td>
-                          <td class="text-center qty_max">{{ $item->qty_max }}</td>
+                          <td class="text-center qty_max">{{ intval($item->qty_max) }}</td>
                           <td>
                             <button type="button" class="btn btn-info btn-add">Thêm</button>
                           </td>
@@ -92,10 +92,13 @@
                           <td class="id">{{ $item->id }}</td>
                           <td class="name">{{ $item->name }}</td>
                           <td class="unit">{{ $item->unit }}</td>
-                          <td class="text-center qty_used">{{ $item->qty_used }}</td>
-                          <td class="text-center qty_max">{{ $item->qty_max }}</td>
+                          <td class="text-center qty_used">{{ intval($item->qty_used) }}</td>
+                          <td class="text-center qty_max">{{ intval($item->qty_max) }}</td>
                           <td>
-                            <button class="btn btn-info btn-add" @if ($item->qty_used === $item->qty_max) disabled @endif>Thêm</button>
+                            <button class="btn btn-info btn-add" 
+                              @if (intval($item->qty_used) === intval($item->qty_max)) disabled @endif>
+                              Thêm
+                            </button>
                           </td>
                         </tr>
                       @endif

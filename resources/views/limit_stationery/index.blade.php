@@ -22,23 +22,20 @@
             <input class="form-control float-right w-25 mb-3" id="key-search" placeholder="Tên văn phòng phẩm ...">
             <table class="table table-hover text-nowrap">
               <thead>
-                <th scope="col">#</th>
+                <th scope="col">Mã</th>
                 <th scope="col">Tên</th>
                 <th scope="col">Đơn vị tính</th>
                 <th scope="col" class="text-center">Đã sử dụng</th>
                 <th scope="col" class="text-center">Tối đa</th>
               </thead>
               <tbody>
-                @php
-                  $index = 1;
-                @endphp
                 @foreach ($limit_stationeries as $item)
                   <tr>
-                    <td>{{ $index++ }}</td>
+                    <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->unit }}</td>
-                    <td class="text-center">{{ $item->qty_used }}</td>
-                    <td class="text-center">{{ $item->qty_max }}</td>
+                    <td class="text-center">{{ intval($item->qty_used) }}</td>
+                    <td class="text-center">{{ intval($item->qty_max) }}</td>
                   </tr>
                 @endforeach
               </tbody>

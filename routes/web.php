@@ -10,6 +10,7 @@ use App\Http\Controllers\{
     ForgotPasswordController,
     HandoverNoteController,
     HandoverRegistrationController,
+    LimitDefaultController,
     LimitStationeryController,
     NotificationController,
     ProfileController,
@@ -31,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::get('/quy-dinh', [HomeController::class, 'introduce'])->name('introduce');
 Route::middleware('guest')->group(function () {
@@ -59,6 +61,12 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['as' => 'limit.', 'prefix' => 'han-muc'], function () {
         Route::get('/', [LimitStationeryController::class, 'index'])->name('index');
+    });
+
+    Route::group(['as' => 'limit_default.', 'prefix' => 'han-muc-mac-dinh', 'middleware' => 'acl:limit-manage'], function () {
+        Route::get('/', [LimitDefaultController::class, 'index'])->name('index');
+        Route::get('/stationery', [LimitDefaultController::class, 'getListStationery'])->name('list_stationery');
+        Route::put('/update', [LimitDefaultController::class, 'update'])->name('update');
     });
     Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => 'acl:user-manage'], function () {
         Route::get('index', [UserController::class, 'index'])->name('index');

@@ -97,7 +97,8 @@
                     <select id="donvi" class="form-control select2 @error('id_department') is-invalid @enderror"
                       name="id_department">
                       @foreach ($departments as $item)
-                        <option value="{{ $item->id }}" @if ($item->id == old('id_department')) selected @endif>
+                        <option value="{{ $item->id }}" @if ($item->id == old('id_department')) selected @endif
+                          data-room="{{ $item->is_room }}">
                           {{ $item->name }}
                         </option>
                       @endforeach
@@ -115,12 +116,7 @@
                     <label for="position">Chức vụ:</label>
                     <select id="position" class="form-control @error('id_position') is-invalid @enderror"
                       name="id_position">
-                      @foreach ($positions as $position)
-                        <option value="{{ $position->id }}" @if ($item->id == old('id_position')) selected @endif>
-                          {{ $position->name }}
-                        </option>
-                      @endforeach
-                      <option value @if(old('id_position') == null) selected @endif>Khác</option>
+                      
                       @error('id_position')
                         <div class="invalid-feedback">
                           {{ $message }}
@@ -185,6 +181,28 @@
 
       var dob = `{{ old('dob') }}` || `${date}/${month}/${year}`;
       $("#dob input").val(dob);
+
+      var positions = @json($positions);
+      const ID_POSITION = `{{ old('id_position') }}`;
+      var departmentSelect =  $('[name="id_department"]');
+      var positionSelect =  $('[name="id_position"]');
+      renderPosition(departmentSelect.find(':selected').data('room'));
+      
+      positionSelect.find(`option[value="${ID_POSITION}"]`).prop('selected', 'selected')
+      departmentSelect.change(function() {
+        renderPosition($(this).find(':selected').data('room'));
+      });
+      
+      function renderPosition(is_room) {
+        let array_position = positions.filter(function (item) {
+          return item.is_room === is_room;
+        })
+        let htmls = array_position.map(function(item) {
+          return `<option value='${item.id}'>${item.name}</option>`
+        })
+        let option_default = `<option value>Khác</option>`;
+        positionSelect.html(htmls.join('') + option_default);
+      }
     })
   </script>
 @endsection

@@ -53,7 +53,7 @@ class RegistrationService
             if ($request->stationeries) {
                 foreach ($request->stationeries as $id_stationery => $qty) {
                     $limit = $this->limitRepo->findItem(auth()->id(), $id_stationery);
-                    if (($limit->first()->qty_remain) < $qty) {
+                    if (optional($limit->first())->qty_remain < $qty) {
                         throw new OverLimitStationeryException();
                     };
                     $this->registrationRepo->create([

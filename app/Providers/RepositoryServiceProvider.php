@@ -26,6 +26,8 @@ use App\Repositories\HandoverNote\HandoverNoteInterface;
 use App\Repositories\HandoverNote\HandoverNoteRepository;
 use App\Repositories\LimitStationery\LimitStationeryInterface;
 use App\Repositories\LimitStationery\LimitStationeryRepository;
+use App\Repositories\LimitDefault\LimitDefaultInterface;
+use App\Repositories\LimitDefault\LimitDefaultRepository;
 use App\Repositories\Stationery\StationeryRepository;
 use App\Repositories\RequestNote\RequestNoteInterface;
 use App\Repositories\RequestNote\RequestNoteRepository;
@@ -71,5 +73,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(DetailHandoverBuyInterface::class, DetailHandoverBuyRepository::class);
         $this->app->bind(DetailHandoverFixInterface::class, DetailHandoverFixRepository::class);
         $this->app->bind(PositionInterface::class, PositionRepository::class);
+        $this->app->bind(LimitDefaultInterface::class, LimitDefaultRepository::class);
     }
 }

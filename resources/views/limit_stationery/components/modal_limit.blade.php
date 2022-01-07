@@ -14,7 +14,7 @@
           <div class="card-body table-responsive p-0" style="height: 400px;">
             <table class="table table-head-fixed text-nowrap" id="limit">
               <thead>
-                <th scope="col">#</th>
+                <th scope="col">Mã</th>
                 <th scope="col">Tên</th>
                 <th scope="col">Đơn vị tính</th>
                 <th scope="col" width="20%" class="text-center">Đã sử dụng</th>
@@ -26,13 +26,13 @@
                 @endphp
                 @foreach ($limit_stationeries as $item)
                   <tr>
-                    <td>{{ $index++ }}</td>
+                    <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->unit }}</td>
-                    <td class="text-center">{{ $item->qty_used }}</td>
+                    <td class="text-center">{{ $item->qty_used ?? 0 }}</td>
                     <td>
                       <input class="form-control" type="number" name="limits[{{ $item->id }}]"
-                        value="{{ $item->qty_max }}">
+                        value="{{ $item->qty_max ?? 0 }}">
                     </td>
                   </tr>
                 @endforeach

@@ -22,7 +22,6 @@ class RegistrationRepository extends BaseRepository implements RegistrationInter
             ->where('limit_stationery.id_user', $id_user)
             ->where('registration.id_period', $id_period)
             // ->whereNull('stationery.deleted_at')
-            ->orderBy('name', 'asc')
             ->select('id', 'name', 'unit', 'qty', 'id_note', 'received_at')
             ->selectRaw('qty_max - qty_used as qty_remain')
             ->get();

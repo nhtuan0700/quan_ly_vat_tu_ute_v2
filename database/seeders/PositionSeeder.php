@@ -23,18 +23,23 @@ class PositionSeeder extends Seeder
             ],
             [
                 'name' => 'Trưởng khoa',
+                'is_room' => false
             ],
             [
                 'name' => 'Phó trưởng khoa',
+                'is_room' => false
             ],
             [
                 'name' => 'Trưởng bộ môn',
+                'is_room' => false
             ],
             [
                 'name' => 'Phó trưởng bộ môn',
+                'is_room' => false
             ],
             [
                 'name' => 'Giảng viên',
+                'is_room' => false
             ],
             [
                 'name' => 'Chuyên viên',
@@ -44,6 +49,8 @@ class PositionSeeder extends Seeder
             ]
         ];
 
-        DB::table('position')->insert($positions);
+        foreach ($positions as $position) {
+            DB::table('position')->insert($position);
+        }
     }
 }

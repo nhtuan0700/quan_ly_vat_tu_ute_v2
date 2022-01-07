@@ -17,4 +17,8 @@ class Department extends Model
     {
         return $this->hasMany(RequestNote::class, 'id_department');
     }
+
+    public function positions() {
+        return Position::where('is_room', $this->is_room)->get();
+    }
 }

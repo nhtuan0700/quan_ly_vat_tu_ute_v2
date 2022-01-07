@@ -75,7 +75,9 @@
 
   <script>
     window.onload = function () {
-      document.querySelector('.box-spinner').classList.add('d-none');
+      setTimeout(() => {
+        document.querySelector('.box-spinner').classList.add('d-none');
+      }, 0);
     }
   </script>
   @yield('script')

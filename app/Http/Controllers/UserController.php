@@ -148,6 +148,8 @@ class UserController extends Controller
                     'id_role' => $role->id,
                 ];
                 $this->userRepo->create($user);
+                DB::transaction(function () use ($user) {
+                });
             } catch (\Throwable $th) {
                 $index = $key + 1;
                 array_push($error, "Hàng thứ $index");
@@ -167,11 +169,22 @@ class UserController extends Controller
                 $is_edit = false;
                 foreach ($request->limits as $id_stationery => $qty_max) {
                     $limit = $this->limitRepo->findItem($id_user, $id_stationery);
-                    if ($limit->first()->qty_max != $qty_max) {
-                        $limit->update([
-                            'qty_max' => $qty_max
+                    if (is_null($limit->first())) {
+                        $this->limitRepo->create([
+                            'id_user' => $id_user,
+                            'id_stationery' => $id_stationery,
+                            'qty_used' => 0,
+                            'qty_max' => $qty_max,
+                            'quarter_year' => quarter_of_year(),
+                            'year' => now()->year
                         ]);
-                        $is_edit = true;
+                    } else {
+                        if ($limit->first()->qty_max != $qty_max) {
+                            $limit->update([
+                                'qty_max' => $qty_max
+                            ]);
+                            $is_edit = true;
+                        }
                     }
                 }
                 if ($is_edit) {

@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Repositories\BaseRepository;
+use App\Repositories\LimitDefault\LimitDefaultInterface;
 use App\Repositories\LimitStationery\LimitStationeryInterface;
 use App\Repositories\User\UserInterface;
 use App\Repositories\Stationery\StationeryInterface;
@@ -36,15 +37,19 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         $attributes['id'] = $attributes['id'] ?? $this->getAutoId();
         $new_user = parent::create($attributes);
-        $stationeryRepo = app(StationeryInterface::class);
+        // Cập nhật hạn mức văn phòng phẩm bằng cách lấy hạn mức từ hạn mức mặc định từ chức vụ của user đó
         $limitRepo = app(LimitStationeryInterface::class);
-        $stationeries = $stationeryRepo->all();
-        foreach ($stationeries as $item) {
+        $limitDefaultRepo = app(LimitDefaultInterface::class);
+        $limit_defaults = $limitDefaultRepo
+            ->where('id_department', $new_user->id_department)
+            ->where('id_position', $new_user->id_position)
+            ->get();
+        foreach ($limit_defaults as $item) {
             $limit = [
                 'id_user' => $new_user->id,
-                'id_stationery' => $item->id,
+                'id_stationery' => $item->id_stationery,
                 'qty_used' => 0,
-                'qty_max' => $item->limit_avg,
+                'qty_max' => $item->qty,
                 'quarter_year' => quarter_of_year(),
                 'year' => now()->year
             ];

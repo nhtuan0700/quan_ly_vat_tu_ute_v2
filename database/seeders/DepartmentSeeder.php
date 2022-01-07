@@ -18,22 +18,27 @@ class DepartmentSeeder extends Seeder
             [
                 'id' => 'KD',
                 'name' => 'Khoa Điện - Điện Tử',
+                'is_room' => false
             ],
             [
                 'id' => 'KXD',
                 'name' => 'Khoa Kỹ Thuật Xây Dựng',
+                'is_room' => false
             ],
             [
                 'id' => 'KCK',
                 'name' => 'Khoa Cơ Khí',
+                'is_room' => false
             ],
             [
                 'id' => 'KCNHH',
                 'name' => 'Khoa Công Nghệ Hóa Học - Môi Trường',
+                'is_room' => false
             ],
             [
                 'id' => 'KSPCN',
                 'name' => 'Khoa Sư Phạm Công Nghiệp',
+                'is_room' => false
             ],
             [
                 'id' => 'PCSVC',
@@ -60,6 +65,8 @@ class DepartmentSeeder extends Seeder
                 'name' => 'Phòng QLKH và HTQT',
             ],
         ];
-        DB::table('department')->insert($data);
+        foreach ($data as $item) {
+            DB::table('department')->insert($item);
+        }
     }
 }

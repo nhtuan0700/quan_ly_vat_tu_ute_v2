@@ -103,7 +103,8 @@
                     <select id="department" class="form-control select2 @error('id_department') is-invalid @enderror"
                       name="id_department">
                       @foreach ($departments as $item)
-                        <option value="{{ $item->id }}" @if ($item->id === $user->id_department) selected @endif>
+                        <option value="{{ $item->id }}" @if ($item->id === $user->id_department) selected @endif
+                          data-room="{{ $item->is_room }}">
                           {{ $item->name }}
                         </option>
                       @endforeach
@@ -112,15 +113,9 @@
                   {{-- Chức vụ --}}
                   <div class="form-group col-md-3">
                     <label for="position">Chức vụ:</label>
-                    <select id="position" class="form-control @error('id_position') is-invalid @enderror" name="id_position">
-                      @foreach ($positions as $position)
-                        @if ($position->id == optional($user->position)->id)
-                          <option value="{{ $position->id }}" selected>{{ $position->name }}</option>
-                        @else
-                          <option value="{{ $position->id }}">{{ $position->name }}</option>
-                        @endif
-                      @endforeach
-                      <option value @if(is_null($user->id_position)) selected @endif>Khác</option>
+                    <select id="position" class="form-control @error('id_position') is-invalid @enderror" 
+                      name="id_position">
+                      
                       @error('id_position')
                         <div class="invalid-feedback">
                           {{ $message }}
@@ -186,6 +181,28 @@
       var d = new Date()
       var dob = `{{ old('dob') }}` || `{{ $user->dob }}`
       $("#dob input").val(dob);
+
+      var positions = @json($positions);
+      const ID_POSITION_USER = `{{ optional($user->position)->id }}`;
+      var departmentSelect =  $('[name="id_department"]');
+      var postionSelect =  $('[name="id_position"]');
+      renderPosition(departmentSelect.find(':selected').data('room'));
+      
+      postionSelect.find(`option[value="${ID_POSITION_USER}"]`).prop('selected', 'selected')
+      departmentSelect.change(function() {
+        renderPosition($(this).find(':selected').data('room'));
+      });
+      
+      function renderPosition(is_room) {
+        let array_position = positions.filter(function (item) {
+          return item.is_room === is_room;
+        })
+        let htmls = array_position.map(function(item) {
+          return `<option value='${item.id}'>${item.name}</option>`
+        })
+        let option_default = `<option value>Khác</option>`;
+        postionSelect.html(htmls.join('') + option_default);
+      }
     })
   </script>
 @endsection

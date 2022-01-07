@@ -25,11 +25,13 @@ class LimitStationeryRepository extends BaseRepository implements LimitStationer
     public function listByUser($id_user)
     {
         return DB::table('stationery')
-            ->join('limit_stationery', 'limit_stationery.id_stationery', '=', 'stationery.id')
-            ->where('limit_stationery.id_user', $id_user)
+            ->leftjoin('limit_stationery', function ($join) use ($id_user) {
+                $join->on('limit_stationery.id_stationery', '=', 'stationery.id')
+                ->where('limit_stationery.id_user', $id_user);
+            })
             ->whereNull('stationery.deleted_at')
-            ->orderBy('name', 'asc')
             ->select('id', 'name', 'unit', 'qty_used', 'qty_max')
+            ->orderby('qty_max', 'desc')
             ->get();
     }
 }

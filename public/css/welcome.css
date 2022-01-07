@@ -6,6 +6,8 @@
   height: 80px;
   z-index: 10;
   background-color: #fff;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.61); 
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.61);
 }
 .header .container {
   display: flex;
