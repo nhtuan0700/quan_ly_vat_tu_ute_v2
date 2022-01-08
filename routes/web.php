@@ -60,6 +60,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/mark-read', [NotificationController::class, 'markAsRead'])->name('mark_read');
     });
 
+    Route::group(['as' => 'department.', 'prefix' => 'co-cau', 'middleware' => 'acl:user-manage'], function () {
+        Route::get('/co-cau', function () {
+            return view('department.index');
+        })->name('index');
+    });
+
     Route::group(['as' => 'limit.', 'prefix' => 'han-muc'], function () {
         Route::get('/', [LimitStationeryController::class, 'index'])->name('index');
     });

@@ -155,6 +155,16 @@
           </li>
         @endcan
 
+        @can('user-manage')
+          <li class="nav-item">
+            <a href="{{ route('department.index') }}" class="nav-link" data-link="department">
+              <p>
+                Xem cơ cấu đơn vị
+              </p>
+            </a>
+          </li>
+        @endcan
+
         <li class="nav-item menu-guest">
           <a href="{{ route('limit.index') }}" class="nav-link" data-link="limit">
             <p>
@@ -229,7 +239,8 @@
         'registration': 'dang-ky-van-phong-pham',
         'history_registration': 'lich-su-dang-ky',
         'fix_note': 'phieu-sua',
-        'limit_process': 'xu-ly-han-muc'
+        'limit_process': 'xu-ly-han-muc',
+        'department': 'co-cau',
       };
       ActiveLink('.list-menu', options);
     })
