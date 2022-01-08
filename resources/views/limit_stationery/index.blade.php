@@ -11,13 +11,17 @@
         <div class="card-body">
           <div class="form-row">
             <div class="form-group col-2">
-              <p><b>Quý: </b>{{ quarter_of_year() }}</p>
+              <span><b>Quý: </b>{{ quarter_of_year() }}</span>
             </div>
             <div class="form-group col-2">
-              <p><b>Năm: </b>{{ now()->year }}</p>
+              <span><b>Năm: </b>{{ now()->year }}</span>
             </div>
           </div>
-
+          <div>
+            <span><b>Thời gian hạn mức áp dụng </b>
+              (Quý {{ quarter_of_year() }}: {{ range_time_in_quarter() }})
+            </span>
+          </div>
           <div>
             <input class="form-control float-right w-25 mb-3" id="key-search" placeholder="Tên văn phòng phẩm ...">
             <table class="table table-hover text-nowrap">

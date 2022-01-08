@@ -37,7 +37,9 @@
                       <td>{!! $item->statusHTML !!}</td>
                       <td>
                         <div class="d-flex justify-content-center">
-                          <a href="{{ route('period.edit', ['id' => $item->id]) }}" class="btn btn-info">Sửa</a>
+                          <a href="{{ route('period.edit', ['id' => $item->id]) }}" class="btn btn-info">
+                            {{ $item->getStatus() === 0 ? 'Xem' : 'Sửa' }}
+                          </a>
                           <div class="m-1"></div>
                           @can('delete', $item)
                             <form class="d-none" action="{{ route('period.delete', ['id' => $item->id]) }}"

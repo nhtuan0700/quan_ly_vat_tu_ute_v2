@@ -51,14 +51,58 @@ class PeriodRegistration extends Model
         return $this->hasMany(Registration::class, 'id_period', 'id')->where('id_user', auth()->id());
     }
 
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class, 'id_period', 'id');
+    }
+
+    public function getStatus()
+    {
+        // Đã diễn ra -> Đang diễn ra -> Chưa diễn ra
+        // 0 -> 1 -> 2
+
+        // Chưa diễn ra
+        if ($this->getRawOriginal('start_time') > now()) {
+            return 2;
+        }
+        // Đã diễn ra
+        if ($this->getRawOriginal('end_time') < now()) {
+            return 0;
+        }
+        // Đang diễn ra
+        return 1;
+    }
+
     public function getStatusHTMLAttribute()
     {
-        if ($this->getRawOriginal('start_time') > now()) {
+        $status = $this->getStatus();
+        if ($status === 2) {
             return '<span class="badge badge-success">Sắp diễn ra</span>';
         }
-        if ($this->getRawOriginal('end_time') < now()) {
+        if ($status === 0) {
             return '<span class="badge badge-danger">Đã diễn ra</span>';
         }
         return '<span class="badge badge-info">Đang diễn ra</span>';
+    }
+
+    public function checkHandoverEnoughDepartment()
+    {
+        // Lấy phiếu của đơn vị tương ứng với đợt đăng ký
+        $id_note = $this->buy_notes()
+            ->where('id_department', auth()->user()->id_department)
+            ->first()->id;
+        // kiểm tra xem đã bàn giao hết hay chưa
+        $status = $this->registrations()
+            ->where('id_note', $id_note)
+            ->whereNull('received_at')->count() === 0;
+        return $status;
+    }
+
+    public function checkHandoverEnoughUser()
+    {
+        $status = $this->registrations()
+            ->where('id_user', auth()->id())
+            ->whereNull('received_at')->count() === 0;
+        return $status;
     }
 }

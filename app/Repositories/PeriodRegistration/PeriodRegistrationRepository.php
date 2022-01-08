@@ -57,10 +57,13 @@ class PeriodRegistrationRepository extends BaseRepository implements PeriodRegis
 
     public function listHasNoteInDepartment()
     {
-        return $this->model->query()->whereIn('id', function ($query) {
-            $query->select('id_period')->from('request_note')
-                ->where('is_buy', true)
-                ->where('id_department', auth()->user()->id_department);
-        })->get();
+        return $this->model->query()
+            ->whereIn('id', function ($query) {
+                $query->select('id_period')->from('request_note')
+                    ->where('is_buy', true)
+                    ->where('id_department', auth()->user()->id_department);
+            })
+            ->orderby('created_at', 'desc')
+            ->get();
     }
 }

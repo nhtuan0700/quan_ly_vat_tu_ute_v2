@@ -82,7 +82,7 @@
                   </table>
                 </div>
 
-                <a href="{{ url()->previous() }}" class="btn btn-warning mr-2">Trở về</a>
+                <a href="{{ route('handover_registration.list_user', ['id_period' => $id_period]) }}" class="btn btn-warning mr-2">Trở về</a>
                 @if ($registrations->contains('received_at', null))
                   <button type="submit" class="btn btn-primary">Lưu</button>
                 @endif

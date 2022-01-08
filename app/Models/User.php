@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return !!optional(optional($this->role)->permissions)->contains($permission);
     }
+
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class, 'id_user', 'id');
+    }
 }

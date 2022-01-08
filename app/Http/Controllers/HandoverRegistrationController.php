@@ -37,19 +37,25 @@ class HandoverRegistrationController extends Controller
         $period = $this->periodRepo->findOrFail($id_period);
         $id_note = $period->getBuyNoteDepartment()->id;
         $users = $this->userRepo->query()
+            ->withCount(['registrations as handovered_count' => function ($query) use ($id_period) {
+                $query->where('id_period', $id_period)
+                    ->whereNull('received_at');
+            }])
             ->whereIn('id', function ($query) use ($id_note) {
                 $query->select('id_user')->from('registration')
                     ->where('id_note', $id_note);
             })->get();
+
         return view('handover_registration.list_user', compact('users', 'id_period'));
     }
 
     public function detail(Request $request)
     {
         $period = $this->periodRepo->findOrFail($request->id_period);
+        $id_period = $period->id;
         $registrations = $this->registrationRepo->listByUser($request->id_period, $request->id_user);
         $user = $this->userRepo->findOrFail($request->id_user);
-        return view('handover_registration.detail', compact('registrations', 'user'));
+        return view('handover_registration.detail', compact('registrations', 'user', 'id_period'));
     }
 
     public function handover(Request $request)

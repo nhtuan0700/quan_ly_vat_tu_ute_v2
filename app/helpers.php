@@ -18,9 +18,9 @@ if (!function_exists('transformDateExcel')) {
 }
 
 if (!function_exists('quarter_of_year')) {
-    function quarter_of_year()
+    function quarter_of_year($month = null)
     {
-        $month = now()->month;
+        $month = $month ?? now()->month;
         if ($month >= 1 && $month <= 4) {
             return 1;
         }
@@ -29,6 +29,23 @@ if (!function_exists('quarter_of_year')) {
         }
         if ($month >= 9 && $month <= 12) {
             return 3;
+        }
+    }
+}
+
+if (!function_exists('range_time_in_quarter')) {
+    function range_time_in_quarter($month = null, $year = null)
+    {
+        $month = $month ?? now()->month;
+        $year = $year ?? now()->year;
+        if ($month >= 1 && $month <= 4) {
+            return sprintf('01/01/%s - 30/04/%s', $year, $year);
+        }
+        if ($month >= 5 && $month <= 8) {
+            return sprintf('01/05/%s - 31/08/%s', $year, $year);
+        }
+        if ($month >= 9 && $month <= 12) {
+            return sprintf('01/09/%s - 31/12/%s', $year, $year);
         }
     }
 }

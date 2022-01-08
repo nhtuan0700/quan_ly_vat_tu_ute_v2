@@ -72,7 +72,15 @@
                           @enderror
                         </div>
                       </div>
-
+                      <div>
+                        <p><b>Thời gian hạn mức áp dụng </b>
+                          @php
+                            $month = \Carbon\Carbon::parse($period->getRawOriginal('start_time'))->month;                          
+                            $year = \Carbon\Carbon::parse($period->getRawOriginal('start_time'))->year;                          
+                          @endphp
+                          (Quý {{ quarter_of_year($month) }}: {{ range_time_in_quarter($month, $year) }})
+                        </p>
+                      </div>
                       <a class="btn btn-default mr-1" href="{{ route('period.index') }}">Quay lại</a>
                       @can('edit', $period)
                         <button type="submit" class="btn btn-primary pr-4 pl-4">Lưu</button>

@@ -21,8 +21,8 @@
                     @foreach ($periods as $item)
                       <a href="{{ route('handover_registration.list_user', ['id_period' => $item->id]) }}"
                         class="list-group-item list-group-item-action">
-                        Đợt {{ $item->id }} ({{ $item->start_time }} - {{ $item->end_time }})
-                        </span>
+                        Đợt {{ $item->id }} ({{ $item->start_time }} - {{ $item->end_time }}) - 
+                        <span>{{ $item->checkHandoverEnoughDepartment() ? 'Bàn giao đủ' : 'Bàn giao chưa đủ' }}</span>
                       </a>
                     @endforeach
                   </div>

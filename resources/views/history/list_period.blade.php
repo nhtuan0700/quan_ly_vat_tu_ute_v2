@@ -24,9 +24,12 @@
                         Đợt {{ $item->id }} ({{ $item->start_time }} - {{ $item->end_time }})
                         {!! $item->statusHTML !!}
                         @if ($item->myRegistrations->isEmpty())
-                          <span class="text-danger">-Không đăng ký</span>
+                          <span class="text-danger">- Không đăng ký</span>
                         @else
-                          <span class="text-success">-Đã đăng ký</span>
+                          <span class="text-success">- Đã đăng ký</span>
+                          <span> - 
+                            {{ $item->checkHandoverEnoughUser() ? 'Bàn giao đủ' : 'Bàn giao chưa đủ' }}
+                          </span>
                         @endif
                       </a>
                     @endforeach

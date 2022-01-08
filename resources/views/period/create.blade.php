@@ -52,6 +52,9 @@
                           @enderror
                         </div>
                       </div>
+                      <div>
+                        <p><b>Thời gian hạn mức áp dụng </b>(Quý {{ quarter_of_year() }}: {{ range_time_in_quarter() }})</p>
+                      </div>
                       <a class="btn btn-default mr-1" href="{{ route('period.index') }}">Quay lại</a>
                       @if ($is_coming)
                         <p class="text-danger">Đợt đăng ký mới sắp diễn ra nên không thể tạo thêm</p>

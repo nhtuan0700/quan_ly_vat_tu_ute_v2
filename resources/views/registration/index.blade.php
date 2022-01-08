@@ -16,6 +16,15 @@
                 <p class="col-3"><b>Đợt đăng ký: </b>{{ $period->id }}</p>
                 <p><b>Thời gian: </b>{{ $period->start_time . ' - ' . $period->end_time }}</p>
               </div>
+              <div>
+                <p><b>Thời gian hạn mức áp dụng </b>
+                  @php
+                    $month = \Carbon\Carbon::parse($period->getRawOriginal('start_time'))->month;                          
+                    $year = \Carbon\Carbon::parse($period->getRawOriginal('start_time'))->year;                          
+                  @endphp
+                  (Quý {{ quarter_of_year($month) }}: {{ range_time_in_quarter($month, $year) }})
+                </p>
+              </div>
             </div>
 
             <div class="card-body">
