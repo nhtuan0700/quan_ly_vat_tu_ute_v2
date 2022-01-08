@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LogLimit;
 use App\Models\RequestNote;
 
 if (!function_exists('transformDateExcel')) {
@@ -46,6 +47,14 @@ if (!function_exists('count_note_processing')) {
     function count_note_processing()
     {
         $count = app(RequestNote::class)->where('status', RequestNote::PROCESSING)->count();
+        return $count;
+    }
+}
+
+if (!function_exists('count_limit_processing')) {
+    function count_limit_processing()
+    {
+        $count = app(LogLimit::class)->whereNull('is_confirm')->count();
         return $count;
     }
 }

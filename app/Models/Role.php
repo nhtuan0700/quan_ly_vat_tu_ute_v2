@@ -10,6 +10,7 @@ class Role extends Model
     const HANDLER = 2;
     const MANAGER = 3;
     const GUEST = 4;
+    const HANDLER_LIMIT = 5;
 
     protected $table = 'role';
 

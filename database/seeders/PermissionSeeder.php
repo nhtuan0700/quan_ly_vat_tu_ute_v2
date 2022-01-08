@@ -55,6 +55,10 @@ class PermissionSeeder extends Seeder
                 'name' => 'statistic',
                 'description' => 'Thống kê'
             ],
+            [
+                'name' => 'limit-process',
+                'description' => 'Xử lý cập nhật hạn mức'
+            ],
         ];
 
         DB::table('permission')->insert($data);

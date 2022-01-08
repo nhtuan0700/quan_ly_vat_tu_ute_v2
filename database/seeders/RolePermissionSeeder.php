@@ -34,5 +34,11 @@ class RolePermissionSeeder extends Seeder
             $permission = Permission::where('name', $item)->first()->id;
             Role::find(3)->permissions()->attach($permission);
         }
+
+        $manger_permissions = ['limit-process'];
+        foreach ($manger_permissions as $item) {
+            $permission = Permission::where('name', $item)->first()->id;
+            Role::find(5)->permissions()->attach($permission);
+        }
     }
 }

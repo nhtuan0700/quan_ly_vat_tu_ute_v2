@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\RequestNote' => 'App\Policies\RequestNotePolicy',
         'App\Models\PeriodRegistration' => 'App\Policies\PeriodRegistrationPolicy',
         'App\Models\HandoverNote' => 'App\Policies\HandoverNotePolicy',
+        'App\Models\LogLimit' => 'App\Policies\LogLimitPolicy',
     ];
 
     /**

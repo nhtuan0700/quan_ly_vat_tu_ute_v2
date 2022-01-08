@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\ImportExcelException;
-use App\Models\User;
 use App\Exports\ExportUser;
 use App\Imports\ImportUser;
 use Illuminate\Http\Request;
@@ -16,10 +15,9 @@ use App\Http\Requests\User\UpdateUser;
 use App\Repositories\Role\RoleInterface;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\User\ResetPassword;
-use Illuminate\Support\Facades\Notification;
 use App\Repositories\Department\DepartmentInterface;
-use App\Notifications\UpdateLimitStationeryNotification;
 use App\Repositories\LimitStationery\LimitStationeryInterface;
+use App\Repositories\LogLimit\LogLimitInterface;
 use App\Repositories\Position\PositionInterface;
 
 class UserController extends Controller
@@ -29,19 +27,22 @@ class UserController extends Controller
     private $positionRepo;
     private $departmentRepo;
     private $limitRepo;
+    private $logLimitRepo;
 
     public function __construct(
         UserInterface $userInterface,
         RoleInterface $roleInterface,
         DepartmentInterface $departmentInterface,
         PositionInterface $positionInterface,
-        LimitStationeryInterface $limitStationeryInterface
+        LimitStationeryInterface $limitStationeryInterface,
+        LogLimitInterface $logLimitInterface
     ) {
         $this->userRepo = $userInterface;
         $this->roleRepo = $roleInterface;
         $this->positionRepo = $positionInterface;
         $this->departmentRepo = $departmentInterface;
         $this->limitRepo = $limitStationeryInterface;
+        $this->logLimitRepo = $logLimitInterface;
     }
 
     public function index()
@@ -76,7 +77,10 @@ class UserController extends Controller
         $departments = $this->departmentRepo->all();
         $positions = $this->positionRepo->all();
         $limit_stationeries = $this->limitRepo->listByUser($id);
-        return view('user.edit', compact('roles', 'user', 'departments', 'limit_stationeries', 'positions'));
+        $limit_updating = $limit_stationeries->contains(function ($item, $key) {
+            return !is_null($item->qty_update) && $item->qty_update > 0;
+        });
+        return view('user.edit', compact('roles', 'user', 'departments', 'limit_stationeries', 'positions', 'limit_updating'));
     }
 
     public function update(UpdateUser $request, $id)
@@ -165,37 +169,49 @@ class UserController extends Controller
     public function updateLimit(Request $request, $id_user)
     {
         try {
+            $limit_stationeries = $this->limitRepo->listByUser($id_user);
+            $limit_updating = $limit_stationeries->contains(function ($item, $key) {
+                return !is_null($item->qty_update) && $item->qty_update > 0;
+            });
+            if ($limit_updating) {
+                return back()->with('alert-fail', 'Không thể yêu cầu cập nhật');
+            }
+            if (!$request->hasFile('file')) {
+                return back()->with('alert-fail', 'Chưa có minh chứng!');
+            }
+
             DB::transaction(function () use ($request, $id_user) {
                 $is_edit = false;
+                $limit_data['id_user'] = $id_user;
                 foreach ($request->limits as $id_stationery => $qty_max) {
                     $limit = $this->limitRepo->findItem($id_user, $id_stationery);
-                    if (is_null($limit->first())) {
-                        $this->limitRepo->create([
-                            'id_user' => $id_user,
-                            'id_stationery' => $id_stationery,
-                            'qty_used' => 0,
-                            'qty_max' => $qty_max,
-                            'quarter_year' => quarter_of_year(),
-                            'year' => now()->year
+                    if ($limit->first()->qty_max != $qty_max) {
+                        $limit->update([
+                            'qty_update' => $qty_max
                         ]);
-                    } else {
-                        if ($limit->first()->qty_max != $qty_max) {
-                            $limit->update([
-                                'qty_max' => $qty_max
-                            ]);
-                            $is_edit = true;
-                        }
+                        $limit_data['stationeries'][] = [
+                            'id_stationery' => $id_stationery,
+                            'qty_max' => $qty_max,
+                        ];
+                        $is_edit = true;
                     }
                 }
+
                 if ($is_edit) {
-                    Notification::send(User::find($id_user), new UpdateLimitStationeryNotification());
+                    $file =  $request->file('file')->store(sprintf('file'), 'public');
+                    $log_limit = [
+                        'id_updater' => auth()->id(),
+                        'data' => json_encode($limit_data),
+                        'file' => $file,
+                        'edit_user' => true
+                    ];
+                    $this->logLimitRepo->create($log_limit);
                 }
             });
         } catch (\Throwable $th) {
-            return $th->getMessage();
-            return back()->with('alert-fail', 'Cập nhật hạn mức thất bại');
+            return back()->with('alert-fail', 'Yêu cầu cập nhật thất bại');
         }
-        return back()->with('alert-success', 'Cập nhật hạn mức thành công');
+        return back()->with('alert-success', 'Yêu cầu cập nhật thành công\nVui lòng chờ duyệt!');
     }
 
     public function handle_account(Request $request, $id)

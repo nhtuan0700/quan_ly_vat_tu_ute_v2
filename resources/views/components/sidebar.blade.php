@@ -39,6 +39,19 @@
           </li>
         @endcan
 
+        @can('process-limit')
+          <li class="nav-item">
+            <a href="{{ route('process_limit.index') }}" class="nav-link" data-link="limit_process">
+              <p>
+                Xử lý yêu cầu cập nhật hạn mức
+                <span class="text-white">
+                  <sup class="text-md" id="count_rq_note_processing">{{ count_limit_processing() }}</sup>
+                </span>
+              </p>
+            </a>
+          </li>
+        @endcan
+
         @can('limit-manage')
           <li class="nav-item">
             <a href="{{ route('limit_default.index') }}" class="nav-link" data-link="limit_default">
@@ -216,6 +229,7 @@
         'registration': 'dang-ky-van-phong-pham',
         'history_registration': 'lich-su-dang-ky',
         'fix_note': 'phieu-sua',
+        'limit_process': 'xu-ly-han-muc'
       };
       ActiveLink('.list-menu', options);
     })

@@ -28,6 +28,8 @@ use App\Repositories\LimitStationery\LimitStationeryInterface;
 use App\Repositories\LimitStationery\LimitStationeryRepository;
 use App\Repositories\LimitDefault\LimitDefaultInterface;
 use App\Repositories\LimitDefault\LimitDefaultRepository;
+use App\Repositories\LogLimit\LogLimitInterface;
+use App\Repositories\LogLimit\LogLimitRepository;
 use App\Repositories\Stationery\StationeryRepository;
 use App\Repositories\RequestNote\RequestNoteInterface;
 use App\Repositories\RequestNote\RequestNoteRepository;
@@ -74,5 +76,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(DetailHandoverFixInterface::class, DetailHandoverFixRepository::class);
         $this->app->bind(PositionInterface::class, PositionRepository::class);
         $this->app->bind(LimitDefaultInterface::class, LimitDefaultRepository::class);
+        $this->app->bind(LogLimitInterface::class, LogLimitRepository::class);
     }
 }

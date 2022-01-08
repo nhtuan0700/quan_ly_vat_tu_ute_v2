@@ -13,6 +13,7 @@ use App\Http\Controllers\{
     LimitDefaultController,
     LimitStationeryController,
     NotificationController,
+    ProcessLimitController,
     ProfileController,
     RegistrationController,
     StationeryController,
@@ -68,6 +69,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/stationery', [LimitDefaultController::class, 'getListStationery'])->name('list_stationery');
         Route::put('/update', [LimitDefaultController::class, 'update'])->name('update');
     });
+
+    Route::group(['as' => 'process_limit.', 'prefix' => 'xu-ly-han-muc', 'middleware' => 'acl:limit-process'], function () {
+        Route::get('/', [ProcessLimitController::class, 'index'])->name('index');
+        Route::get('/detail/{id}', [ProcessLimitController::class, 'detail'])->name('detail');
+        Route::post('/confirm/{id}', [ProcessLimitController::class, 'confirm'])->name('confirm');
+        Route::post('/reject/{id}', [ProcessLimitController::class, 'reject'])->name('reject');
+    });
+
     Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => 'acl:user-manage'], function () {
         Route::get('index', [UserController::class, 'index'])->name('index');
         Route::get('search', [UserController::class, 'search'])->name('search');

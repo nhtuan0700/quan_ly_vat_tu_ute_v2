@@ -30,7 +30,7 @@ class LimitStationeryRepository extends BaseRepository implements LimitStationer
                 ->where('limit_stationery.id_user', $id_user);
             })
             ->whereNull('stationery.deleted_at')
-            ->select('id', 'name', 'unit', 'qty_used', 'qty_max')
+            ->select('id', 'name', 'unit', 'qty_used', 'qty_max', 'qty_update')
             ->orderby('qty_max', 'desc')
             ->get();
     }
