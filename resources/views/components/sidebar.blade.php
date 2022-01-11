@@ -39,7 +39,7 @@
           </li>
         @endcan
 
-        @can('process-limit')
+        @can('limit-process')
           <li class="nav-item">
             <a href="{{ route('process_limit.index') }}" class="nav-link" data-link="limit_process">
               <p>
