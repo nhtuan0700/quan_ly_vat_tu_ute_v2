@@ -10,11 +10,21 @@
         <img src="{{ asset('img/co_cau_to_chuc.png') }}" alt="" class="w-75">
       </div>
       
-      <h5 class="text-primary text-bold">2. Quy trình</h5>
+      <h5 class="text-primary text-bold">2. Quy trình</h5> 
+      <div class="text-center text-bold">
+        Mua sắm văn phòng phẩm
+      </div>
       <div class="text-center">
-        <img src="{{ asset('img/quy_trinh.png') }}" alt="" class="w-75">
+        <img src="{{ asset('img/mua.jpg') }}" alt="" class="w-75">
       </div>
 
+      <div class="text-center text-bold">
+        Sửa chữa thiết bị
+      </div>
+      <div class="text-center">
+        <img src="{{ asset('img/sua.jpg') }}" alt="" class="w-75">
+      </div>
+      
       <h5 class="text-primary text-bold">3. Cơ cấu đơn vị</h5>
       <div class="card">
         <div class="card-body">
