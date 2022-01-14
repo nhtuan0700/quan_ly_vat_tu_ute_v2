@@ -31,6 +31,9 @@
                 <th scope="col">Đơn vị tính</th>
                 <th scope="col" class="text-center">Đã sử dụng</th>
                 <th scope="col" class="text-center">Tối đa</th>
+                @if($limit_updating)
+                  <th scope="col" class="text-center">Đang yêu cầu cập nhật</th>
+                @endif
               </thead>
               <tbody>
                 @foreach ($limit_stationeries as $item)
@@ -40,6 +43,9 @@
                     <td>{{ $item->unit }}</td>
                     <td class="text-center">{{ intval($item->qty_used) }}</td>
                     <td class="text-center">{{ intval($item->qty_max) }}</td>
+                    @if($limit_updating)
+                      <td class="text-center">{{ $item->qty_update }}</td>
+                    @endif
                   </tr>
                 @endforeach
               </tbody>

@@ -16,11 +16,14 @@ class LimitStationeryController extends Controller
         $this->limitService = $limitStationeryService;
         $this->limitRepo = $limitStationeryService->getLimitRepo();
     }
-    
+
     public function index()
     {
         $limit_stationeries = $this->limitRepo->listByUser(auth()->id());
-        return view('limit_stationery.index', compact('limit_stationeries'));
+        $limit_updating = $limit_stationeries->contains(function ($item, $key) {
+            return !is_null($item->qty_update) && $item->qty_update > 0;
+        });
+        return view('limit_stationery.index', compact('limit_stationeries', 'limit_updating'));
     }
 
     public function update(Request $request, $id_user)

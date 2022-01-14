@@ -27,6 +27,7 @@ class ProcessLimitDefaultEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Xử lý yêu cầu cập nhật hạn mức')->markdown('mail.process_limit');
+        $url = route('process_limit.index');
+        return $this->subject('Xử lý yêu cầu cập nhật hạn mức')->markdown('mail.process_limit', compact('url'));
     }
 }
