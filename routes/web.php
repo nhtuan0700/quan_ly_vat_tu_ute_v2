@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['as' => 'limit.', 'prefix' => 'han-muc'], function () {
         Route::get('/', [LimitStationeryController::class, 'index'])->name('index');
+        Route::post('update/{id_user}', [LimitStationeryController::class, 'update'])->name('update')
+            ->middleware('acl:limit-manage');
     });
 
     Route::group(['as' => 'limit_default.', 'prefix' => 'han-muc-mac-dinh', 'middleware' => 'acl:limit-manage'], function () {
@@ -96,8 +98,6 @@ Route::middleware('auth')->group(function () {
         Route::get('download-template', [UserController::class, 'download_template'])->name('download_template');
         Route::post('import', [UserController::class, 'import_excel'])->name('import');
         Route::post('xu-ly/{id}', [UserController::class, 'handle_account'])->name('handle');
-        Route::post('update-hanmuc/{id_user}', [UserController::class, 'updateLimit'])->name('update_limit')
-            ->middleware('acl:limit-manage');
     });
 
     Route::group(['as' => 'profile.', 'prefix' => 'trang-ca-nhan'], function () {

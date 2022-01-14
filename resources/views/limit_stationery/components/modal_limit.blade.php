@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{ route('user.update_limit', ['id_user' => $user->id]) }}" method="post" id="form-limit"
+      <form action="{{ route('limit.update', ['id_user' => $user->id]) }}" method="post" id="form-limit"
         enctype="multipart/form-data">
         <div class="modal-body">
           <input class="form-control float-right w-25 mb-3" id="key-search" placeholder="Tên văn phòng phẩm ...">
@@ -20,6 +20,9 @@
                   <th scope="col">Đơn vị tính</th>
                   <th scope="col" width="20%" class="text-center">Đã sử dụng</th>
                   <th scope="col" width="20%">Tối đa</th>
+                  @if($limit_updating)
+                    <th scope="col" class="text-center">Đang yêu cầu cập nhật</th>
+                  @endif
                 </thead>
                 <tbody>
                   @php
@@ -35,6 +38,9 @@
                         <input class="form-control" type="number" name="limits[{{ $item->id }}]"
                           value="{{ $item->qty_max ?? 0 }}">
                       </td>
+                      @if($limit_updating)
+                        <td class="text-center">{{ $item->qty_update }}</td>
+                      @endif
                     </tr>
                   @endforeach
                 </tbody>

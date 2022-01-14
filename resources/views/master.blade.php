@@ -64,12 +64,12 @@
   <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
   @if (session('alert-success'))
     <script>
-      toastr.success("{{ session('alert-success') }}")
+      toastr.success("{!! session('alert-success') !!}")
     </script>
   @endif
   @if (session('alert-fail'))
     <script>
-      toastr.error("{{ session('alert-fail') }}")
+      toastr.error("{!! session('alert-fail') !!}")
     </script>
   @endif
 

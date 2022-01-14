@@ -21,7 +21,7 @@
                   <tr>
                     <th scope="col">Mã</th>
                     <th scope="col">Thời gian tạo</th>
-                    <th scope="col">Thời gian kết thúc</th>
+                    <th scope="col">Thời gian bắt đầu</th>
                     <th scope="col">Thời gian kết thúc</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col" class="fit">Thao tác</th>
