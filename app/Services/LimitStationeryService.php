@@ -44,6 +44,7 @@ class LimitStationeryService
                     ]);
                     $limit_data['stationeries'][] = [
                         'id_stationery' => $id_stationery,
+                        'qty_current' => intval($limit->first()->qty_max),
                         'qty_max' => $qty_max,
                     ];
                     $is_edit = true;

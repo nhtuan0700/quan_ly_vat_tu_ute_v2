@@ -49,7 +49,7 @@ class ProcessLimitController extends Controller
                     'id_stationery' => $stationery->id,
                     'name' => $stationery->name,
                     'unit' => $stationery->unit,
-                    'qty_max' => optional($limit->first())->qty_max,
+                    'qty_max' => intval($item->qty_current),
                     'qty_max_updating' => intval($item->qty_max),
                 ];
             }

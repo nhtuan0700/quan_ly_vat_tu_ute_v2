@@ -44,7 +44,7 @@
                   <tr>
                     <th scope="col">Tên văn phòng phẩm</th>
                     <th scope="col">Đơn vị tính</th>
-                    <th scope="col">Hạn mức tối đa</th>
+                    <th scope="col">Hạn mức tối đa hiện tại</th>
                     <th scope="col">Hạn mức cập nhật</th>
                   </tr>
                 </thead>
