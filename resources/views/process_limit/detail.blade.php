@@ -77,6 +77,10 @@
                     @csrf
                     <button class="btn btn-danger">Từ chối</button>
                   </form>
+                @else
+                  <div class="mt-2">
+                    <p><b>Người xử lý:</b> {{ $log->confirmer->id }} - {{ $log->confirmer->name }}</p>
+                  </div>
                 @endcan
               </div>
             </div>

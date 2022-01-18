@@ -20,6 +20,11 @@ class LogLimit extends Model
         return $this->belongsTo(User::class, 'id_updater', 'id');
     }
 
+    public function confirmer()
+    {
+        return $this->belongsTo(User::class, 'id_confirmer', 'id');
+    }
+
     public function getStatusHTMLAttribute()
     {
         if (is_null($this->is_confirm)) {
