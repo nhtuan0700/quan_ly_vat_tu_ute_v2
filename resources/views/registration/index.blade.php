@@ -50,8 +50,11 @@
                           <td class="name">{{ $item->name }}</td>
                           <td class="unit">{{ $item->unit }}</td>
                           <td class="text-center qty">
-                            <input class="form-control w-25 text-center m-auto" name="stationeries[{{ $item->id }}]"
-                              type="number" value="{{ intval($item->qty) }}" min="1" step="1" />
+                            <div class="form-group w-25 m-auto">
+                              <input class="form-control text-center" name="stationeries[{{ $item->id }}]"
+                                type="number" value="{{ intval($item->qty) }}" 
+                                rules="integer|min:1|max:{{ $item->qty_remain + $item->qty }}" />
+                            </div>
                           </td>
                           <td class="text-center qty_max">{{ intval($item->qty_remain) }}</td>
                           <td><a class="btn btn-danger btn-remove" data-id="{{ $item->id }}"
@@ -89,7 +92,8 @@
                           <td class="id">{{ $item->id }}</td>
                           <td class="name">{{ $item->name }}</td>
                           <td class="unit">{{ $item->unit }}</td>
-                          <td class="text-center qty_used" data-qty="{{ intval($item_regis->qty) }}">{{ intval($item->qty_used) }}
+                          <td class="text-center qty_used" data-qty="{{ intval($item_regis->qty) }}">
+                            {{ intval($item->qty_used) }}
                           </td>
                           <td class="text-center qty_max">{{ intval($item->qty_max) }}</td>
                           <td>
@@ -126,8 +130,10 @@
 
 @section('script')
   <script src="{{ asset('js/nonAccentVietnamese.js') }}"></script>
+  <script src="{{ asset('js/validator.js') }}"></script>
   <script>
     $(function() {
+      const validator = new Validator('form');
       $("#key-search").on("keyup", function() {
         var value = $(this).val()
         filterTable(value)
@@ -148,12 +154,14 @@
           qty_max: parseInt(parent.siblings('.qty_max').text()),
         }
         let row = `<tr class="${data.qty ? 'bg-light' : ''}">
-                    <td class="id">${data.id}</td>
+                    <th class="id">${data.id}</th>
                     <td class="name">${data.name}</td>
                     <td class="unit">${data.unit}</td>
                     <td class="text-center qty">
-                    <input class="form-control w-25 text-center m-auto" name="stationeries[${data.id}]"
-                      type="number" value="${data.qty || 1}" min="1" step="1"/>
+                      <div class="form-group w-25 m-auto">
+                        <input class="form-control text-center" name="stationeries[${data.id}]"
+                          type="number" value="${data.qty || 1}" rules="integer|min:1|max:${data.qty_max - data.qty_used}"/>
+                      </div>
                     </td>
                     <td class="text-center qty_max">${data.qty_max - data.qty_used}</td>
                     <td><a class="btn btn-danger btn-remove" data-id="${data.id}" onclick="remove(event, this)">Xóa</a></td>
@@ -162,6 +170,7 @@
         $('#list-registration tbody').append(row)
         $('button#btn-save').removeAttr('disabled')
         parent.parent().addClass('d-none')
+        const validator = new Validator('form');
 
         $('.btn-remove').click(function(e) {
           remove(e, $(this))
@@ -174,6 +183,7 @@
       let id = $(elm).data('id')
       $(elm).closest('tr').remove()
       $('#list-stationery tbody').find(`tr#stationery-${id}`).removeClass('d-none')
+      const validator = new Validator('form');
     }
 
     function filterTable(value) {

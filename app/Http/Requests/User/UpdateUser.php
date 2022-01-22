@@ -31,7 +31,7 @@ class UpdateUser extends FormRequest
             'id_card' => 'required|string|min:9|max:12',
             'id_role' => 'required|exists:role,id',
             'id_department' => 'required|exists:department,id',
-            'id_position' => 'nullable|exists:position,id',
+            'id_position' => 'required|exists:position,id',
         ];
     }
 

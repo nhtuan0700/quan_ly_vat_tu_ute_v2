@@ -64,12 +64,14 @@
                                 </select>
                               </td>
                               <td>
-                                <div class="input-group pr-3">
-                                  <input type="text" class="form-control d-inline w-75"
-                                    name="equipments[{{ $item->id_equipment }}][cost]" autocomplete="off"
-                                    data-type="currency" value="{{ $item->cost }}">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text">đ</span>
+                                <div class="form-group">
+                                  <div class="input-group pr-3">
+                                    <input type="text" class="form-control d-inline w-75"
+                                      name="equipments[{{ $item->id_equipment }}][cost]" autocomplete="off"
+                                      data-type="currency" value="{{ $item->cost ?? 0 }}" rules="required|money">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">đ</span>
+                                    </div>
                                   </div>
                                 </div>
                               </td>
@@ -121,6 +123,7 @@
 
 @section('script')
   <script src="{{ asset('js/currency.js') }}"></script>
+  <script src="{{ asset('js/validator.js') }}"></script>
   <script>
     $(function() {
       $(`select[name*='[is_fixable]']`).each(function(item) {
@@ -128,15 +131,16 @@
           $(this).closest('tr').find('input').attr('readonly', 'on');
         }
       });
-
+      const validator = new Validator('form')
       $(`select[name*='[is_fixable]']`).change(function() {
         let value = parseInt($(this).val());
         if (!value) {
-          $(this).closest('tr').find('input').val('');
+          $(this).closest('tr').find('input').val('0');
           $(this).closest('tr').find('input').attr('readonly', 'on');
         } else {
           $(this).closest('tr').find('input').removeAttr('readonly');
         }
+        const validator = new Validator('form')
       })
     })
   </script>

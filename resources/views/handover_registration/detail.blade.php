@@ -103,7 +103,21 @@
 @section('script')
   <script>
     $(function() {
+      let is_valid = false;
       $('[data-toggle="tooltip"]').tooltip()
+      document.querySelector('form').onsubmit = function (e) {
+        e.preventDefault()
+        $("[name^='stationeries']").each(function () {
+          if ($(this).is(':checked')) {
+            is_valid = true;
+          }
+        })
+        if (is_valid) {
+          this.submit()
+        } else {
+          toastr.error('Danh sách bàn giao chưa hợp lệ')
+        }
+      }
     })
   </script>
 @endsection

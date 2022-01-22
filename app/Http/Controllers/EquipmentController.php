@@ -29,8 +29,7 @@ class EquipmentController extends Controller
 
     public function create()
     {
-        $new_id = $this->equipmentRepo->getAutoId();
-        return view('equipment.create', compact('new_id'));
+        return view('equipment.create');
     }
 
     public function store(StoreEquipment $request)

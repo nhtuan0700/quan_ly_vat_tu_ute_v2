@@ -26,10 +26,37 @@
           {{ $item->qty_handovered }}
         </td>
         <td>
-          <input class="form-control w-25 text-center m-auto" name="stationeries[{{ $item->id_stationery }}]"
-            type="number" step="1" value="0"/>
+          <div class="form-group w-25 m-auto">
+            <input class="form-control text-center" name="stationeries[{{ $item->id_stationery }}]"
+             type="number" step="1" value="0" rules="required|integer|min:0|max:{{ $item->qty - $item->qty_handovered }}"/>
+          </div>
         </td>
       </tr>
     @endforeach
   </tbody>
 </table> 
+
+@push('js')
+  <script src="{{ asset('js/validator.js') }}"></script>
+  <script>
+    $(function () {
+      let is_valid = false;
+      const validator = new Validator('form')
+      document.querySelector('form').onsubmit = function (e) {
+        e.preventDefault()
+        $("[name^='stationeries']").each(function () {
+          let value = parseInt($(this).val());
+          if (value > 0) {
+            is_valid = true;
+          }
+        })
+        
+        if (is_valid) {
+          this.submit()
+        } else {
+          toastr.error('Danh sách bàn giao chưa hợp lệ')
+        }
+      }
+    })
+  </script>
+@endpush

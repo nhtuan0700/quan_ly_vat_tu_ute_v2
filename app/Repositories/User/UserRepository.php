@@ -44,6 +44,7 @@ class UserRepository extends BaseRepository implements UserInterface
             ->where('id_department', $new_user->id_department)
             ->where('id_position', $new_user->id_position)
             ->get();
+
         foreach ($limit_defaults as $item) {
             $limit = [
                 'id_user' => $new_user->id,

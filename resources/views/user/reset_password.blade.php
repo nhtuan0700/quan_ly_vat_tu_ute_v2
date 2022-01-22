@@ -23,7 +23,8 @@ Quản lý người dùng
                   <div class="form-row">
                     <div class="form-group col-md-3">
                       <label for="password">Mật khẩu mới:</label>
-                      <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                      <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
+                        rules="required|min:6"/>
                       @error('password')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -34,7 +35,8 @@ Quản lý người dùng
                   <div class="form-row">
                     <div class="form-group col-md-3">
                       <label for="password_confirmation ">Xác nhận mật khẩu:</label>
-                      <input type="password" class="form-control" id="password_confirmation " name="password_confirmation">
+                      <input type="password" class="form-control" id="password_confirmation " name="password_confirmation"
+                        rules="required|confirm:password"/>
                     </div>
                   </div>
                   <a class="btn btn-default mr-1" href="{{ route('user.edit', ['id' => $id]) }}">Quay lại</a>
@@ -51,4 +53,13 @@ Quản lý người dùng
 
 </div>
 </section>
+@endsection
+
+@section('script')
+  <script src="{{ asset('js/validator.js') }}"></script>
+  <script>
+    $(function () {
+      const validator = new Validator('form');
+    })
+  </script>
 @endsection

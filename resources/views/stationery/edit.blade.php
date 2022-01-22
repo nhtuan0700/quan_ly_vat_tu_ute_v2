@@ -20,9 +20,15 @@ Quản lý văn phòng phẩm
               @method('put')
               <div class="form-row">
                 <div class="form-group col-md-3">
+                  <label for="id">ID:</label>
+                  <input type="text" class="form-control" id="id" value="{{ $stationery->id }}" disabled>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-3">
                   <label for="name">Tên:</label>
                   <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" value="{{ old('name') ?? $stationery->name }}">
+                    name="name" value="{{ old('name') ?? $stationery->name }}" rules="required|min:6">
                   @error('name')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -32,7 +38,7 @@ Quản lý văn phòng phẩm
                 <div class="form-group col-md-3">
                   <label for="unit">Đơn vị tính:</label>
                   <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit"
-                    name="unit" value="{{ old('unit') ?? $stationery->unit }}">
+                    name="unit" value="{{ old('unit') ?? $stationery->unit }}" rules="required">
                   @error('unit')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -67,4 +73,13 @@ Quản lý văn phòng phẩm
     </div>
   </div>
 </section>
+@endsection
+
+@section('script')
+  <script src="{{ asset('js/validator.js') }}"></script>
+  <script>
+    $(function () {
+      const validator = new Validator('form')
+    })
+  </script>
 @endsection

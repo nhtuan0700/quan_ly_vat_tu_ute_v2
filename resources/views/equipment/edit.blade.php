@@ -36,7 +36,7 @@ Quản lý thiết bị
                 <div class="form-group col-md-3">
                   <label for="name">Tên:</label>
                   <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" value="{{ old('name') ?? $equipment->name }}">
+                    name="name" value="{{ old('name') ?? $equipment->name }}" rules="required">
                   @error('name')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -64,7 +64,8 @@ Quản lý thiết bị
                   <label for="date_buy">Ngày mua:</label>
                   <div class="input-group date" id="date_buy" data-target-input="nearest">
                     <input type="text" class="form-control datetimepicker-input" data-target="#date_buy" 
-                      name="date_buy" autocomplete="off" value="{{ old('date_buy') ?? $equipment->date_buy }}"/>
+                      name="date_buy" autocomplete="off" value="{{ old('date_buy') ?? $equipment->date_buy }}" 
+                      rules="required"/>
                     <div class="input-group-append" data-target="#date_buy" data-toggle="datetimepicker">
                       <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -107,23 +108,31 @@ Quản lý thiết bị
 @endsection
 
 @section('script')
-<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('js/vi.js') }}"></script>
-<script>
-  $(function () {
-    $('#date_buy').datetimepicker({ 
-      icons: { time: 'far fa-clock' },
-      locale: 'vi',
-      format: 'L'
-    });
+  <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+  <script src="{{ asset('js/vi.js') }}"></script>
+  <script src="{{ asset('js/validator.js') }}"></script>
+  <script>
+    $(function () {
+      const validator = new Validator('form');
+      $('#date_buy').datetimepicker({ 
+        icons: { time: 'far fa-clock' },
+        locale: 'vi',
+        format: 'L'
+      });
 
-    // $('#date_grant').datetimepicker({
-    //   icons: { time: 'far fa-clock' },
-    //   locale: 'vi',
-    //   format: 'L'
-    // });
-  })
-</script>
+      $('#date_grant').datetimepicker({ 
+        icons: { time: 'far fa-clock' },
+        locale: 'vi',
+        format: 'L'
+      });
+
+      // $('#date_grant').datetimepicker({
+      //   icons: { time: 'far fa-clock' },
+      //   locale: 'vi',
+      //   format: 'L'
+      // });
+    })
+  </script>
 @endsection

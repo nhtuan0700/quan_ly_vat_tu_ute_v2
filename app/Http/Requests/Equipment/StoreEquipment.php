@@ -15,8 +15,8 @@ class StoreEquipment extends FormRequest
     {
         return [
             'id' => 'unique:equipment,id',
-            'name' => 'nullable|string',
-            'room' => 'required|string',
+            'name' => 'required|string',
+            'room' => 'nullable|string',
             'date_grant' => 'nullable|date_format:d/m/Y',
             'date_buy' => 'required|nullable|date_format:d/m/Y'
         ];

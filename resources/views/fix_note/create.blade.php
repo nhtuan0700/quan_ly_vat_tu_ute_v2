@@ -15,7 +15,7 @@
             </div>
 
             <div class="card-body">
-              <form method="POST" action="{{ route('fix_note.store') }}" id="form-phieu">
+              <form method="POST" action="{{ route('fix_note.store') }}" id="form-note">
                 @csrf
                 <div class="form-row">
                   <div class="form-group col-md-3">
@@ -58,7 +58,7 @@
 
                 </div>
                 <a class="btn btn-default mr-1" href="{{ route('fix_note.index') }}">Quay lại</a>
-                <button type="submit" class="btn btn-primary" form="form-phieu">Tạo phiếu</button>
+                <button type="submit" class="btn btn-primary" disabled>Tạo phiếu</button>
               </form>
             </div>
           </div>

@@ -43,8 +43,10 @@
 
 @push('js')
   <script src="{{ asset('js/ajax.js') }}"></script>
+  <script src="{{ asset('js/validator.js') }}"></script>
   <script>
     $(function() {
+      const validator = new Validator('#form-note');
       $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -70,7 +72,7 @@
             return `<tr>
                     <td class="id">${item.id}</td>
                     <td class="name">${item.name}</td>
-                    <td class="room">${item.room}</td>
+                    <td class="room">${item.room || ''}</td>
                     <td class="date_grant">${item.date_grant || ''}</td>
                     <td class="status">${item.statusText}</td>
                     <td>
@@ -101,7 +103,9 @@
                     <td class="room">${obj.room}</td>
                     <td class="status">${obj.statusText}</td>
                     <td>
-                      <input class="form-control" name="equipments[${obj.id}]" value="" />
+                      <div class="form-group">
+                        <input class="form-control" name="equipments[${obj.id}]" rules="required"/>
+                      </div>
                     </td>
                     <td>
                       <button type="button" class="btn btn-danger btn-remove"  
@@ -115,10 +119,14 @@
       $('input#id_equipment').val('');
       $('#table-modal tbody').html('');
       $('#modal').modal('hide');
+      const validator = new Validator('#form-note');
+
+      $('#form-note').find('[type="submit"]').removeAttr('disabled')
     }
 
     function removeItem(elm) {
       $(elm).closest('tr').remove();
+      const validator = new Validator('#form-note');
     }
   </script>
 @endpush

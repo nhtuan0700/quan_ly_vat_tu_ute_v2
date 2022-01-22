@@ -45,11 +45,13 @@
                           <td class="text-center">{{ $item->stationery->unit }}</td>
                           <td class="text-center">{{ $item->qty }}</td>
                           <td>
-                            <div class="input-group pr-3">
-                              <input type="text" class="form-control d-inline w-75"
-                                name="stationeries[{{ $item->id_stationery }}][cost]" data-type="currency">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text">đ</span>
+                            <div class="form-group">
+                              <div class="input-group pr-3">
+                                <input type="text" class="form-control d-inline w-75" rules="required|money|min:1000"
+                                  name="stationeries[{{ $item->id_stationery }}][cost]" data-type="currency">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">đ</span>
+                                </div>
                               </div>
                             </div>
                           </td>
@@ -78,4 +80,8 @@
 
 @section('script')
   <script src="{{ asset('js/currency.js') }}"></script>
+  <script src="{{ asset('js/validator.js') }}"></script>
+  <script>
+    const validator = new Validator('form');
+  </script>
 @endsection

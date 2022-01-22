@@ -45,7 +45,7 @@
                           <label for="start_time">Thời gian bắt đầu:</label>
                           <div class="input-group date" id="start_time" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#start_time"
-                              name="start_time" autocomplete="off" @if ($disabled_start) disabled @endif />
+                              name="start_time" autocomplete="off" @if ($disabled_start) disabled @endif rules="required"/>
                             <div class="input-group-append" data-target="#start_time" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -60,7 +60,7 @@
                           <label for="end_time">Thời gian kết thúc:</label>
                           <div class="input-group date" id="end_time" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#end_time"
-                              name="end_time" autocomplete="off" @cannot('edit', $period) disabled @endcannot />
+                              name="end_time" autocomplete="off" @cannot('edit', $period) disabled @endcannot  rules="required"/>
                             <div class="input-group-append" data-target="#end_time" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -108,8 +108,10 @@
   <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
   <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
   <script src="{{ asset('js/vi.js') }}"></script>
+  <script src="{{ asset('js/validator.js') }}"></script>
   <script>
     $(function() {
+      const validator = new Validator('form');
       $('#start_time').datetimepicker({
         icons: {
           time: 'far fa-clock'

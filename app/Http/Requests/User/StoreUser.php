@@ -32,7 +32,7 @@ class StoreUser extends FormRequest
             'password' => 'required|min:6',
             'id_role' => 'required|exists:role,id',
             'id_department' => 'required|exists:department,id',
-            'id_position' => 'nullable|exists:position,id',
+            'id_position' => 'required|exists:position,id',
         ];
     }
 

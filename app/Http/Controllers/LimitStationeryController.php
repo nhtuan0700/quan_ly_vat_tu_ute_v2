@@ -39,10 +39,14 @@ class LimitStationeryController extends Controller
             if (!$request->hasFile('files')) {
                 return back()->with('alert-fail', 'Chưa có minh chứng!');
             }
-            $this->limitService->update($request, $id_user);
+            $is_edit = $this->limitService->update($request, $id_user);
+            if ($is_edit) {
+                return back()->with('alert-success', 'Yêu cầu cập nhật thành công <br/> Vui lòng chờ duyệt!');
+            }
+            return back()->with('alert-success', 'Dữ liệu không thay đổi!');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return back()->with('alert-fail', 'Yêu cầu cập nhật thất bại');
         }
-        return back()->with('alert-success', 'Yêu cầu cập nhật thành công <br/> Vui lòng chờ duyệt!');
     }
 }

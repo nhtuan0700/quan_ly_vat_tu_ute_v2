@@ -64,7 +64,7 @@
                 <a href="{{ route('handover_note.detail', ['id' => $note->id]) }}" class="btn btn-default mr-1">
                   Trở về</a>
                 @can('update', $note)
-                  <button href="#" class="btn btn-primary">Lưu</button>
+                  <button type="submit" class="btn btn-primary">Lưu</button>
                 @endcan
               </form>
             </div>

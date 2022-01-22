@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalHanMuc" tabindex="0" aria-hidden="true">
+<div class="modal fade" id="modalLimit" tabindex="0" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -35,8 +35,10 @@
                       <td>{{ $item->unit }}</td>
                       <td class="text-center">{{ $item->qty_used ?? 0 }}</td>
                       <td>
-                        <input class="form-control" type="number" name="limits[{{ $item->id }}]"
-                          value="{{ $item->qty_max ?? 0 }}">
+                        <div class="form-group">
+                          <input class="form-control" type="number" name="limits[{{ $item->id }}]"
+                            value="{{ $item->qty_max ?? 0 }}" rules="integer|min:0">
+                        </div>
                       </td>
                       @if($limit_updating)
                         <td class="text-center">{{ $item->qty_update }}</td>
@@ -51,14 +53,14 @@
           <div>
             <div class="form-group">
               <div class="custom-file">
-                <input type="file" id="file" name="files[]" multiple accept="image/*">
+                <input type="file" id="file" name="files[]" multiple accept="image/*" rules="required">
                 <label class="custom-file-label" for="file">Choose file</label>
               </div>
               <div id="preview-image2" class="preview-image preview-product d-flex flex-wrap zoom-image">
   
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" form="form-limit" 
+            <button type="submit" class="btn btn-primary" 
               @if ($limit_updating) disabled @endif>Cập nhật</button>
           </div>
         </div>
@@ -90,6 +92,8 @@
   <script src="{{ asset('js/zoom-image.js') }}"></script>
   <script>
     $(function() {
+      const validatorLimit = new Validator('#form-limit');  
+
       imagePreview('#file');
       const zoomImage = new ZoomImage('.zoom-image', '#modalZoomImage')
       bsCustomFileInput.init();

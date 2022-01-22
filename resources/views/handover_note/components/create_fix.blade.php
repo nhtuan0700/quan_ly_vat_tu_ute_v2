@@ -38,3 +38,24 @@
     @endforeach
   </tbody>
 </table>
+
+@push('js')
+  <script>
+    $(function () {
+      let is_valid = false;
+      document.querySelector('form').onsubmit = function (e) {
+        e.preventDefault()
+        $("[name^='equipments']").each(function () {
+          if ($(this).is(':checked')) {
+            is_valid = true;
+          }
+        })
+        if (is_valid) {
+          this.submit()
+        } else {
+          toastr.error('Danh sách bàn giao chưa hợp lệ')
+        }
+      }
+    })
+  </script>
+@endpush

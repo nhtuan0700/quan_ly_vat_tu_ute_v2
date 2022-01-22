@@ -55,9 +55,9 @@
 
         <form action="{{ route('login') }}" method="post">
           @csrf
-          <div class="input-group mb-3">
+          <div class="input-group mb-3 form-group">
             <input type="text" class="form-control @error('email') is-invalid @enderror"
-              placeholder="Email" name="email" value="{{ old('email') }}" autofocus>
+              placeholder="Email" name="email" value="{{ old('email') }}" autofocus rules="required|email">
 
             <div class="input-group-append">
               <div class="input-group-text">
@@ -70,9 +70,9 @@
               </div>
             @enderror
           </div>
-          <div class="input-group mb-3">
+          <div class="input-group mb-3 form-group">
             <input type="password" class="form-control @error('password') is-invalid @enderror"
-              placeholder="Password" name="password">
+              placeholder="Password" name="password" rules="required">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -104,6 +104,10 @@
 </body>
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('js/validator.js') }}"></script>
+<script>
+  var validator = new Validator('form');
+</script>
 @if (session('alert-success'))
   <script>
     toastr.success("{{ session('alert-success') }}")

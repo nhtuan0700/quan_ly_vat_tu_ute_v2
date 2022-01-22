@@ -33,12 +33,13 @@ class LimitStationeryService
 
     public function update(Request $request, $id_user)
     {
-        DB::transaction(function () use ($request, $id_user) {
-            $is_edit = false;
+        $is_edit = false;
+        DB::transaction(function () use ($request, $id_user, $is_edit) {
             $limit_data['id_user'] = $id_user;
             foreach ($request->limits as $id_stationery => $qty_max) {
                 $limit = $this->limitRepo->findItem($id_user, $id_stationery);
-                if ($limit->first()->qty_max != $qty_max) {
+                $qty_max = intval($qty_max);
+                if (!!$limit->first() && $limit->first()->qty_max != $qty_max) {
                     $limit->update([
                         'qty_update' => $qty_max
                     ]);
@@ -68,5 +69,7 @@ class LimitStationeryService
                 SendEmailProcessLimitDefault::dispatch($users);
             }
         });
+
+        return $is_edit;
     }
 }

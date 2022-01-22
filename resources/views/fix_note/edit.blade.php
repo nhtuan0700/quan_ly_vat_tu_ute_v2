@@ -15,7 +15,7 @@
             </div>
 
             <div class="card-body">
-              <form method="POST" action="{{ route('fix_note.update', ['id' => $note->id]) }}" id="form-phieu">
+              <form method="POST" action="{{ route('fix_note.update', ['id' => $note->id]) }}" id="form-note">
                 @csrf
                 @method('put')
                 <div class="form-row">
@@ -94,8 +94,10 @@
                             {{ $item->equipment->statusText }}
                           </td>
                           <td>
-                            <input class="form-control" name="equipments[{{ $item->id_equipment }}]"
-                              value="{{ $item->reason }}" />
+                            <div class="form-group">
+                              <input class="form-control" name="equipments[{{ $item->id_equipment }}]"
+                                value="{{ $item->reason }}" rules="required"/>
+                            </div>
                           </td>
                           <td>
                             <button type="button" class="btn btn-danger btn-remove" data-id="{{ $item->id }}"
@@ -112,7 +114,7 @@
                 <a class="btn btn-default mr-1" href="{{ route('fix_note.detail', ['id' => $note->id]) }}">
                   Quay lại
                 </a>
-                <button class="btn btn-primary" form="form-phieu">Cập nhật</button>
+                <button class="btn btn-primary">Cập nhật</button>
               </form>
             </div>
           </div>

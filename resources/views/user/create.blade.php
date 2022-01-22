@@ -21,7 +21,7 @@
                   <div class="form-group col-md-3">
                     <label for="name">Họ Tên:</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-                      value="{{ old('name') }}">
+                      value="{{ old('name') }}" rules="required">
                     @error('name')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -32,13 +32,13 @@
                     <label for="dob">Ngày sinh:</label>
                     <div class="input-group date" id="dob" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#dob" name="dob"
-                        autocomplete="off" />
+                        autocomplete="off" rules="required"/>
                       <div class="input-group-append" data-target="#dob" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
                     </div>
                     @error('dob')
-                      <div class="invalid-feedback d-block">
+                      <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                     @enderror
@@ -49,7 +49,7 @@
                   <div class="form-group col-md-3">
                     <label for="id_card">CMND:</label>
                     <input type="text" class="form-control @error('id_card') is-invalid @enderror" id="id_card"
-                      name="id_card" value="{{ old('id_card') }}" maxlength="9" autocomplete="off">
+                      name="id_card" value="{{ old('id_card') }}" maxlength="9" autocomplete="off" rules="required">
                     @error('id_card')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -59,7 +59,7 @@
                   <div class="form-group col-md-3">
                     <label for="tel">Số điện thoại:</label>
                     <input type="text" class="form-control @error('tel') is-invalid @enderror" id="tel" name="tel"
-                      value="{{ old('tel') }}" maxlength="10" autocomplete="off">
+                      value="{{ old('tel') }}" maxlength="10" autocomplete="off" rules="required|phone" type="number">
                     @error('tel')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -71,7 +71,7 @@
                   <div class="form-group col-md-3">
                     <label for="email">Email:</label>
                     <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                      value="{{ old('email') }}">
+                      value="{{ old('email') }}" rules="required">
                     @error('email')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -81,7 +81,7 @@
                   <div class="form-group col-md-3">
                     <label for="password">Mật khẩu:</label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                      name="password">
+                      name="password" rules="required|min:6">
                     @error('password')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -90,8 +90,6 @@
                   </div>
                 </div>
                 <div class="form-row">
-
-
                   <div class="form-group col-md-3">
                     <label for="donvi">Đơn vị:</label>
                     <select id="donvi" class="form-control select2 @error('id_department') is-invalid @enderror"
@@ -110,19 +108,18 @@
                     @enderror
                   </div>
 
-
                   {{-- Chức vụ --}}
                   <div class="form-group col-md-3">
                     <label for="position">Chức vụ:</label>
                     <select id="position" class="form-control @error('id_position') is-invalid @enderror"
                       name="id_position">
                       
-                      @error('id_position')
-                        <div class="invalid-feedback">
-                          {{ $message }}
-                        </div>
-                      @enderror
                     </select>
+                    @error('id_position')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                    @enderror
                   </div>
 
                   <div class="form-group col-md-3">
@@ -163,10 +160,11 @@
   <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
   <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
   <script src="{{ asset('js/vi.js') }}"></script>
+  <script src="{{ asset('js/validator.js') }}"></script>
   <script>
     $(function() {
-      $('.select2').select2()
-
+      $('.select2').select2();
+      const validator = new Validator('form');
       $('#dob').datetimepicker({
         icons: {
           time: 'far fa-clock'
@@ -200,8 +198,7 @@
         let htmls = array_position.map(function(item) {
           return `<option value='${item.id}'>${item.name}</option>`
         })
-        let option_default = `<option value>Khác</option>`;
-        positionSelect.html(htmls.join('') + option_default);
+        positionSelect.html(htmls.join(''));
       }
     })
   </script>

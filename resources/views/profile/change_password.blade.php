@@ -17,7 +17,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-4 @error('current_password') has-error @enderror">
                     <label for="current_password">Mật khẩu hiện tại</label>
-                    <input type="password" name="current_password" class="form-control" />
+                    <input type="password" name="current_password" class="form-control" rules="required|min:6"/>
                     @error('current_password')
                       <div class="text-danger">
                         {{ $message }}
@@ -28,7 +28,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-4 @error('password') has-error @enderror">
                     <label for="password">Mật khẩu mới</label>
-                    <input type="password" name="password" class="form-control" />
+                    <input type="password" name="password" class="form-control" rules="required|min:6"/>
                     @error('password')
                       <div class="text-danger">
                         {{ $message }}
@@ -39,7 +39,8 @@
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <label for="password_confirmation">Xác nhận mật khẩu mới</label>
-                    <input type="password" name="password_confirmation" class="form-control" />
+                    <input type="password" name="password_confirmation" class="form-control" 
+                      rules="required|confirm:password"/>
                   </div>
                 </div>
                 <a href="{{ route('profile.info') }}" class="btn btn-warning mr-2">Trở về</a>
@@ -52,4 +53,12 @@
 
     </div>
   </section>
+@endsection
+@section('script')
+  <script src="{{ asset('js/validator.js') }}"></script>
+  <script>
+    $(function () {
+      const validator = new Validator('form');
+    })
+  </script>
 @endsection
