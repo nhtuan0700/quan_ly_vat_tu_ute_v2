@@ -64,7 +64,11 @@
                 Minh chứng
               </p>
               <div>
-                <img src="{{ $log->file }}" alt="Không có minh chứng" width="400px"/>
+                <div class="zoom-image">
+                  @foreach ($log->files as $item)
+                    <img src="{{ $item }}" class="cursor-pointer" alt="" width="300px"/>
+                  @endforeach
+                </div>
               </div>
 
               <div class="mt-2 d-flex">
@@ -90,4 +94,28 @@
 
     </div>
   </section>
+
+  <div class="modal fade" id="modalZoomImage" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Minh chứng</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="" alt="" class="img w-100">
+        </div>
+    </div>
+  </div>
+@endsection
+
+@section('script')
+  <script src="{{ asset('js/zoom-image.js') }}"></script>
+  <script>
+    $(function () {
+      const zoomImage = new ZoomImage('.zoom-image', '#modalZoomImage')
+    })
+  </script>
 @endsection

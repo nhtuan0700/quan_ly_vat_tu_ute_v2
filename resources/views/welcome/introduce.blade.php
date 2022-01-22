@@ -7,7 +7,7 @@
     <div class="content">
       <h5 class="text-primary text-bold">1. Cơ cấu hệ thống</h5>
       <div class="text-center">
-        <img src="{{ asset('img/co_cau_to_chuc.png') }}" alt="" class="w-75">
+        <img src="{{ asset('img/co_cau_to_chuc.jpg') }}" alt="" class="w-75">
       </div>
       
       <h5 class="text-primary text-bold">2. Quy trình</h5> 

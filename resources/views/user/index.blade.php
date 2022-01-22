@@ -88,7 +88,6 @@
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Đơn vị</th>
                     <th scope="col">Vai trò</th>
-                    <th scope="col">Trạng thái</th>
                     <th scope="col">Thao tác</th>
                   </tr>
                 </thead>
@@ -102,18 +101,13 @@
                       <td>{{ $item->department->name }}</td>
                       <td>{{ $item->role->name }}</td>
                       <td>
-                        {{ $item->is_disabled ? 'Bị khóa' : 'Kích hoạt' }}
-                      </td>
-                      <td>
                         <div class="d-flex justify-content-center">
                           <a href="{{ route('user.edit', ['id' => $item->id]) }}" class="btn btn-info mr-1">Sửa</a>
                           <form action="{{ route('user.handle', ['id' => $item->id]) }}" method="post">
                             @csrf
                             @if (!$item->is_disabled)
-                              <input type="hidden" value="1" name="is_block">
                               <button class="btn btn-danger btn-handle">Khóa</button>
                             @else
-                              <input type="hidden" value="0" name="is_block">
                               <button class="btn btn-warning btn-handle">Kích hoạt</button>
                             @endif
                           </form>

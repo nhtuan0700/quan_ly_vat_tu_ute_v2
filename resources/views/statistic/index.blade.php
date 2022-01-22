@@ -104,26 +104,6 @@
           </div>
         </div>
 
-        <div class="col-12">
-          <!-- BAR CHART -->
-          <div class="card card-primary card-outline">
-            <div class="card-header">
-              <h3 class="card-title">Biểu đồ chi phí năm {{ request()->year ?? now()->year }}</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="chart">
-                <canvas id="barChart"
-                  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
-            </div>
-            <!-- /.card-body -->
-          </div>
-        </div>
         <div class="col-6">
           <div class="card card-primary card-outline">
             <div class="card-header">
@@ -173,7 +153,7 @@
             </div>
             <div class="card-body">
               <div class="chart">
-                Tổng số thiết bị: {{ array_sum($data['equipments']) }}
+                Tổng số thiết bị: {{ $data['equipments_request']->total }}
                 <canvas id="donutChart"
                   style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
               </div>
@@ -183,6 +163,26 @@
         </div>
       </div>
 
+      <div class="col-12">
+        <!-- BAR CHART -->
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title">Biểu đồ chi phí năm {{ request()->year ?? now()->year }}</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <canvas id="barChart"
+                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
     </div>
   </section>
 @endsection
@@ -223,7 +223,8 @@
       //-------------
       //- DONUT CHART -
       //-------------
-      var equipments = @json($data['equipments']);
+      var equipments_request = @json($data['equipments_request']);
+      console.log(equipments_request);
       var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
       var donutData = {
         labels: [
@@ -232,7 +233,7 @@
           'Hỏng'
         ],
         datasets: [{
-          data: [equipments[1], equipments[2], equipments[3]],
+          data: [equipments_request['fixable'], equipments_request['fixing'], equipments_request['broken']],
           backgroundColor: ['#00a65a', '#f39c12', '#f56954'],
         }]
       }

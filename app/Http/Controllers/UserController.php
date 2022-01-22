@@ -168,11 +168,11 @@ class UserController extends Controller
         return redirect(route('user.index'))->with('alert-success', 'Import Excel thành công!');
     }
 
-    public function handle_account(Request $request, $id)
+    public function handle_account($id)
     {
         $user = $this->userRepo->findOrFail($id);
         $user->update([
-            'is_disabled' => !!(int) $request->is_block
+            'is_disabled' => !$user->is_disabled
         ]);
         return back()->with('alert-success', trans('alert.update.success'));
     }

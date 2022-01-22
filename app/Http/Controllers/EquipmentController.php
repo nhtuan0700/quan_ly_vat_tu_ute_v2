@@ -57,7 +57,7 @@ class EquipmentController extends Controller
 
     public function search(Request $request)
     {
-        $columns = $request->only(['id']);
+        $columns = $request->only(['id', 'name']);
         $equipments = $this->equipmentRepo->search($columns, ['id']);
         return view('equipment.index', compact('equipments'));
     }
@@ -65,10 +65,15 @@ class EquipmentController extends Controller
     public function list_ajax(Request $request)
     {
         $equipments = $this->equipmentRepo->query()
+            ->when($request->id, function ($query) use ($request) {
+                return $query->where('id', $request->id);
+            })
+            ->when($request->name, function ($query) use ($request) {
+                return $query->where('name', 'like', "%$request->name%");
+            })
             ->when(!is_null($request->id_exists), function ($query) use ($request) {
                 return $query->whereNotIn('id', $request->id_exists);
             })
-            ->where('id', $request->id)
             ->get();
         return response()->json($equipments);
     }

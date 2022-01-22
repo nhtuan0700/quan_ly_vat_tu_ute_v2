@@ -10,7 +10,7 @@ class LogLimit extends Model
 {
     use HasFactory, TimestampFormatTrait;
     protected $fillable = [
-        'id_updater', 'id_confirmer', 'file', 'data', 'is_confirm', 'processed_at', 'file'
+        'id_updater', 'id_confirmer', 'file', 'data', 'is_confirm', 'processed_at', 'files'
     ];
 
     protected $table = 'log_limit';
@@ -23,6 +23,23 @@ class LogLimit extends Model
     public function confirmer()
     {
         return $this->belongsTo(User::class, 'id_confirmer', 'id');
+    }
+
+    public function getFilesAttribute($value)
+    {
+        if (!is_null($value)) {
+            $array = array_map(function ($item) {
+                return asset('storage/' . $item);
+            }, json_decode($value));
+        } else {
+            $array = [];
+        }
+        return $array;
+    }
+
+    public function setFilesAttribute($value)
+    {
+        return $this->attributes['files'] = json_encode($value, JSON_UNESCAPED_UNICODE);
     }
 
     public function getStatusHTMLAttribute()

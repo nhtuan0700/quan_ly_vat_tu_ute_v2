@@ -52,11 +52,15 @@ class LimitStationeryService
             }
 
             if ($is_edit) {
-                $file =  $request->file('file')->store(sprintf('file'), 'public');
+                $path_images = [];
+                foreach ($request->file('files') as $file) {
+                    $path_images[] =  $file->store(sprintf('files'), 'public');
+                }
+                $data['image_details'] = $path_images;
                 $log_limit = [
                     'id_updater' => auth()->id(),
                     'data' => json_encode($limit_data),
-                    'file' => $file,
+                    'files' => $path_images,
                     'edit_user' => true
                 ];
                 $this->logLimitRepo->create($log_limit);

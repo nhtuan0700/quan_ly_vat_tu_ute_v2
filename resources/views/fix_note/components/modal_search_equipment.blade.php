@@ -12,9 +12,13 @@
       <div class="modal-body">
         <div class="float-right mb-3 d-flex align-items-center">
           <form action="" id="search" onsubmit="event.preventDefault()">
-            <input class="form-control w-75 d-inline-block" id="id_equipment" form="search"
-              placeholder="Mã thiết bị ...">
-            <button type="button" class="btn btn-info ml-1" id="btn-search">Tìm</button>
+            <div class="d-flex">
+              <input class="form-control mr-1" id="id" form="search"
+                placeholder="Mã thiết bị ...">
+              <input class="form-control" id="name" form="search"
+                placeholder="Tên thiết bị ...">
+              <button type="button" class="btn btn-info ml-1" id="btn-search">Tìm</button>
+            </div>
           </form>
         </div>
 
@@ -53,7 +57,8 @@
           id_exists.push($(this).data('id'))
         });
         let data = {
-          id: $('input#id_equipment').val(),
+          id: $('input#id').val(),
+          name: $('input#name').val(),
           id_exists: id_exists
         };
         ajax(url, data, "get", function(response) {

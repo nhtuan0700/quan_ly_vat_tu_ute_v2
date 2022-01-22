@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalHanMuc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalHanMuc" tabindex="0" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -49,9 +49,14 @@
         </div>
         <div class="modal-footer justify-content-start">
           <div>
-            <div class="custom-file d-block mb-2">
-              <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
-              <label class="custom-file-label" for="file">Choose file</label>
+            <div class="form-group">
+              <div class="custom-file">
+                <input type="file" id="file" name="files[]" multiple accept="image/*">
+                <label class="custom-file-label" for="file">Choose file</label>
+              </div>
+              <div id="preview-image2" class="preview-image preview-product d-flex flex-wrap zoom-image">
+  
+              </div>
             </div>
             <button type="submit" class="btn btn-primary" form="form-limit" 
               @if ($limit_updating) disabled @endif>Cập nhật</button>
@@ -61,13 +66,32 @@
 
     </div>
   </div>
+
 </div>
 
+<div class="modal fade modal-second" id="modalZoomImage" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Minh chứng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" alt="" class="img w-100">
+      </div>
+  </div>
+</div>
 @push('js')
   <script src="{{ asset('js/nonAccentVietnamese.js') }}"></script>
+  <script src="{{ asset('js/preview-image.js') }}"></script>
   <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <script src="{{ asset('js/zoom-image.js') }}"></script>
   <script>
     $(function() {
+      imagePreview('#file');
+      const zoomImage = new ZoomImage('.zoom-image', '#modalZoomImage')
       bsCustomFileInput.init();
       $("#key-search").on("keyup", function() {
         var value = $(this).val()

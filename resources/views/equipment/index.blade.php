@@ -21,8 +21,13 @@
                 <div class="form-row form-row-0">
                   {{-- Name --}}
                   <div class="form-group col-md-2">
-                    <label for="name">Mã:</label>
+                    <label for="id">Mã:</label>
                     <input type="text" class="form-control" id="id" name="id" value="{{ request()->id ?? '' }}"
+                      autocomplete="off">
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="name">Tên:</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ request()->name ?? '' }}"
                       autocomplete="off">
                   </div>
                   <button type="submit" class="btn btn-primary align-self-end">Tìm kiếm</button>

@@ -36,10 +36,9 @@ class LimitStationeryController extends Controller
             if ($limit_updating) {
                 return back()->with('alert-fail', 'Không thể yêu cầu cập nhật');
             }
-            if (!$request->hasFile('file')) {
+            if (!$request->hasFile('files')) {
                 return back()->with('alert-fail', 'Chưa có minh chứng!');
             }
-
             $this->limitService->update($request, $id_user);
         } catch (\Throwable $th) {
             return back()->with('alert-fail', 'Yêu cầu cập nhật thất bại');

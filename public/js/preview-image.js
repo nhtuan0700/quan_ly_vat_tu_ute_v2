@@ -5,7 +5,7 @@ function showImage(input, containImage) {
     for (i = 0; i < filesAmount; i++) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        image = '<div class="contain-image"><img class="image" src="' + e.target.result + '"></div>';
+        image = '<div class="contain-image cursor-pointer"><img class="image" src="' + e.target.result + '"></div>';
         containImage.append(image);
       }
       reader.readAsDataURL(input.files[i]);

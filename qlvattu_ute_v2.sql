@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 100421
  Source Host           : localhost:3306
- Source Schema         : qlvattu_v22
+ Source Schema         : qlvattu_ute_v2
 
  Target Server Type    : MySQL
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 15/01/2022 17:36:06
+ Date: 21/01/2022 17:58:23
 */
 
 SET NAMES utf8mb4;
@@ -1238,7 +1238,7 @@ CREATE TABLE `log_limit`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_updater` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_confirmer` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `files` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `data` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `is_confirm` tinyint(1) NULL DEFAULT NULL,
   `processed_at` datetime NULL DEFAULT NULL,
@@ -1264,7 +1264,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of migrations
@@ -1310,6 +1310,7 @@ INSERT INTO `migrations` VALUES (38, '2022_01_07_100741_add_is_room_to_position_
 INSERT INTO `migrations` VALUES (39, '2022_01_07_101133_add_is_room_to_department_table', 1);
 INSERT INTO `migrations` VALUES (40, '2022_01_07_154901_create_log_limit_table', 1);
 INSERT INTO `migrations` VALUES (41, '2022_01_07_164117_add_qty_update_to_limit_stationery', 1);
+INSERT INTO `migrations` VALUES (42, '2022_01_21_143150_change_file_in_log_limit', 2);
 
 -- ----------------------------
 -- Table structure for notifications
