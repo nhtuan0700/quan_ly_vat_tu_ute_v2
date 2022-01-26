@@ -27,7 +27,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $data = $request->validated();
-        $this->userRepository->update(auth()->id(), $data);
+        $this->userRepo->update(auth()->id(), $data);
         return back()->with('alert-success', trans('Cập nhật thông tin thành công'));
     }
 

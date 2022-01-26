@@ -135,7 +135,7 @@ class UserController extends Controller
             $department = $this->departmentRepo->where('name', $item[7])->first();
             $position = $this->positionRepo->where('name', $item[8])->first();
             $role = $this->roleRepo->where('name', $item[9])->first();
-            throw_if(is_null($department || $role), new ImportExcelException());
+            throw_if(is_null($department || $role || $position), new ImportExcelException());
             if ($item->filter()->isEmpty()) {
                 break;
             };
@@ -150,11 +150,11 @@ class UserController extends Controller
                     'id_card' => $item[6],
                     'id_department' => $department->id,
                     'id_department' => $department->id,
-                    'id_position' => optional($position)->id,
+                    'id_position' => $position->id,
                     'id_role' => $role->id,
                 ];
-                $this->userRepo->create($user);
                 DB::transaction(function () use ($user) {
+                    $this->userRepo->create($user);
                 });
             } catch (\Throwable $th) {
                 $index = $key + 1;
